@@ -37,10 +37,7 @@ LLM-आधारित सिस्टम को अक्सर उसके �
 
 ### संदर्भ लिंक
 
-1. AI data leak crisis: New tool prevents company secrets from being fed to ChatGPT: Fox Business
-2. Lessons learned from ChatGPT’s Samsung leak: Cybernews
-3. Cohere - Terms Of Use Cohere
-4. A threat modeling example: AI Village
-5. OWASP AI Security and Privacy Guide: OWASP AI Security & Privacy Guide
-6. Ensuring the Security of Large Language Models: Experts Exchange
-
+1. [Embrace the Red](https://embracethered.com/blog/posts/2023/chatgpt-cross-plugin-request-forgery-and-prompt-injection./): Confused Deputy Problem: Embrace The Red
+2. [NeMo-Guardrails](https://github.com/NVIDIA/NeMo-Guardrails/blob/main/docs/security/guidelines.md): Interface guidelines: NVIDIA Github
+3. [LangChain: Human-approval for tools](https://python.langchain.com/docs/modules/agents/tools/human_approval): Langchain Documentation
+5. [Simon Willison: Dual LLM Pattern](https://simonwillison.net/2023/Apr/25/dual-llm-pattern/): Simon Willison

@@ -45,4 +45,4 @@ LLM में आपूर्ति श्रृंखला कमजोर ह
 7. [ML Supply Chain Compromise](https://atlas.mitre.org/techniques/AML.T0010/): MITRE ATLAS
 8. [Transferability in Machine Learning: from Phenomena to Black-Box Attacks using Adversarial Samples](https://arxiv.org/pdf/1605.07277.pdf): Arxiv White Paper
 9. [BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain](https://arxiv.org/abs/1708.06733): Arxiv White Paper
-10.[VirusTotal Poisoning](https://atlas.mitre.org/studies/AML.CS0002): MITRE ATLAS
+10. [VirusTotal Poisoning](https://atlas.mitre.org/studies/AML.CS0002): MITRE ATLAS
