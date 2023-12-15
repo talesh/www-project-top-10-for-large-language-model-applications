@@ -32,13 +32,12 @@ LLM plugin  ऐसे एक्सटेंशन होते हैं, जि
 
 ### संदर्भ लिंक
 
-1. OpenAI ChatGPT Plugins: ChatGPT Developer’s Guide
-2. OpenAI ChatGPT Plugins - Plugin Flow: OpenAI Documentation
-3. OpenAI ChatGPT Plugins - Authentication: OpenAI Documentation
-4. OpenAI Semantic Search Plugin Sample: OpenAI Github
-5. Plugin Vulnerabilities: Visit a Website and Have Your Source Code Stolen: Embrace The Red
-6. ChatGPT Plugin Exploit Explained: From Prompt Injection to Accessing Private Data Embrace The Red
-7. ChatGPT Plugin Exploit Explained: From Prompt Injection to Accessing Private Data: Embrace The Red
-8. OWASP ASVS - 5 Validation, Sanitization and Encoding: OWASP AASVS
-9. OWASP ASVS 4.1 General Access Control Design: OWASP AASVS
-10. OWASP Top 10 API Security Risks – 2023: OWASP
+1. [OpenAI ChatGPT Plugins](https://platform.openai.com/docs/plugins/introduction): ChatGPT Developer’s Guide
+2. [OpenAI ChatGPT Plugins - Plugin Flow](https://platform.openai.com/docs/plugins/introduction): OpenAI Documentation
+3. [OpenAI ChatGPT Plugins - Authentication](https://platform.openai.com/docs/plugins/authentication): OpenAI Documentation
+4. [OpenAI Semantic Search Plugin Sample](https://github.com/openai/chatgpt-retrieval-plugin): OpenAI Github
+5. [Plugin Vulnerabilities](https://embracethered.com/blog/posts/2023/chatgpt-plugin-vulns-chat-with-code/): Visit a Website and Have Your Source Code Stolen: Embrace The Red
+6. [ChatGPT Plugin Exploit Explained](https://embracethered.com/blog/posts/2023/chatgpt-cross-plugin-request-forgery-and-prompt-injection./): From Prompt Injection to Accessing Private Data Embrace The Red
+7. [OWASP ASVS - 5 Validation, Sanitization and Encoding](https://owasp-aasvs4.readthedocs.io/en/latest/V5.html#validation-sanitization-and-encoding): OWASP AASVS
+8. [OWASP ASVS 4.1 General Access Control Design](https://owasp-aasvs4.readthedocs.io/en/latest/V4.1.html#general-access-control-design): OWASP AASVS
+9. [OWASP Top 10 API Security Risks](https://owasp.org/API-Security/editions/2023/en/0x11-t10/) – 2023: OWASP
