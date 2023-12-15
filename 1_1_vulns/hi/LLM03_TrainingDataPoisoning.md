@@ -36,14 +36,14 @@
 	4. LLM जीवनचक्र के परीक्षण चरणों में LLM-आधारित रेड टीम अभ्यास या LLM की कमजोरियों को ढूंढे
 
 ### संदर्भ लिंक
-1. Stanford Research Paper:CS324: Stanford Research
-2. How data poisoning attacks corrupt machine learning models: CSO Online
-3. MITRE ATLAS (framework) Tay Poisoning: MITRE ATLAS
-4. PoisonGPT: How we hid a lobotomized LLM on Hugging Face to spread fake news: Mithril Security
-5. Inject My PDF: Prompt Injection for your Resume: Kai Greshake
-6. Backdoor Attacks on Language Models: Towards Data Science
-7. Poisoning Language Models During Instruction: Arxiv White Paper
-8. FedMLSecurity:arXiv:2306.04959: Arxiv White Paper
-9. The poisoning of ChatGPT: Software Crisis Blog
-10. Poisoning Web-Scale Training Datasets - Nicholas Carlini | Stanford MLSys #75: YouTube Video
-11. OWASP CycloneDX v1.5: OWASP CycloneDX
+1. [Stanford Research Paper](https://stanford-cs324.github.io/winter2022/lectures/data/):CS324: Stanford Research
+2. [How data poisoning attacks corrupt machine learning models](https://www.csoonline.com/article/3613932/how-data-poisoning-attacks-corrupt-machine-learning-models.html): CSO Online
+3. [MITRE ATLAS (framework) Tay Poisoning](https://atlas.mitre.org/studies/AML.CS0009/): MITRE ATLAS
+4. [PoisonGPT: How we hid a lobotomized LLM on Hugging Face to spread fake news](https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/): Mithril Security
+5. [Inject My PDF: Prompt Injection for your Resume](https://kai-greshake.de/posts/inject-my-pdf/): Kai Greshake
+6. [Backdoor Attacks on Language Models](https://towardsdatascience.com/backdoor-attacks-on-language-models-can-we-trust-our-models-weights-73108f9dcb1f): Towards Data Science
+7. [Poisoning Language Models During Instruction](https://arxiv.org/abs/2305.00944): Arxiv White Paper
+8. [FedMLSecurity:arXiv:2306.04959](https://arxiv.org/abs/2306.04959): Arxiv White Paper
+9. [The poisoning of ChatGPT](https://softwarecrisis.dev/letters/the-poisoning-of-chatgpt/): Software Crisis Blog
+10. [Poisoning Web-Scale Training Datasets - Nicholas Carlini | Stanford MLSys #75](https://www.youtube.com/watch?v=h9jf1ikcGyk): YouTube Video
+11. [OWASP CycloneDX v1.5](https://cyclonedx.org/capabilities/mlbom/): OWASP CycloneDX

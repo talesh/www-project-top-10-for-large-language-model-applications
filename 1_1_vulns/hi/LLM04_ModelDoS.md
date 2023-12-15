@@ -28,9 +28,9 @@
 
 ### संदर्भ लिंक
 
-1. LangChain max_iterations: hwchase17 on Twitter
-2. Sponge Examples: Energy-Latency Attacks on Neural Networks: Arxiv White Paper
-3. OWASP DOS Attack: OWASP
-4. Learning From Machines: Know Thy Context: Luke Bechtel
-5. Sourcegraph Security Incident on API Limits Manipulation and DoS Attack : Sourcegraph
+1. [LangChain max_iterations](https://twitter.com/hwchase17/status/1608467493877579777): hwchase17 on Twitter
+2. [Sponge Examples: Energy-Latency Attacks on Neural Networks](https://arxiv.org/abs/2006.03463): Arxiv White Paper
+3. [OWASP DOS Attack](https://owasp.org/www-community/attacks/Denial_of_Service): OWASP
+4. [Learning From Machines](https://lukebechtel.com/blog/lfm-know-thy-context): Know Thy Context: Luke Bechtel
+5. [Sourcegraph Security Incident on API Limits Manipulation and DoS Attack ](https://about.sourcegraph.com/blog/security-update-august-2023): Sourcegraph
 

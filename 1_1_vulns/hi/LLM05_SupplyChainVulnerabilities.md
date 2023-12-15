@@ -36,13 +36,13 @@ LLM में आपूर्ति श्रृंखला कमजोर ह
 
 ### संदर्भ लिंक
 
-1. ChatGPT Data Breach Confirmed as Security Firm Warns of Vulnerable Component Exploitation: Security Week
-2. Plugin review process OpenAI
-3. Compromised PyTorch-nightly dependency chain: Pytorch
-4. PoisonGPT: How we hid a lobotomized LLM on Hugging Face to spread fake news: Mithril Security
-5. Army looking at the possibility of 'AI BOMs: Defense Scoop
-6. Failure Modes in Machine Learning: Microsoft
-7. ML Supply Chain Compromise: MITRE ATLAS
-8. Transferability in Machine Learning: from Phenomena to Black-Box Attacks using Adversarial Samples: Arxiv White Paper
-9. BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain: Arxiv White Paper
-10. VirusTotal Poisoning: MITRE ATLAS
+1. [ChatGPT Data Breach Confirmed as Security Firm Warns of Vulnerable Component Exploitation](https://www.securityweek.com/chatgpt-data-breach-confirmed-as-security-firm-warns-of-vulnerable-component-exploitation/): Security Week
+2. [Plugin review process](https://platform.openai.com/docs/plugins/review) OpenAI
+3. [Compromised PyTorch-nightly dependency chain](https://pytorch.org/blog/compromised-nightly-dependency/): Pytorch
+4. [PoisonGPT: How we hid a lobotomized LLM on Hugging Face to spread fake news](https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/): Mithril Security
+5. [Army looking at the possibility of 'AI BOMs](https://defensescoop.com/2023/05/25/army-looking-at-the-possibility-of-ai-boms-bill-of-materials/): Defense Scoop
+6. [Failure Modes in Machine Learning](https://learn.microsoft.com/en-us/security/engineering/failure-modes-in-machine-learning): Microsoft
+7. [ML Supply Chain Compromise](https://atlas.mitre.org/techniques/AML.T0010/): MITRE ATLAS
+8. [Transferability in Machine Learning: from Phenomena to Black-Box Attacks using Adversarial Samples](https://arxiv.org/pdf/1605.07277.pdf): Arxiv White Paper
+9. [BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain](https://arxiv.org/abs/1708.06733): Arxiv White Paper
+10.[VirusTotal Poisoning](https://atlas.mitre.org/studies/AML.CS0002): MITRE ATLAS

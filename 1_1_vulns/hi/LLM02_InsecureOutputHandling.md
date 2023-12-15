@@ -24,9 +24,9 @@
 
 ### संदर्भ लिंक
 
-1. Arbitrary Code Execution: Snyk Security Blog
-2. ChatGPT Plugin Exploit Explained: From Prompt Injection to Accessing Private Data: Embrace The Red
-3. New prompt injection attack on ChatGPT web version. Markdown images can steal your chat data.: System Weakness
-4. Don’t blindly trust LLM responses. Threats to chatbots: Embrace The Red
-5. Threat Modeling LLM Applications: AI Village
-6. OWASP ASVS - 5 Validation, Sanitization and Encoding: OWASP AASVS
+1. [Arbitrary Code Execution](https://security.snyk.io/vuln/SNYK-PYTHON-LANGCHAIN-5411357): Snyk Security Blog
+2. [ChatGPT Plugin Exploit Explained](https://embracethered.com/blog/posts/2023/chatgpt-cross-plugin-request-forgery-and-prompt-injection./): From Prompt Injection to Accessing Private Data: Embrace The Red
+3. [New prompt injection attack on ChatGPT web version. Markdown images can steal your chat data.](https://systemweakness.com/new-prompt-injection-attack-on-chatgpt-web-version-ef717492c5c2?gi=8daec85e2116): System Weakness
+4. [Don’t blindly trust LLM responses. Threats to chatbots](https://embracethered.com/blog/posts/2023/ai-injections-threats-context-matters/): Embrace The Red
+5. [Threat Modeling LLM Applications](https://aivillage.org/large%20language%20models/threat-modeling-llm/): AI Village
+6. [OWASP ASVS - 5 Validation, Sanitization and Encoding](https://owasp-aasvs4.readthedocs.io/en/latest/V5.html#validation-sanitization-and-encoding): OWASP AASVS
