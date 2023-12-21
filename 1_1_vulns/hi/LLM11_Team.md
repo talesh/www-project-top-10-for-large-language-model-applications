@@ -1,8 +1,7 @@
-## Team
+## अनुवाद
 
-Thank you to the OWASP Top 10 for LLM Applications version 1.1 Hindi Translation Contributors.
+### संस्करण 1.1 हिंदी अनुवाद योगदानकर्ता
 
-### Version 1.1 Hindi Translation Contributors
-Rachit Sood
-Dhruv Agarwal
-Rishi Sharma
+- Rachit Sood 
+- Dhruv Agarwal 
+- Rishi Sharma

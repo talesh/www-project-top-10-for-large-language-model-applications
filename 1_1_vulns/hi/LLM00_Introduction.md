@@ -1,14 +1,12 @@
-﻿# OWASP टॉप 10 फॉर LLM Applications
-संस्करण 1.1 
-प्रकाशित: 19 नवम्बर, 2023
-
+﻿
 ## परिचय
+
 ### सूची की उत्पत्ति
 2022 के अंत में बड़े पैमाने पर बाजार में पूर्व-प्रशिक्षित चैटबॉट्स जारी होने के बाद, बड़े भाषा मॉडल (LLM) में  दिलचस्पी उल्लेखनीय है। व्यवसाय, LLM की क्षमता के प्रयोक के लिए उत्सुक हैं,वह तेजी से उन्हें अपने संचालन तथा  ग्राहक-समाधान  वाली पेशकशों में एकीकृत कर रहे हैं। फिर भी, जिस ख़तरनाक गति से डेवेलोपमेंट दल LLM को अपना रहे है, उसने व्यापक सुरक्षा प्रोटोकॉल की संरचना को पीछे छोड़ दिया है, जिससे ऍप्लिकेशन्स क्षेत्र में  कई उच्च जोखिम वाले मुद्दों की संवेदनशीलता बढ़ गयी  हैं।
  
 LLM में इन सुरक्षा संबंधी दिक्कतों को संबोधित करने वाले एकीकृत संसाधन का अभाव स्पष्ट है । डेवलपर्स, LLM से जुड़े विशिष्ट जोखिमों को नहीं जानते, उनके पास बिखरे हुए संसाधन है और  OWASP का मिशन इस तकनीक को सुरक्षित रूप से अपनाने में मदद करने के लिए बिल्कुल उपयुक्त है ।
 
-## दर्शक कौन हैं?
+### दर्शक कौन हैं?
 
 हमारे प्राथमिक दर्शक डेवलपर्स, डेटा वैज्ञानिक और सुरक्षा विशेषज्ञ हैं जिन्हें LLM का लाभ उठाने वाले ऍप्लिकेशन्स एवं  प्लग-इन का प्रारूप बनाना तथा निर्माण का काम सौंपा गया है। हमारा लक्ष्य इन पेशेवरों को LLM एप्लीकेशन सुरक्षा के जटिल और विकसित होते इलाके में मदद करने के लिए व्यावहारिक, कार्रवाई योग्य और संक्षिप्त सुरक्षित मार्गदर्शन प्रदान करना है।
 
@@ -37,15 +35,6 @@ Ads Dawson
 v1.1 Release Lead & Vulnerability Entries Lead 
 OWASP Top 10 for Large Language Model Applications
 https://www.linkedin.com/in/adamdawson0 https://github.com/GangGreenTemperTatum
-
-Rachit Sood
-Core Team Expert & Hindi Translation Project Lead, OWASP Top 10 for Large Language Model Applications
-
-Dhruv Agarwal
-Cybersecurity Content & Translation Specialist, OWASP Top 10 for Large Language Model Applications
-
-Rishi Sharma
-Cybersecurity Documentation Specialist, OWASP Top 10 for Large Language Model Applications
 
 ## OWASP टॉप 10 फॉर LLM एप्लिकेशंस
 ### LLM01: प्रांप्ट इंजेक्शन

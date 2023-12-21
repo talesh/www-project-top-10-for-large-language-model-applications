@@ -1,6 +1,4 @@
-## OWASP Top 10 for LLM
-Versão 1.1 
-Publicado em: 16 de Outubro de 2023
+## Introdução
 
 ### A Origem da Lista
 O frenesi e interesse nos Modelos de Linguagem de Grande Porte (LLMs) após os chatbots pré-treinados do mercado em massa no final de 2022 tem sido notável. Empresas, ansiosas para aproveitar o potencial dos LLMs, estão rapidamente integrando-os em suas operações e ofertas de solução voltadas para os clientes. No entanto, a velocidade vertiginosa com que os LLMs estão sendo adotados superou o estabelecimento de protocolos de segurança abrangentes, deixando muitas aplicações vulneráveis a problemas de alto risco.
