@@ -22,12 +22,7 @@ While our list shares DNA with vulnerability types found in other OWASP Top 10 l
 
 Our goal is to bridge the divide between general application security principles and the specific challenges posed by LLMs. This includes exploring how conventional vulnerabilities may pose different risks or might be exploited in novel ways within LLMs, as well as how traditional remediation strategies need to be adapted for applications utilizing LLMs.
 
-About Version 1.1
-While our list shares DNA with vulnerability types found in other OWASP Top 10 lists, we do not simply reiterate these vulnerabilities. Instead, we delve into these vulnerabilities’ unique implications when encountered in applications utilizing LLMs. Our goal is to bridge the divide between general application security principles and the specific challenges posed by LLMs.
-
-The group’s goals include exploring how conventional vulnerabilities may pose different risks or be exploited in novel ways within LLMs and how developers must adapt traditional remediation strategies for applications utilizing LLMs.
-
-The Future
+About Version 1.1 and The Future
 The v1.1 of the list will not be our last. We expect to update it on a periodic basis to keep pace with the state of the industry. We will be working with the broader community to push the state of the art, and creating more educational materials for a range of uses. We also seek to collaborate with standards bodies and governments on AI security topics. We welcome you to join our group and contribute.
 
 
