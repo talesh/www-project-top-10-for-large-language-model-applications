@@ -27,13 +27,13 @@ LLM में इन सुरक्षा संबंधी दिक्कत
 
 
 
-Steve Wilson
+Steve Wilson<br/>
 Project Lead, OWASP Top 10 for LLM AI Applications
 
 
-Ads Dawson 
-v1.1 Release Lead & Vulnerability Entries Lead 
-OWASP Top 10 for Large Language Model Applications
+Ads Dawson<br/>
+v1.1 Release Lead & Vulnerability Entries Lead <br/>
+OWASP Top 10 for Large Language Model Applications<br/>
 https://www.linkedin.com/in/adamdawson0 https://github.com/GangGreenTemperTatum
 
 ## OWASP टॉप 10 फॉर LLM एप्लिकेशंस
