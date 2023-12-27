@@ -23,30 +23,30 @@ pdf_options:
         padding-left: 20px;
         width: 100%;
         height: 45px;
-        display: block; /* Explicitly set display property */
+        display: block;
       }
       .header-content {
-        padding-left: 10px; /* Left padding to not stick to the edge */
+        padding-left: 10px;
       }
       .header-logo {
         vertical-align: middle;
         height: 30px;
       }
       .header-title {
-        color: #FFF; /* White text color */
+        color: #FFF;
         vertical-align: middle;
         font-weight: bold;
       }
       .header-pipe {
-        color: #D9D9D9; /* Grey pipe color */
-        margin: 0 10px; /* Space around the pipe */
+        color: #D9D9D9;
+        margin: 0 10px;
         vertical-align: middle;
       }
       .spacer-div {
         height: 100px;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        display: block; /* Explicitly set display property */
+        display: block;
         margin: 0;
       }
     </style>
@@ -66,8 +66,8 @@ pdf_options:
         font-size: 11px;
         text-align: center;
         padding: 10px;
-        border-top: 2px solid #D9D9D9; /* Grey line */
-        color: #8E8E8E; /* Grey text color */
+        border-top: 2px solid #D9D9D9;
+        color: #8E8E8E;
         font-size: 11px;
         position: relative;
         width: 90%;
