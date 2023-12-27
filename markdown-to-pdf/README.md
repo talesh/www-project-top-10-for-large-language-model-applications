@@ -62,7 +62,13 @@ To generate PDFs from the markdown files, follow these steps:
 2. Run the following command to generate the PDF:
 
 	```shell
-	./markdown_to_pdf.sh --language <language>
+	./markdown_to_pdf.sh --language <language_iso_code>
+	```
+
+	Example
+
+	```shell
+	./markdown_to_pdf.sh --language pt
 	```
 
 	The generated PDF will be saved in generated folder with the ISO code as the filename. If a file already exists it will be overwritten. 
