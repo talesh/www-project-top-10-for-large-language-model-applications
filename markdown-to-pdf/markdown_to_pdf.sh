@@ -1,25 +1,23 @@
 #!/bin/bash
 
-# Check if a directory is provided
-if [ -z "$1" ]; then
-    echo "Usage: $0 <directory>"
+# Check if a directory and stylesheet filename are provided
+if [ -z "$2" ] || [ "$1" != "--language" ]; then
+    echo "Usage: $0 --language <language>"
     exit 1
 fi
+language="$2"
 
 # Define directories and files
 current_directory=$(pwd)
-directory=$1
+directory="$current_directory/../1_1_vulns/$language"
 dir_name=$(basename "$directory")
 generated_folder="$current_directory/generated"
-output_file="$generated_folder/${dir_name}.md"
+tmp_folder="$generated_folder/tmp"
+output_file="$tmp_folder/${dir_name}.md"
+temp_pdf_file="$tmp_folder/${dir_name}.pdf"
 pdf_file="$generated_folder/${dir_name}.pdf"
 frontmatter="$current_directory/frontmatter.md"
-stylesheet="$current_directory/styles/topten.css"
-
-# Create the 'generated' directory if it doesn't exist
-if [ ! -d "$generated_folder" ]; then
-    mkdir "$generated_folder"
-fi
+stylesheet="$current_directory/styles/topten-$language.css"
 
 # Check if the provided argument is a directory
 if [ ! -d "$directory" ]; then
@@ -27,13 +25,34 @@ if [ ! -d "$directory" ]; then
     exit 1
 fi
 
+# Check if the provided stylesheet exists
+if [ ! -f "$stylesheet" ]; then
+    echo "Error: '$stylesheet' does not exist."
+    exit 1
+fi
+
+# Create the 'generated' directory if it doesn't exist
+if [ ! -d "$generated_folder" ]; then
+    mkdir "$generated_folder"
+fi
+
+# Create the 'tmp' directory if it doesn't exist
+if [ ! -d "$tmp_folder" ]; then
+    mkdir "$tmp_folder"
+fi
+
 # Delete the PDF and Markdown file if they already exist
 if [ -f "$pdf_file" ]; then
     echo "Deleting existing PDF file: $pdf_file"
     rm "$pdf_file"
 fi
+# Delete the PDF and Markdown file if they already exist
+if [ -f "$pdf_file" ]; then
+    echo "Deleting existing temporary PDF file: $temp_pdf_file"
+    rm "$pdf_file"
+fi
 if [ -f "$output_file" ]; then
-    echo "Deleting existing Markdown file: $output_file"
+    echo "Deleting existing temporary Markdown file: $output_file"
     rm "$output_file"
 fi
 
@@ -60,3 +79,10 @@ echo "Combined markdown files into $output_file"
 # Convert the combined Markdown file to PDF
 md-to-pdf --basedir "$current_directory" --stylesheet "$stylesheet" "$output_file"
 echo "Converted $output_file to PDF"
+
+mv "$temp_pdf_file" "$pdf_file"
+
+if [ -f "$output_file" ]; then
+    echo "Deleting temporary Markdown file: $output_file"
+    rm "$output_file"
+fi
