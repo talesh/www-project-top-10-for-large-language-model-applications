@@ -1,16 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;800&display=swap');
 
 body {
   background-color: #fff;
-  /* font-family: 'Roboto', sans-serif; */
-  /* font-family: 'Noto Sans Devanagari', 'Roboto', sans-serif; */
-  /* font-family: 'Noto Sans JP', 'Roboto', sans-serif; */
-  font-family: 'Noto Sans SC', 'Roboto', sans-serif;
-  /* font-family: 'Noto Sans TC', 'Roboto', sans-serif; */
+  font-family: 'Noto Sans Devanagari', 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 13.33px;
   line-height: 20px;
@@ -45,8 +38,8 @@ h3 {
   font-weight: 800;
   font-size: 21.33px;
   line-height: 17.33px;
-  /* position: relative; 
-  top: 20px;           */
+  position: relative; 
+  top: 20px;
   page-break-after: avoid;
   margin-top: 20px;
   margin-left: 100px;
