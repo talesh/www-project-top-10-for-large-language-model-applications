@@ -25,7 +25,7 @@ To contribute translations to the OWASP Top Ten for LLMs project, please follow 
 9. You should aim to keep a summary of the discussion around translations in the Github issue even if you were chatting in the OWASP Slack channel, which is located here: [OWASP Slack Channel](https://owasp.slack.com/archives/C063W2E791U).
 
 
-## How to generated a Translated PDF
+## How to generate a Translated PDF
 
 ### Requirements
 1. To generate PDFs from the markdown files you'll need to have the [md-to-pdf](https://www.npmjs.com/package/md-to-pdf) npm package installed globally. You can do this by installing globally if you have NPM installed on your machine:
