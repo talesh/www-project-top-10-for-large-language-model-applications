@@ -2,4 +2,4 @@
 
 ### 1.1版中文翻译合作者
 
-- Ken Huang
+-黄连金 （Ken Huang）
