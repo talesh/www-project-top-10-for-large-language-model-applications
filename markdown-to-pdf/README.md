@@ -40,15 +40,15 @@ npm i -g md-to-pdf
 
 ### Descriptions of contents
 
-- generated folder: This folder is where the PDFs are stored once they are generated. After the Markdown files are converted to PDF format, the resulting PDF files are placed in this folder for easy access and distribution.
+- ``markdown-to-pdf/generated`` folder: This folder is where the PDFs are stored once they are generated. After the Markdown files are converted to PDF format, the resulting PDF files are placed in this folder for easy access and distribution.
 
-- img folder: This folder is used to store all the images that will be included in the PDF files. When converting Markdown to PDF, any referenced images are typically embedded in the PDF document. The images are stored in this folder so that they can be easily referenced and included during the conversion process.
+- ``markdown-to-pdf/img`` folder: This folder is used to store all the images that will be included in the PDF files. When converting Markdown to PDF, any referenced images are typically embedded in the PDF document. The images are stored in this folder so that they can be easily referenced and included during the conversion process.
 
-- styles folder: The styles folder contains custom CSS files for each language. When converting Markdown to PDF, the Markdown is first converted to HTML, and then the HTML is "printed" using Puppeteer to generate the PDF. The custom CSS files in the styles folder ensure that the PDFs have consistent styling and alignment, closely resembling the original Markdown files. Each language may have its own CSS file to handle language-specific formatting requirements.
+- ``markdown-to-pdf/styles`` folder: The styles folder contains custom CSS files for each language. When converting Markdown to PDF, the Markdown is first converted to HTML, and then the HTML is "printed" using Puppeteer to generate the PDF. The custom CSS files in the styles folder ensure that the PDFs have consistent styling and alignment, closely resembling the original Markdown files. Each language may have its own CSS file to handle language-specific formatting requirements.
 
-- frontmatter.md: This file serves as the configuration for Puppeteer, the tool used to generate the PDFs. It specifies how the PDFs should be generated and, importantly, defines the header and footer for each page of the PDF. The header and footer typically contain information such as page numbers, document title, and other relevant details. **It is crucial to note that on line 57 of frontmatter.md, the title is translated and needs to be changed before generating a PDF.** This ensures that the PDFs have the correct translated title.
+- ``markdown-to-pdf/frontmatter.md``: This file serves as the configuration for Puppeteer, the tool used to generate the PDFs. It specifies how the PDFs should be generated and, importantly, defines the header and footer for each page of the PDF. The header and footer typically contain information such as page numbers, document title, and other relevant details. **It is crucial to note that on line 57 of frontmatter.md, the title is translated and needs to be changed before generating a PDF.** This ensures that the PDFs have the correct translated title.
 
-- markdown_to_pdf.sh: This file is responsible for executing the conversion process from Markdown to PDF. It contains the necessary commands and instructions to convert the Markdown files to PDF format using the md-to-pdf npm package. The usage of this file is typically explained in the project documentation or README file, providing step-by-step instructions on how to run the script and generate the PDFs.
+- ``markdown-to-pdf/markdown_to_pdf.sh``: This file is responsible for executing the conversion process from Markdown to PDF. It contains the necessary commands and instructions to convert the Markdown files to PDF format using the md-to-pdf npm package. The usage of this file is typically explained in the project documentation or README file, providing step-by-step instructions on how to run the script and generate the PDFs.
 
 
 ### Usage
