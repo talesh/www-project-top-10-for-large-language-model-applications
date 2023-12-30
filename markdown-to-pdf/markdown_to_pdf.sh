@@ -77,7 +77,7 @@ done
 echo "Combined markdown files into $output_file"
 
 # Convert the combined Markdown file to PDF
-md-to-pdf --basedir "$current_directory" --stylesheet "$stylesheet" "$output_file"
+md-to-pdf --basedir "$current_directory" --stylesheet "$stylesheet" "$output_file" --pdf-options '{"headless": "new"}'
 echo "Converted $output_file to PDF"
 
 mv "$temp_pdf_file" "$pdf_file"
@@ -85,4 +85,12 @@ mv "$temp_pdf_file" "$pdf_file"
 if [ -f "$output_file" ]; then
     echo "Deleting temporary Markdown file: $output_file"
     rm "$output_file"
+fi
+
+if [ -f "$pdf_file" ]; then
+    echo -e "\n\n\033[32m###############################################################################################################\033[0m"
+    echo -e "\033[32m###########################################    Success!!     ##################################################\033[0m"
+    echo -e "\033[32m###############################################################################################################\033[0m\n"
+    echo "PDF file generated: $pdf_file"
+    echo -e "\n\033[32m###############################################################################################################\033[0m"
 fi
