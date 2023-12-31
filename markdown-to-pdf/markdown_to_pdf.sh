@@ -78,8 +78,6 @@ echo "Combined markdown files into $output_file"
 
 # Convert the combined Markdown file to PDF
 md-to-pdf --basedir "$current_directory" --stylesheet "$stylesheet" "$output_file" --pdf-options '{"headless": "new"}'
-echo "Converted $output_file to PDF"
-
 mv "$temp_pdf_file" "$pdf_file"
 
 if [ -f "$output_file" ] && [ "$3" != "--keep-markdown" ]; then
