@@ -82,7 +82,7 @@ echo "Converted $output_file to PDF"
 
 mv "$temp_pdf_file" "$pdf_file"
 
-if [ -f "$output_file" ]; then
+if [ -f "$output_file" ] && [ "$3" != "--keep-markdown" ]; then
     echo "Deleting temporary Markdown file: $output_file"
     rm "$output_file"
 fi

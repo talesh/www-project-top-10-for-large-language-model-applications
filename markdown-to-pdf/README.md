@@ -59,7 +59,7 @@ To generate PDFs from the markdown files, follow these steps:
 
 2. Validate that the ISO code folder for the language exists in the `../1_1_vulns`` folder and that the corresponding CSS file for the language exists in the `styles` folder.
 
-2. Run the following command to generate the PDF:
+3. Run the following command to generate the PDF:
 
 	```shell
 	./markdown_to_pdf.sh --language <language_iso_code>
@@ -73,7 +73,18 @@ To generate PDFs from the markdown files, follow these steps:
 
 	The generated PDF will be saved in generated folder with the ISO code as the filename. If a file already exists it will be overwritten. 
 
-3. Validate that the contents of the file look similar to that of the main English file. 
+4. Validate that the contents of the file look similar to that of the main English file. 
+
+
+### Options
+
+
+- **Keep Markdown** If you add the ``--keep-markdown`` flag at the end, the script will not delete the temporary markdown file generated from all the cocatenated ones. eg:
+	```shell
+	./markdown_to_pdf.sh --language pt --keep-markdown
+	```
+
+
 
 ## License
 
