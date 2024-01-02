@@ -6,12 +6,12 @@ As aplicações LLM têm o potencial de revelar informações sensíveis, algori
 
 Para mitigar esse risco, as aplicações LLM devem realizar uma sanitização adequada dos dados para evitar que os dados do usuário entrem nos dados de treinamento do modelo. Os proprietários de aplicações LLM também devem ter políticas apropriadas de Termos de Uso disponíveis para conscientizar os consumidores sobre como seus dados são processados e sobre a capacidade de optar por não incluir seus dados no modelo de treinamento.
 
-A interação consumidor-aplicação LLM forma uma fronteira de confiança bidirecional, onde não podemos confiar inherentemente na entrada cliente->LLM ou na saída LLM->cliente. É importante observar que esta vulnerabilidade assume que certos pré-requisitos estão fora do escopo, como exercícios de modelagem de ameaças, segurança de infraestrutura e sandboxing adequado. Adicionar restrições dentro da solicitação do sistema em torno dos tipos de dados que o LLM deve retornar pode fornecer alguma mitigação contra a divulgação de informações sensíveis, mas a natureza imprevisível dos LLMs significa que tais restrições nem sempre serão respeitadas e podem ser contornadas por meio de injeção de prompt ou outros vetores.
+A interação consumidor-aplicação LLM forma uma fronteira de confiança bidirecional, onde não podemos confiar inerentemente na entrada cliente->LLM ou na saída LLM->cliente. É importante observar que esta vulnerabilidade assume que certos pré-requisitos estão fora do escopo, como exercícios de modelagem de ameaças, segurança de infraestrutura e sandboxing adequado. Adicionar restrições dentro da solicitação do sistema em torno dos tipos de dados que o LLM deve retornar pode fornecer alguma mitigação contra a divulgação de informações sensíveis, mas a natureza imprevisível dos LLMs significa que tais restrições nem sempre serão respeitadas e podem ser contornadas por meio de injeção de prompt ou outros vetores.
 
 ### Exemplos Comuns de Vulnerabilidade
 
 1. Filtragem incompleta ou inadequada de informações sensíveis nas respostas do LLM.
-2. Memorização ou sobreajuste de dados sensíveis no processo de treinamento do LLM.
+2. Memorização ou sobreajuste (overfitting) de dados sensíveis no processo de treinamento do LLM.
 3. Divulgação não intencional de informações confidenciais devido à interpretação inadequada do LLM, falta de métodos de limpeza de dados ou erros.
 
 ### Estratégias de Prevenção e Mitigação
