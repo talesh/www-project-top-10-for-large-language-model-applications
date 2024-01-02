@@ -1,5 +1,5 @@
-## 翻译
+**翻译作者：黄连金 （Ken Huang)**
 
-### 1.1版中文翻译合作者
+**[Ken Huang's LinkedIn Profile](https://www.linkedin.com/in/kenhuang8/)**
 
--黄连金 （Ken Huang）
+https://distributedapps.ai/
