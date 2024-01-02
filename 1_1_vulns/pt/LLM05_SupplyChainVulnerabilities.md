@@ -10,14 +10,14 @@ Finalmente, as extensões de Plugin do LLM podem trazer suas próprias vulnerabi
 
 1. Vulnerabilidades tradicionais em pacotes de terceiros, incluindo componentes desatualizados ou obsoletos.
 2. Uso de um modelo pré-treinado vulnerável para ajuste fino.
-3. Uso de dados envenenados provenientes de contribuições de multidões para treinamento.
+3. Uso de dados envenenados provenientes de contribuições de grupos (crowdsourcing) para treinamento.
 4. Uso de modelos desatualizados ou obsoletos que não são mais mantidos, resultando em problemas de segurança.
 5. Termos e Condições (T&Cs) e políticas de privacidade não claros dos operadores do modelo levam ao uso dos dados sensíveis do aplicativo para o treinamento do modelo e subsequente exposição de informações sensíveis. Isso também pode se aplicar a riscos decorrentes do uso de material protegido por direitos autorais pelo fornecedor do modelo.
 
 ### Estratégias de Prevenção e Mitigação
 
 1. Avalie cuidadosamente as fontes e fornecedores de dados, incluindo T&Cs e suas políticas de privacidade, usando apenas fornecedores confiáveis. Certifique-se de que exista segurança adequada e auditada de forma independente e que as políticas dos operadores do modelo estejam alinhadas com suas políticas de proteção de dados, ou seja, seus dados não são usados para treinar seus modelos; da mesma forma, busque garantias e mitigação legal contra o uso de material protegido por direitos autorais pelos mantenedores do modelo.
-2. Use apenas plugins respeitáveis e certifique-se de que foram testados para atender aos requisitos do seu aplicativo. O Design Inseguro de Plugins do LLM fornece informações sobre os aspectos do LLM do design inseguro de plugins que você deve testar para mitigar os riscos do uso de plugins de terceiros.
+2. Use apenas plugins confiáveis e certifique-se de que foram testados para atender aos requisitos do seu aplicativo. O Design Inseguro de Plugins do LLM fornece informações sobre os aspectos do LLM do design inseguro de plugins que você deve testar para mitigar os riscos do uso de plugins de terceiros.
 3. Compreenda e aplique as mitigações encontradas no [A06:2021 – Componentes Vulneráveis e Desatualizados](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/) do OWASP Top Ten. Isso inclui a verificação, gerenciamento e atualização de componentes com vulnerabilidades. Para ambientes de desenvolvimento com acesso a dados sensíveis, aplique esses controles também.
 4. Mantenha um inventário atualizado de componentes usando um Mapeamento de Componentes de Software (SBOM) para garantir que você tenha um inventário atualizado, preciso e assinado, prevenindo manipulações em pacotes implantados. SBOMs podem ser usados para detectar e alertar sobre novas vulnerabilidades rapidamente.
 5. No momento da redação, SBOMs não cobrem modelos, seus artefatos e conjuntos de dados. Se a sua aplicação LLM usar seu próprio modelo, você deve usar as melhores práticas de MLOps e plataformas que ofereçam repositórios seguros de modelos com rastreamento de dados, modelos e experimentos.
@@ -32,8 +32,8 @@ Finalmente, as extensões de Plugin do LLM podem trazer suas próprias vulnerabi
 1. Um atacante explora uma biblioteca Python vulnerável para comprometer um sistema. Isso ocorreu no primeiro vazamento de dados da Open AI.
 2. Um atacante fornece um plugin do LLM para pesquisar voos, gerando links falsos que levam a fraudar usuários.
 3. Um atacante explora o registro de pacotes PyPi para enganar desenvolvedores de modelos a baixar um pacote comprometido e extrair dados ou aumentar os privilégios em um ambiente de desenvolvimento de modelos. Isso foi um ataque real.
-4. Um atacante envenena um modelo pré-treinado publicamente disponível, especializado em análise econômica e pesquisa social, para criar uma porta dos fundos que gera desinformação e notícias falsas. Eles o implantam em um mercado de modelos (por exemplo, Hugging Face) para que vítimas o usem.
-5. Um atacante envenena conjuntos de dados publicamente disponíveis para ajudar a criar uma porta dos fundos ao ajustar modelos. A porta dos fundos favorece sutilmente certas empresas em diferentes mercados.
+4. Um atacante envenena um modelo pré-treinado publicamente disponível, especializado em análise econômica e pesquisa social, para criar um backdoor que gera desinformação e notícias falsas. Eles o implantam em um mercado de modelos (por exemplo, Hugging Face) para que vítimas o usem.
+5. Um atacante envenena conjuntos de dados publicamente disponíveis para ajudar a criar um backdoor ao ajustar modelos. O backdoor favorece sutilmente certas empresas em diferentes mercados.
 6. Um funcionário comprometido de um fornecedor (desenvolvedor terceirizado, empresa de hospedagem, etc.) exfiltra dados, modelo ou código, roub
 ### Links de Referência
 
