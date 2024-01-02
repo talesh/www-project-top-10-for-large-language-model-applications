@@ -11,8 +11,8 @@ A exploração bem-sucedida de uma vulnerabilidade de Manipulação Insegura de 
 As seguintes condições podem aumentar o impacto dessa vulnerabilidade:
 
 - A aplicação concede privilégios ao LLM além do que é destinado aos usuários finais, possibilitando a escalada de privilégios ou a execução remota de código.
-- A aplicação é vulnerável a ataques de injeção de prompt indireta, o que poderia permitir que um atacante ganhasse acesso privilegiado ao ambiente de um usuário-alvo.
-- Plugins de terceiros não validam adequadamente as entradas.
+- A aplicação é vulnerável a ataques de injeção de prompt indireta, o que pode permitir que um atacante ganhe acesso privilegiado ao ambiente de um usuário-alvo.
+- Plugins de terceiros que não validam adequadamente as entradas.
 
 ### Exemplos Comuns desta Vulnerabilidade
 
