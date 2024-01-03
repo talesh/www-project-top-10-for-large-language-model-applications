@@ -2,7 +2,6 @@
 Version 1.1
 Published: October 16, 2023
 
-
 The frenzy of interest of Large Language Models (LLMs) following of mass-market pre- trained chatbots in late 2022 has been remarkable. Businesses, eager to harness the potential of LLMs, are rapidly integrating them into their operations and client facing offerings. Yet, the breakneck speed at which LLMs are being adopted has outpaced the establishment of comprehensive security protocols, leaving many applications vulnerable to high-risk issues.
 
 The absence of a unified resource addressing these security concerns in LLMs was evident. Developers, unfamiliar with the specific risks associated with LLMs, were left scattered resources and OWASP’s mission seemed a perfect fit to help drive safer adoption of this technology.
@@ -44,6 +43,26 @@ Ads Dawson
 v1.1 Release Lead & Vulnerability Entries Lead, OWASP Top 10 for LLM Applications
 LinkedIn: /in/adamdawson0
 GitHub: @GangGreenTemperTatum
+
+
+
+## About this Translation
+
+**Translators**
+
+- 
+
+
+In the creation of this translation, we consciously elected to employ only human translators, recognizing the exceptionally technical and critical nature of the OWASP Top Ten for LLMs. The translators listed above not only possess a deep understanding of the original content but also the fluency to make this translation a success.
+
+Talesh Seeparsan
+Translations Lead, OWASP Top 10 for LLM Applications
+LinkedIn: /in/talesh
+
+
+
+
+
 
 LLM01
 Prompt Injection
