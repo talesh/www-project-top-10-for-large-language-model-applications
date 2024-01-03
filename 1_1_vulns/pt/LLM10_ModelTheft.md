@@ -23,17 +23,15 @@ O uso de um modelo roubado, como modelo sombra, pode ser usado para realizar ata
 ### Estratégias de Prevenção e Mitigação
 
 1. Implementar controles de acesso robustos (por exemplo, RBAC e o princípio do menor privilégio) e mecanismos de autenticação sólidos para limitar o acesso não autorizado a repositórios de modelos LLM e ambientes de treinamento.
-   1. Isso é especialmente válido para os três primeiros exemplos comuns, que podem causar essa vulnerabilidade devido a ameaças internas, configuração inadequada e/ou controles de segurança fracos sobre a infraestrutura que abriga modelos LLM, pesos e arquitetura nos quais um ator malicioso poderia infiltrar-se de dentro ou fora do ambiente.
-   2. O rastreamento, verificação e vulnerabilidades de dependência de gerenciamento de fornecedores são tópicos importantes para prevenir exploração de ataques à cadeia de suprimentos.
+   - Isso é especialmente válido para os três primeiros exemplos comuns, que podem causar essa vulnerabilidade devido a ameaças internas, configuração inadequada e/ou controles de segurança fracos sobre a infraestrutura que abriga modelos LLM, pesos e arquitetura nos quais um ator malicioso poderia infiltrar-se de dentro ou fora do ambiente.
+   - O rastreamento, verificação e vulnerabilidades de dependência de gerenciamento de fornecedores são tópicos importantes para prevenir exploração de ataques à cadeia de suprimentos.
 2. Restringir o acesso do LLM a recursos de rede, serviços internos e APIs.
-   1. Isso é especialmente válido para todos os exemplos comuns, pois cobre riscos e ameaças internas, mas também controla o que a aplicação LLM "_tem acesso_" e, assim, pode ser um mecanismo ou etapa de prevenção para evitar ataques de canal lateral.
+   - Isso é especialmente válido para todos os exemplos comuns, pois cobre riscos e ameaças internas, mas também controla o que a aplicação LLM "_tem acesso_" e, assim, pode ser um mecanismo ou etapa de prevenção para evitar ataques de canal lateral.
 3. Usar um Inventário ou Registro Centralizado de Modelos de ML para modelos usados em produção. Ter um registro centralizado de modelos impede o acesso não autorizado a modelos de ML por meio de controles de acesso, autenticação e capacidade de monitoramento/registro, que são bases sólidas para a governança. Ter um repositório centralizado também é benéfico para coletar dados sobre algoritmos usados pelos modelos para fins de conformidade, avaliações de risco e mitigação de riscos.
 4. Monitorar regularmente e auditar logs de acesso e atividades relacionadas a repositórios de modelos LLM para detectar e responder prontamente a qualquer comportamento suspeito ou não autorizado.
 5. Automatizar implementações MLOps com fluxos de trabalho de governança, rastreamento e aprovação para reforçar controles de acesso e implementação dentro da infraestrutura.
 6. Implementar controles e estratégias de mitigação para reduzir o risco de técnicas de injeção de prompt causarem ataques de canal lateral.
-7. Limitar a taxa de chamadas de API quando aplicável e/ou implementar filtros para reduzir o risco de exfiltração de dados das aplicações LLM, ou implementar técnicas para detectar (por
-
- exemplo, DLP) atividade de extração de outros sistemas de monitoramento.
+7. Limitar a taxa de chamadas de API quando aplicável e/ou implementar filtros para reduzir o risco de exfiltração de dados das aplicações LLM, ou implementar técnicas para detectar (por exemplo, DLP) atividade de extração de outros sistemas de monitoramento.
 8. Implementar treinamento de robustez adversária para ajudar a detectar consultas de extração e reforçar medidas de segurança física.
 9. Implementar um framework de marca d'água nas etapas de incorporação e detecção do ciclo de vida de um LLM.
 
