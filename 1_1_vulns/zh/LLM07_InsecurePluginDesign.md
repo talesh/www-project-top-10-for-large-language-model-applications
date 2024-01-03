@@ -36,8 +36,6 @@ LLM插件是扩展，当启用时，会在用户互动期间由模型自动调�
 
 ### 参考链接
 
-以下是关于LLM07不安全插件设计的参考链接的翻译：
-
 1. [OpenAI ChatGPT插件](https://platform.openai.com/docs/plugins/introduction): **ChatGPT开发者指南**
 2. [OpenAI ChatGPT插件 - 插件流程](https://platform.openai.com/docs/plugins/introduction/plugin-flow): **OpenAI文档**
 3. [OpenAI ChatGPT插件 - 身份验证](https://platform.openai.com/docs/plugins/authentication/service-level): **OpenAI文档**
