@@ -45,6 +45,25 @@ h3 {
   color: #030C16;
 }
 
+a {
+  color: #007bff; /* Base link color */
+  font-weight: 800;
+  text-decoration: none; /* Removes the default underline */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+a:hover, a:focus {
+  color: #0056b3; /* Color when hovered or focused */
+  font-weight: 800;
+  text-decoration: underline; /* Adds underline on hover/focus */
+}
+
+/* Optional: Style for visited links */
+a:visited {
+  font-weight: 800;
+  color: #6c757d;
+}
+
 p {
   margin-left: 100px;
 }
