@@ -49,7 +49,7 @@ GitHub：@GangGreenTemperTatum
 - Dhruv Agarwal   
 [https://www.linkedin.com/in/](https://www.linkedin.com/in//)   
 - Rishi Sharma  
-[https://www.linkedin.com/in/](https://www.linkedin.com/in//)   
+[https://www.linkedin.com/in/rishisharma064/](https://www.linkedin.com/in/rishisharma064/)   
 
 
 एलएलएम के लिए OWASP टॉप 10 फॉर LLM एप्लिकेशंस की असाधारण तकनीकी और महत्वपूर्ण प्रकृति को पहचानते हुए, हमने जानबूझकर इस अनुवाद के निर्माण में केवल मानव अनुवादकों को नियोजित करने के लिए चुना है। ऊपर सूचीबद्ध अनुवादकों के पास न केवल मूल सामग्री की गहरी समझ है, बल्कि आत्मविश्वास के साथ इस अनुवाद को सफल बनाने का प्रवाह भी है।
