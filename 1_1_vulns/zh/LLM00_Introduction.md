@@ -43,7 +43,7 @@ GitHub：@GangGreenTemperTatum
 [https://www.linkedin.com/in/kenhuang8](https://www.linkedin.com/in/kenhuang8/)  
 
 
-认识到 OWASP Top 10 for LLM Applications 士的非凡技术性和关键性，我们有意识地选择在创作此翻译时仅雇用人工翻译。上述译者不仅对原文内容有深刻的理解，而且语言流畅，使翻译取得成功。  
+认识到 OWASP Top 10 for LLM Applications 的非凡技术性和关键性，我们有意识地选择在创作此翻译时仅雇用人工翻译。上述译者不仅对原文内容有深刻的理解，而且语言流畅，有信心使翻译取得成功
 
 Talesh Seeparsan  
 翻译主任 OWASP Top 10 for LLM Applications

@@ -43,7 +43,7 @@ GitHub：@GangGreenTemperTatum
 [https://www.linkedin.com/in/rubens-zimbres/](https://www.linkedin.com/in/rubens-zimbres/)
 
 
-Na criação desta tradução, optamos conscientemente por empregar apenas tradutores humanos, reconhecendo a natureza excepcionalmente técnica e crítica do OWASP Top 10 para Aplicações de IA LLM. Os tradutores listados acima não só possuem um conhecimento profundo do conteúdo original, mas também a fluência necessária para tornar esta tradução um sucesso.
+Reconhecendo a natureza excepcionalmente técnica e crítica do OWASP Top 10 para Aplicações de IA LLM, optamos conscientemente por empregar apenas tradutores humanos na criação desta tradução. Os tradutores listados acima não só possuem um profundo conhecimento do conteúdo original, mas também a fluência necessária para tornar esta tradução um sucesso.
 
 Talesh Seeparsan  
 Líder de Tradução, OWASP Top 10 para Aplicações de IA LLM  
