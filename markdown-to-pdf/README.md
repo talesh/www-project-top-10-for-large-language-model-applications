@@ -1,6 +1,6 @@
 # OWASP Top Ten for LLMs - Markdown to PDF
 
-This folder is used to generate the PDFs of translated versions of the OWASP Top Ten for LLMs using the md-to-pdf npm package.
+The contents of this directory are used to generate the PDFs of translated versions of the OWASP Top Ten for LLMs using the md-to-pdf npm package.
 
 ## How to Contribute Translations
 
@@ -8,9 +8,9 @@ To contribute translations to the OWASP Top Ten for LLMs project, please follow 
 
 1. Fork this repository on GitHub by clicking on the "Fork" button at the top right corner of the repository page.
 
-2. On your copy of this repo, create an ISO two-letter subfolder in the `1_1_vulns` folder. This subfolder should contain all the markdown files of the translation. You can match the same format as other languages.
+2. On your copy of this repo, create an ISO two-letter subdirectory in the `1_1_vulns` directory. This subdirectory should contain all the markdown files of the translation. You can match the same format as other languages.
 
-3. Copy the Markdown files of the English version to your new folder and start translating. Make sure to follow the instructions in `_template.md` to ensure consistent styling. (There is no need to copy the _template.md file) The Markdown to PDF generator relies on this consistency.
+3. Copy the Markdown files of the English version to your new directory and start translating. Make sure to follow the instructions in `_template.md` to ensure consistent styling. (There is no need to copy the _template.md file) The Markdown to PDF generator relies on this consistency.
 
 4. Aim to replicate the translation as accurately as possible and avoid deviating from the original meaning of the Top Ten for LLMs.
 
@@ -35,16 +35,16 @@ npm i -g md-to-pdf
 
 2. You will require the translated Markdown files described above.
 
-3. You will also need a CSS style file for the language in the `styles` folder. For languages based on latin characters you can copy the Portuguese file `topten-pt.css` as a starting point. 
+3. You will also need a CSS style file for the language in the `styles` directory. For languages based on latin characters you can copy the Portuguese file `topten-pt.css` as a starting point. 
 
 
 ### Descriptions of contents
 
-- ``markdown-to-pdf/generated`` folder: This folder is where the PDFs are stored once they are generated. After the Markdown files are converted to PDF format, the resulting PDF files are placed in this folder for easy access and distribution.
+- ``markdown-to-pdf/generated`` directory: This directory is where the PDFs are stored once they are generated. After the Markdown files are converted to PDF format, the resulting PDF files are placed in this directory for easy access and distribution.
 
-- ``markdown-to-pdf/img`` folder: This folder is used to store all the images that will be included in the PDF files. When converting Markdown to PDF, any referenced images are typically embedded in the PDF document. The images are stored in this folder so that they can be easily referenced and included during the conversion process.
+- ``markdown-to-pdf/img`` directory: This directory is used to store all the images that will be included in the PDF files. When converting Markdown to PDF, any referenced images are typically embedded in the PDF document. The images are stored in this directory so that they can be easily referenced and included during the conversion process.
 
-- ``markdown-to-pdf/styles`` folder: The styles folder contains custom CSS files for each language. When converting Markdown to PDF, the Markdown is first converted to HTML, and then the HTML is "printed" using Puppeteer to generate the PDF. The custom CSS files in the styles folder ensure that the PDFs have consistent styling and alignment, closely resembling the original Markdown files. Each language may have its own CSS file to handle language-specific formatting requirements.
+- ``markdown-to-pdf/styles`` directory: The styles directory contains custom CSS files for each language. When converting Markdown to PDF, the Markdown is first converted to HTML, and then the HTML is "printed" using Puppeteer to generate the PDF. The custom CSS files in the styles directory ensure that the PDFs have consistent styling and alignment, closely resembling the original Markdown files. Each language may have its own CSS file to handle language-specific formatting requirements.
 
 - ``markdown-to-pdf/frontmatter.md``: This file serves as the configuration for Puppeteer, the tool used to generate the PDFs. It specifies how the PDFs should be generated and, importantly, defines the header and footer for each page of the PDF. The header and footer typically contain information such as page numbers, document title, and other relevant details. **It is crucial to note that on line 57 of frontmatter.md, the title is translated and needs to be changed before generating a PDF.** This ensures that the PDFs have the correct translated title.
 
@@ -57,7 +57,7 @@ To generate PDFs from the markdown files, follow these steps:
 
 1. Modify line 57 of `frontmatter.md` to show the correct title of the OWASP Top Ten in the appropriate language
 
-2. Validate that the ISO code folder for the language exists in the `../1_1_vulns`` folder and that the corresponding CSS file for the language exists in the `styles` folder.
+2. Validate that the ISO code directory for the language exists in the `../1_1_vulns` directory and that the corresponding CSS file for the language exists in the `styles` directory.
 
 3. Run the following command to generate the PDF:
 
@@ -71,7 +71,7 @@ To generate PDFs from the markdown files, follow these steps:
 	./markdown_to_pdf.sh --language pt
 	```
 
-	The generated PDF will be saved in generated folder with the ISO code as the filename. If a file already exists it will be overwritten. 
+	The generated PDF will be saved in generated directory with the ISO code as the filename. If a file already exists it will be overwritten. 
 
 4. Validate that the contents of the file look similar to that of the main English file. 
 
