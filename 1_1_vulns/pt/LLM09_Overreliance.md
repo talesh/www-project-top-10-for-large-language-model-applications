@@ -12,8 +12,8 @@ O código-fonte gerado pelo LLM pode introduzir vulnerabilidades de segurança n
 
 ### Exemplos Comuns desta Vulnerabilidade
 
-1. O LLM fornece informações imprecisas como resposta, declarando-as de maneira a sugerir alta autoridade. O sistema como um todo é projetado sem verificações e equilíbrios adequados para lidar com isso, e as informações enganam o usuário de uma maneira que leva a danos.
-2. O LLM sugere código inseguro ou com falhas, levando a vulnerabilidades quando incorporado a um sistema de software sem a devida supervisão ou verificação.
+1. LLM fornece informações imprecisas como resposta, declarando-as de maneira a sugerir alta autoridade. O sistema como um todo é projetado sem verificações e equilíbrios adequados para lidar com isso, e as informações enganam o usuário de uma maneira que leva a danos.
+2. LLM sugere código inseguro ou com falhas, levando a vulnerabilidades quando incorporado a um sistema de software sem a devida supervisão ou verificação.
 
 ### Estratégias de Prevenção e Mitigação
 
