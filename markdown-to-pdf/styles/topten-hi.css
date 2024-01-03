@@ -87,6 +87,13 @@ li {
   margin-left: 5px;
 }
 
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  margin-left: 0;
+}
+
 @page {
   size: a4 portrait;
   margin-top: 22mm;
