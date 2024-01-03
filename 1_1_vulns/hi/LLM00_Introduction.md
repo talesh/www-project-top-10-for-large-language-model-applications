@@ -47,7 +47,7 @@ GitHub：@GangGreenTemperTatum
 - Rachit Sood  
 [https://www.linkedin.com/in/sn4kecharmer](https://www.linkedin.com/in/sn4kecharmer/)     
 - Dhruv Agarwal   
-[https://www.linkedin.com/in/](https://www.linkedin.com/in//)   
+[https://in.linkedin.com/in/dhruwen](https://in.linkedin.com/in/dhruwen)   
 - Rishi Sharma  
 [https://www.linkedin.com/in/rishisharma064/](https://www.linkedin.com/in/rishisharma064/)   
 
