@@ -44,7 +44,6 @@ LLM插件是扩展，当启用时，会在用户互动期间由模型自动调�
 4. [OpenAI语义搜索插件示例](https://github.com/openai/chatgpt-retrieval-plugin): **OpenAI Github**
 5. [插件漏洞：访问网站并让您的源代码被窃取](https://embracethered.com/blog/posts/2023/chatgpt-plugin-vulns-chat-with-code/): **Embrace The Red**
 6. [ChatGPT插件漏洞解释：从提示注入到访问私人数据](https://embracethered.com/blog/posts/2023/chatgpt-cross-plugin-request-forgery-and-prompt-injection./): **Embrace The Red**
-7. [ChatGPT插件漏洞解释：从提示注入到访问私人数据](https://embracethered.com/blog/posts/2023/chatgpt-cross-plugin-request-forgery-and-prompt-injection./): **Embrace The Red**
 8. [OWASP ASVS - 5 验证、净化和编码](https://owasp-aasvs4.readthedocs.io/en/latest/V5.html#validation-sanitization-and-encoding): **OWASP AASVS**
 9. [OWASP ASVS 4.1 通用访问控制设计](https://owasp-aasvs4.readthedocs.io/en/latest/V4.1.html#general-access-control-design): **OWASP AASVS**
 10. [OWASP Top 10 API安全风险 – 2023](https://owasp.org/API-Security/editions/2023/en/0x11-t10/): **OWASP**
