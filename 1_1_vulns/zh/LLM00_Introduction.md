@@ -22,30 +22,32 @@
 **未来**
 列表中的 v1.1 不会是我们的最后一个。我们希望定期更新，以跟上行业状况。我们将与更广泛的社区合作，推动最先进的技术，并为各种用途创造更多的教育材料。我们还寻求与标准机构和政府就人工智能安全主题进行合作。我们欢迎您加入我们的团队并做出贡献。
 
-**签名**
-史蒂夫·威尔逊 (Steve Wilson)  
+### 签名
+
+### 史蒂夫·威尔逊 (Steve Wilson)  
 项目负责人，OWASP Top 10 for LLM Applications  
-领英：[/in/wilsonsd](https://www.linkedin.com/in/wilsonsd/)  
+[https://www.linkedin.com/in/wilsonsd](https://www.linkedin.com/in/wilsonsd/)  
 Twitter/X：@virtualsteve  
   
-Ads Dawson  
+### Ads Dawson  
 v1.1 版本负责人和漏洞条目负责人，OWASP Top 10 for LLM Applications  
-领英：[/in/adamdawson0](https://www.linkedin.com/in/adamdawson0/)  
+[https://www.linkedin.com/in/adamdawson0](https://www.linkedin.com/in/adamdawson0/)  
 GitHub：@GangGreenTemperTatum  
 
 
 ## 关于本次翻译
 
-**翻译作者**
+### 翻译作者
 
-- 黄连金 (Ken Huang)  
-领英：[/in/kenhuang8](https://www.linkedin.com/in/kenhuang8/)  
+- **黄连金 (Ken Huang)**  
+[https://www.linkedin.com/in/kenhuang8](https://www.linkedin.com/in/kenhuang8/)  
 
 
 认识到 OWASP Top 10 for LLM Applications 士的非凡技术性和关键性，我们有意识地选择在创作此翻译时仅雇用人工翻译。上述译者不仅对原文内容有深刻的理解，而且语言流畅，使翻译取得成功。  
 
 Talesh Seeparsan  
 翻译主任 OWASP Top 10 for LLM Applications
+[https://www.linkedin.com/in/talesh](https://www.linkedin.com/in/talesh/)  
 
 
 ## OWASP 大语言模型人工智能应用Top 10 安全威胁
