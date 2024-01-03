@@ -36,7 +36,7 @@ LLM में इन सुरक्षा संबंधी दिक्कत
 Twitter/X: @virtualsteve  
 
 ### Ads Dawson
-v1.1 ,रिलीज़ एवं कमजोरियों सूचीबद्ध लीड, OWASP टॉप 10 फॉर LLM एप्लिकेशंस  
+v1.1 ,रिलीज़ एवं कमजोरिया सूचीबद्ध लीड, OWASP टॉप 10 फॉर LLM एप्लिकेशंस  
 [https://www.linkedin.com/in/adamdawson0](https://www.linkedin.com/in/adamdawson0/)   
 GitHub：@GangGreenTemperTatum   
 
