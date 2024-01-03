@@ -79,7 +79,7 @@ To generate PDFs from the markdown files, follow these steps:
 ### Options
 
 
-- **Keep Markdown** If you add the ``--keep-markdown`` flag at the end, the script will not delete the temporary markdown file generated from all the cocatenated ones. eg:
+- **Keep Markdown** If you add the ``--keep-markdown`` flag at the end, the script will not delete the temporary markdown file generated from all the cocatenated ones. Please note that the temporary file is located in ``./generated/tmp``. eg:
 	```shell
 	./markdown_to_pdf.sh --language pt --keep-markdown
 	```
