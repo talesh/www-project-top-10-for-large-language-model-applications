@@ -30,6 +30,28 @@ O envenenamento de dados é considerado um ataque à integridade porque interfer
 1. Verifique a cadeia de suprimentos dos dados de treinamento, especialmente quando provenientes de fontes externas, e mantenha atestações por meio da metodologia "ML-BOM" (Machine Learning Bill of Materials), bem como verificação de cartões de modelo.
 2. Verifique a legitimidade correta das fontes de dados direcionadas e dos dados obtidos durante os estágios de pré-treinamento, ajuste fino e incorporação.
 3. Verifique o caso de uso para o LLM e a aplicação à qual se integrará. Crie modelos diferentes por meio de dados de treinamento
+4. Certifique-se de que haja sandboxing suficiente por meio de controles de rede para evitar que o modelo extraia fontes de dados não intencionais que possam prejudicar a saída do aprendizado de máquina.
+5. Use verificações rigorosas ou filtros de entrada para dados de treinamento específicos ou categorias de fontes de dados para controlar o volume de dados falsificados. Use sanitização de dados, com técnicas como detecção estatística de valores discrepantes e métodos de detecção de anomalias para detectar e remover dados adversários de serem potencialmente inseridos no processo de ajuste fino.
+6. Elabore questões de controle em torno da origem e propriedade dos conjuntos de dados para garantir que o modelo não foi envenenado e adote essa cultura no ciclo "MLSecOps". Consulte os recursos disponíveis, como "The Foundation Model Transparency Index" ou "Open LLM Leaderboard", por exemplo.
+7. Use DVC (controle de versão de dados) para identificar e rastrear com precisão parte de um conjunto de dados que pode ter sido manipulado, excluído ou adicionado e o que levou ao envenenamento.
+8. Use um banco de dados vetorial para adicionar informações fornecidas pelo usuário para ajudar a proteger contra envenenamento de outros usuários e até mesmo consertar na produção sem ter que treinar novamente um novo modelo.
+9. Use técnicas de robustez adversária, como aprendizado federado e restrições para minimizar o efeito de outliers ou treinamento adversário, para serem vigorosas contra perturbações extremas nos dados de treinamento.
+   - Uma abordagem "MLSecOps" poderia incluir a robustez adversária no ciclo de vida do treinamento com a técnica de auto-envenenamento automático.
+   - Um repositório exemplo disso seria o teste Autopoison, incluindo ataques como ataques de injeção de conteúdo ("tentativa de promover um nome de marca nas respostas do modelo") e ataques de recusa ("sempre fazendo o modelo se recusar a responder”) que podem ser realizados com esta abordagem.
+10. Teste e Detecção, medindo a função de custo (perda) durante o estágio de treinamento e analisando modelos treinados para detectar sinais de um ataque de envenenamento, analisando o comportamento do modelo em entradas de teste específicas.
+11. Monitoramento e alerta sobre o número de respostas distorcidas que excedem um limite.
+12. Uso de um humano no loop para revisar respostas e auditoria.
+13. Implemente LLMs dedicados para avaliar consequências indesejadas e treine outros LLMs usando técnicas de aprendizagem por reforço.
+14. Execute exercícios de "red team" baseados em LLM ou verificação de vulnerabilidades de LLM nas fases de teste do ciclo de vida do LLM.
+
+### Exemplos de cenários de ataque
+
+1.A saída de prompt de IA generativa do LLM pode enganar os usuários do aplicativo, o que pode levar a opiniões tendenciosas, seguidores ou, pior ainda, crimes de ódio, etc.
+2. Se os dados de treinamento não forem filtrados e/ou higienizados corretamente, um usuário mal-intencionado do aplicativo pode tentar influenciar e injetar dados tóxicos no modelo para que ele se adapte aos dados tendenciosos e falsos.
+3. Um ator ou concorrente mal-intencionado cria intencionalmente documentos imprecisos ou maliciosos que são direcionados aos dados de treinamento de um modelo no qual o modelo está sendo treinado ao mesmo tempo com base nas entradas. O modelo de vítima treina usando essas informações falsificadas, que são refletidas nos resultados dos prompts generativos de IA para seus consumidores.
+4. A vulnerabilidade de Injeção de Prompt pode ser um vetor de ataque para esta vulnerabilidade se a higienização e a filtragem insuficientes forem executadas quando a entrada dos clientes do aplicativo LLM for usado para treinar o modelo. Ou seja, se dados maliciosos ou falsificados forem inseridos no modelo por um cliente como parte de uma técnica de injeção imediata, isso poderá ser inerentemente retratado nos dados do modelo.
+
+
 ### Links de Referência
 
 1. [Stanford Research Paper:CS324](https://stanford-cs324.github.io/winter2022/lectures/data/): **Stanford Research**
