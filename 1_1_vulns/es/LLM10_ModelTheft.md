@@ -1,49 +1,49 @@
-## LLM10: Model Theft
+## LLM10: Robo de Modelos
 
-### Description
+### Descripción
 
-This entry refers to the unauthorized access and exfiltration of LLM models by malicious actors or APTs. This arises when the proprietary LLM models (being valuable intellectual property), are compromised, physically stolen, copied or weights and parameters are extracted to create a functional equivalent. The impact of LLM model theft can include economic and brand reputation loss, erosion of competitive advantage, unauthorized usage of the model or unauthorized access to sensitive information contained within the model.
+Esta entrada se refiere al acceso no autorizado y exfiltración de modelos de LLM por actores maliciosos o APTs. Esto surge cuando los modelos de LLM propietarios (siendo un activo valioso), son comprometidos, robados físicamente, copiados o se extraen pesos y parámetros para crear un equivalente funcional. El impacto del robo de modelos de LLM puede incluir pérdida económica y de reputación de marca, degradación de la ventaja competitiva, uso no autorizado del modelo o acceso no autorizado a información sensible contenida en el modelo.
 
-The theft of LLMs represents a significant security concern as language models become increasingly powerful and prevalent. Organizations and researchers must prioritize robust security measures to protect their LLM models, ensuring the confidentiality and integrity of their intellectual property. Employing a comprehensive security framework that includes access controls, encryption, and continuous monitoring is crucial in mitigating the risks associated with LLM model theft and safeguarding the interests of both individuals and organizations relying on LLM.
+El robo de LLM representa una preocupación de seguridad significativa a medida que los modelos de lenguaje se vuelven cada vez más poderosos y prevalentes. Las organizaciones e investigadores deben priorizar medidas de seguridad robustas para proteger sus modelos de LLM, asegurando la confidencialidad e integridad de su propiedad intelectual. Emplear un marco de seguridad integral que incluya controles de acceso, encriptación y monitoreo continuo es crucial para mitigar los riesgos asociados con el robo de modelos de LLM y proteger los intereses tanto de individuos como de organizaciones que dependen del LLM.
 
-### Common Examples of Vulnerability
+### Ejemplos Comunes de Vulnerabilidad
 
-1. An attacker exploits a vulnerability in a company's infrastructure to gain unauthorized access to their LLM model repository via misconfiguration in their network or application security settings.
-2. An insider threat scenario where a disgruntled employee leaks model or related artifacts.
-3. An attacker queries the model API using carefully crafted inputs and prompt injection techniques to collect a sufficient number of outputs to create a shadow model.
-4. A malicious attacker is able to bypass input filtering techniques of the LLM to perform a side-channel attack and ultimately harvest model weights and architecture information to a remote controlled resource.
-5. The attack vector for model extraction involves querying the LLM with a large number of prompts on a particular topic. The outputs from the LLM can then be used to fine-tune another model. However, there are a few things to note about this attack:
-   - The attacker must generate a large number of targeted prompts. If the prompts are not specific enough, the outputs from the LLM will be useless.
-   - The outputs from LLMs can sometimes contain hallucinated answers meaning the attacker may not be able to extract the entire model as some of the outputs can be nonsensical.
-     - It is not possible to replicate an LLM 100% through model extraction. However, the attacker will be able to replicate a partial model.
-6. The attack vector for **_functional model replication_** involves using the target model via prompts to generate synthetic training data (an approach called "self-instruct") to then use it and fine-tune another foundational model to produce a functional equivalent. This bypasses the limitations of traditional query-based extraction used in Example 5 and has been successfully used in research of using an LLM to train another LLM. Although in the context of this research, model replication is not an attack. The approach could be used by an attacker to replicate a proprietary model with a public API.
+1. Un atacante explota una vulnerabilidad en la infraestructura de una empresa para obtener acceso no autorizado a su repositorio de modelos de LLM a través de una mala configuración en sus ajustes de seguridad de red o aplicación.
+2. Un escenario de amenaza interna donde un empleado descontento (insider) filtra modelos o artefactos relacionados.
+3. Un atacante consulta la API del modelo usando entradas cuidadosamente elaboradas y técnicas de inyección de prompts para recopilar un número suficiente de salidas para crear un clon del modelo (shadown model). 
+4. Un ciberdelincuente es capaz de eludir las técnicas de filtrado de entradas del LLM para realizar un ataque de canal lateral y, en última instancia, recolectar información de pesos y arquitectura del modelo a un recurso controlado remotamente.
+5. El vector de ataque para la extracción del modelo implica consultar el LLM con un gran número de prompts sobre un tema particular. Las salidas del LLM pueden luego usarse para ajustar otro modelo. Sin embargo, hay algunas cosas a tener en cuenta sobre este ataque:
+   - El atacante debe generar un gran número de prompts dirigidos. Si los prompts no son lo suficientemente específicos, las salidas del LLM serán inútiles.
+   - Las salidas de los LLM a veces pueden contener respuestas alucinadas, lo que significa que el atacante no podrá extraer el modelo completo ya que algunas de las salidas pueden ser sin sentido.
+     - No es posible replicar un LLM al 100% a través de la extracción del modelo. Sin embargo, el atacante podrá replicar un modelo parcial.
+6. El vector de ataque para la **_replicación funcional del modelo_** implica usar el modelo objetivo a través de prompts para generar datos de entrenamiento sintéticos (un enfoque llamado "autoinstrucción") para luego usarlo y ajustar otro modelo fundacional para producir un equivalente funcional. Esto elude las limitaciones de la extracción basada en consultas tradicionales utilizada en el Ejemplo 5 y se ha utilizado con éxito en investigaciones de uso de un LLM para entrenar otro LLM. Aunque en el contexto de esta investigación, la replicación del modelo no es un ataque. El enfoque podría ser utilizado por un atacante para replicar un modelo propietario con una API pública.
 
-Use of a stolen model, as a shadow model, can be used to stage adversarial attacks including unauthorized access to sensitive information contained within the model or experiment undetected with adversarial inputs to further stage advanced prompt injections.
+El uso de un modelo robado, como un "shadow model", puede usarse para montar ataques adversarios incluyendo acceso no autorizado a información sensible contenida en el modelo o experimentar sin ser detectados con entradas adversarias para seguir montando inyecciones de prompts avanzadas.
 
-### Prevention and Mitigation Strategies
+### Estrategias de Prevención y Mitigación
 
-1. Implement strong access controls (E.G., RBAC and rule of least privilege) and strong authentication mechanisms to limit unauthorized access to LLM model repositories and training environments.
-   1. This is particularly true for the first three common examples, which could cause this vulnerability due to insider threats, misconfiguration, and/or weak security controls about the infrastructure that houses LLM models, weights and architecture in which a malicious actor could infiltrate from insider or outside the environment.
-   2. Supplier management tracking, verification and dependency vulnerabilities are important focus topics to prevent exploits of supply-chain attacks.
-2. Restrict the LLM's access to network resources, internal services, and APIs.
-   1. This is particularly true for all common examples as it covers insider risk and threats, but also ultimately controls what the LLM application "_has access to_" and thus could be a mechanism or prevention step to prevent side-channel attacks.
-3. Use a centralized ML Model Inventory or Registry for ML models used in production. Having a centralized model registry prevents unauthorized access to ML Models via access controls, authentication, and monitoring/logging capability which are good foundations for governance. Having a centralized repository is also beneficial for collecting data about algorithms used by the models for the purposes of compliance, risk assessments, and risk mitigation.
-4. Regularly monitor and audit access logs and activities related to LLM model repositories to detect and respond to any suspicious or unauthorized behavior promptly.
-5. Automate MLOps deployment with governance and tracking and approval workflows to tighten access and deployment controls within the infrastructure.
-6. Implement controls and mitigation strategies to mitigate and|or reduce risk of prompt injection techniques causing side-channel attacks.
-7. Rate Limiting of API calls where applicable and|or filters to reduce risk of data exfiltration from the LLM applications, or implement techniques to detect (E.G., DLP) extraction activity from other monitoring systems.
-8. Implement adversarial robustness training to help detect extraction queries and tighten physical security measures.
-9. Implement a watermarking framework into the embedding and detection stages of an LLMs lifecyle.
+1. Implementar controles de acceso fuertes (por ejemplo, RBAC y regla de mínimo privilegio) y mecanismos de autenticación fuertes para limitar el acceso no autorizado a repositorios de modelos de LLM y entornos de entrenamiento.
+   1. Esto es especialmente cierto para los tres primeros ejemplos comunes, que podrían causar esta vulnerabilidad debido a amenazas internas, mala configuración y/o controles de seguridad débiles sobre la infraestructura que alberga modelos de LLM, pesos y arquitectura en la que un actor malicioso podría infiltrarse desde dentro o fuera del entorno.
+   2. El seguimiento de la gestión de proveedores, la verificación y las vulnerabilidades de dependencia son temas importantes para prevenir explotaciones de ataques a la cadena de suministro (supply-chain attacks).
+2. Restringir el acceso del LLM a recursos de red, servicios internos y APIs.
+   1. Esto es particularmente cierto para todos los ejemplos comunes, ya que cubre el riesgo y las amenazas internas, pero también controla finalmente a qué tiene acceso la aplicación LLM y, por lo tanto, podría ser un mecanismo o paso de prevención para evitar ataques por un canal lateral.
+3. Utilizar un Inventario Centralizado (Registry ML Model) para modelos utilizados en producción. Tener un registro centralizado de modelos evita el acceso no autorizado a Modelos de ML mediante controles de acceso, autenticación y capacidades de monitoreo/registro que son buenas bases para la gobernanza. Tener un repositorio centralizado también es beneficioso para recopilar datos sobre algoritmos utilizados por los modelos con fines de cumplimiento, evaluaciones de riesgo y mitigación de riesgos.
+4. Monitorear y auditar regularmente los registros de acceso y las actividades relacionadas con los repositorios de modelos de LLM para detectar y responder rápidamente a cualquier comportamiento sospechoso o no autorizado.
+5. Automatizar la implementación de MLOps con gobernanza y flujos de trabajo de seguimiento y aprobación para reforzar los controles de acceso y despliegue dentro de la infraestructura.
+6. Implementar controles y estrategias de mitigación para mitigar y/o reducir el riesgo de técnicas de inyección de prompts que causan ataques de canal lateral.
+7. Limitar la tasa de llamadas a la API (Rate Limiting API) donde sea aplicable y/o filtros para reducir el riesgo de exfiltración de datos de las aplicaciones LLM, o implementar técnicas para detectar (por ejemplo, DLP) la actividad de extracción desde otros sistemas de monitoreo.
+8. Implementar entrenamiento en robustez adversaria para ayudar a detectar consultas de extracción y reforzar las medidas de seguridad física.
+9. Implementar un marco de marcado de agua en las etapas de incrustación y detección del ciclo de vida de los LLM.
 
-### Example Attack Scenarios
+### Ejemplos de Escenarios de Ataque
 
-1. An attacker exploits a vulnerability in a company's infrastructure to gain unauthorized access to their LLM model repository. The attacker proceeds to exfiltrate valuable LLM models and uses them to launch a competing language processing service or extract sensitive information, causing significant financial harm to the original company.
-2. A disgruntled employee leaks model or related artifacts. The public exposure of this scenario increases knowledge to attackers for gray box adversarial attacks or alternatively directly steal the available property.
-3. An attacker queries the API with carefully selected inputs and collects sufficient number of outputs to create a shadow model.
-4. A security control failure is present within the supply-chain and leads to data leaks of proprietary model information.
-5. A malicious attacker bypasses input filtering techniques and preambles of the LLM to perform a side-channel attack and retrieve model information to a remote controlled resource under their control.
+1. Un atacante explota una vulnerabilidad en la infraestructura de una empresa para obtener acceso no autorizado a su repositorio de modelos de LLM. El atacante procede a exfiltrar modelos valiosos de LLM y los utiliza para lanzar un servicio de procesamiento de lenguaje competidor o extraer información sensible, causando un daño financiero significativo a la empresa original.
+2. Un empleado (insider) filtra modelos o artefactos relacionados. La exposición pública de este escenario aumenta el conocimiento de los atacantes para ataques adversarios de caja gris o, alternativamente, roba directamente la propiedad disponible.
+3. Un atacante consulta la API con entradas cuidadosamente seleccionadas y recopila un número suficiente de salidas para crear un shadow model.
+4. Una falla en el control de seguridad dentro de la cadena de suministro conduce a filtraciones de datos de información de modelo propietaria.
+5. Un ciberdelicuente elude las técnicas de filtrado de entradas y preámbulos del LLM para realizar un ataque de canal lateral y recuperar información del modelo a un recurso controlado de forma remota bajo su control.
 
-### Reference Links
+### Enlaces de Referencia
 
 1. [Meta’s powerful AI language model has leaked online](https://www.theverge.com/2023/3/8/23629362/meta-ai-language-model-llama-leak-online-misuse): **The Verge**
 2. [Runaway LLaMA | How Meta's LLaMA NLP model leaked](https://www.deeplearning.ai/the-batch/how-metas-llama-nlp-model-leaked/): **Deep Learning Blog**
