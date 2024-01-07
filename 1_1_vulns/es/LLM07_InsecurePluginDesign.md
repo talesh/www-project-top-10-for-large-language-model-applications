@@ -1,40 +1,40 @@
-## LLM07: Insecure Plugin Design
+## LLM07: Diseño Inseguro de Plugins
 
-### Description
+### Descripción
 
-LLM plugins are extensions that, when enabled, are called automatically by the model during user interactions. The model integration platform drives them,  and the application may have no control over the execution, especially when the model is hosted by another party. Furthermore, plugins are likely to implement free-text inputs from the model with no validation or type-checking to deal with context-size limitations. This allows a potential attacker to construct a malicious request to the plugin, which could result in a wide range of undesired behaviors, up to and including remote code execution.
+Los plugins de LLM son extensiones que, una vez habilitadas, son llamadas automáticamente por el modelo durante las interacciones con los usuarios. La plataforma de integración del modelo los impulsa, y la aplicación puede no tener control sobre la ejecución, especialmente cuando el modelo está alojado por otra parte. Además, es probable que los plugins implementen entradas de texto libre del modelo sin validación o verificación de tipo para lidiar con limitaciones de tamaño de contexto. Esto permite a un atacante potencial construir una solicitud maliciosa al plugin, lo que podría resultar en una amplia gama de comportamientos no deseados, incluida la ejecución remota de código.
 
-The harm of malicious inputs often depends on insufficient access controls and the failure to track authorization across plugins. Inadequate access control allows a plugin to blindly trust other plugins and assume that the end user provided the inputs. Such inadequate access control can enable malicious inputs to have harmful consequences ranging from data exfiltration, remote code execution, and privilege escalation.
+El daño de las entradas maliciosas a menudo depende de controles de acceso insuficientes y del fracaso en rastrear la autorización a través de los plugins. El control de acceso inadecuado permite que un plugin confíe ciegamente en otros plugins y asuma que el usuario final proporcionó las entradas. Dicho control de acceso inadecuado puede permitir que las entradas maliciosas tengan consecuencias dañinas que van desde la exfiltración de datos, la ejecución remota de código y la escalada de privilegios.
 
-This item focuses on creating LLM plugins rather than third-party plugins, which LLM-Supply-Chain-Vulnerabilities cover.
+Este elemento se enfoca en la creación de plugins de LLM en lugar de plugins de terceros, los cuales son cubiertos por las Vulnerabilidades en la Cadena de Suministro de LLM (LLM-Supply-Chain-Vulnerabilities cover).
 
-### Common Examples of Vulnerability
+### Ejemplos Comunes de Vulnerabilidad
 
-1. A plugin accepts all parameters in a single text field instead of distinct input parameters.
-2. A plugin accepts configuration strings instead of parameters that can override entire configuration settings.
-3. A plugin accepts raw SQL or programming statements instead of parameters.
-4. Authentication is performed without explicit authorization to a particular plugin.
-5. A plugin treats all LLM content as being created entirely by the user and performs any requested actions without requiring additional authorization.
+1. Un plugin acepta todos los parámetros en un único campo de texto en lugar de parámetros de entrada distintos.
+2. Un plugin acepta cadenas de configuración en lugar de parámetros que pueden sobrescribir la configuración completa.
+3. Un plugin acepta sentencias SQL crudas o declaraciones de programación en lugar de parámetros.
+4. La autenticación se realiza sin autorización explícita para un plugin en particular.
+5. Un plugin trata todo el contenido de LLM como si fuera creado enteramente por el usuario y realiza cualquier acción solicitada sin requerir autorización adicional.
 
-### Prevention and Mitigation Strategies
+### Estrategias de Prevención y Mitigación
 
-1. Plugins should enforce strict parameterized input wherever possible and include type and range checks on inputs. When this is not possible, a second layer of typed calls should be introduced, parsing requests and applying validation and sanitization. When freeform input must be accepted because of application semantics, it should be carefully inspected to ensure no potentially harmful methods are being called.
-2. Plugin developers should apply OWASP’s recommendations in ASVS (Application Security Verification Standard) to ensure adequate input validation and sanitization.
-3. Plugins should be inspected and tested thoroughly to ensure adequate validation. Use Static Application Security Testing (SAST) scans and Dynamic and Interactive application testing (DAST, IAST) in development pipelines.
-4. Plugins should be designed to minimize the impact of any insecure input parameter exploitation following the OWASP ASVS Access Control Guidelines. This includes least-privilege access control, exposing as little functionality as possible while still performing its desired function.
-5. Plugins should use appropriate authentication identities, such as OAuth2, to apply effective authorization and access control. Additionally, API Keys should be used to provide context for custom authorization decisions that reflect the plugin route rather than the default interactive user.
-6. Require manual user authorization and confirmation of any action taken by sensitive plugins.
-7. Plugins are, typically, REST APIs, so developers should apply the recommendations found in OWASP Top 10 API Security Risks – 2023 to minimize generic vulnerabilities.
+1. Los plugins deben cumplir una entrada parametrizada estricta siempre que sea posible e incluir verificaciones de tipo y rango en las entradas. Cuando esto no sea posible, se debe introducir una segunda capa de llamadas tipificadas, analizando las solicitudes y aplicando validación y saneamiento. Cuando se deba aceptar una entrada libre debido a la semántica de la aplicación, se debe inspeccionar cuidadosamente para asegurar que no se estén llamando métodos potencialmente dañinos.
+2. Los desarrolladores de plugins deben aplicar las recomendaciones de OWASP en ASVS (Estándar de Verificación de Seguridad de Aplicaciones) para asegurar una validación y saneamiento adecuados de las entradas.
+3. Los plugins deben ser inspeccionados y probados exhaustivamente para garantizar una validación adecuada. Utilizar análisis de Seguridad de Aplicaciones Estáticas (SAST) y pruebas de aplicaciones Dinámicas e Interactivas (DAST, IAST) en los pipelines de desarrollo.
+4. Los plugins deben ser diseñados para minimizar el impacto de la explotación de cualquier parámetro de entrada inseguro siguiendo las Pautas de Control de Acceso de OWASP ASVS. Esto incluye el control de acceso de mínimo privilegio, exponiendo la menor funcionalidad posible mientras aún se realiza su función deseada.
+5. Los plugins deben usar identidades de autenticación apropiadas, como OAuth2, para aplicar autorización y control de acceso efectivos. Además, las claves de API deben usarse para proporcionar contexto para decisiones de autorización personalizadas que reflejen la ruta del plugin en lugar del usuario interactivo por defecto.
+6. Requerir autorización y confirmación manual del usuario para cualquier acción realizada por plugins sensibles.
+7. Los plugins son, típicamente, APIs REST, por lo que los desarrolladores deben aplicar las recomendaciones encontradas en OWASP Top 10 Riesgos de Seguridad de API – 2023 para minimizar vulnerabilidades genéricas.
 
-### Example Attack Scenarios
+### Ejemplos de Escenarios de Ataque
 
-1. A plugin accepts a base URL and instructs the LLM to combine the URL with a query to obtain weather forecasts which are included in handling the user request. A malicious user can craft a request such that the URL points to a domain they control, which allows them to inject their own content into the LLM system via their domain.
-2. A plugin accepts a free-form input into a single field that it does not validate. An attacker supplies carefully crafted payloads to perform reconnaissance from error messages. It then exploits known third-party vulnerabilities to execute code and perform data exfiltration or privilege escalation.
-3. A plugin used to retrieve embeddings from a vector store accepts configuration parameters as a connection string without any validation. This allows an attacker to experiment and access other vector stores by changing names or host parameters and exfiltrate embeddings they should not have access to.
-4. A plugin accepts SQL WHERE clauses as advanced filters, which are then appended to the filtering SQL. This allows an attacker to stage a SQL attack.
-5. An attacker uses indirect prompt injection to exploit an insecure code management plugin with no input validation and weak access control to transfer repository ownership and lock out the user from their repositories.
+1. Un plugin acepta una URL base e instruye al LLM para combinar la URL con una consulta para obtener pronósticos del tiempo que se incluyen al manejar la solicitud del usuario. Un usuario malicioso puede crear una solicitud de tal manera que la URL apunte a un dominio que controlan, lo que les permite inyectar su propio contenido en el sistema LLM a través de su dominio.
+2. Un plugin acepta una entrada de formulario libre en un único campo que no valida. Un atacante suministra cargas útiles cuidadosamente elaboradas para realizar reconocimiento a partir de mensajes de error. Luego explota vulnerabilidades conocidas de terceros para ejecutar código y realizar exfiltración de datos o escalada de privilegios.
+3. Un plugin utilizado para recuperar incrustaciones de una tienda de vectores acepta parámetros de configuración como una cadena de conexión sin ninguna validación. Esto permite a un atacante experimentar y acceder a otras tiendas de vectores cambiando nombres o parámetros de host y exfiltrar incrustaciones a las que no deberían tener acceso.
+4. Un plugin acepta cláusulas WHERE de SQL como filtros avanzados, que luego se añaden al filtrado de SQL. Esto permite a un atacante realizar un ataque de SQL.
+5. Un atacante utiliza la inyección indirecta de mensajes para explotar un plugin inseguro de gestión de código sin validación de entrada y control de acceso débil para transferir la propiedad del repositorio y bloquear al usuario de sus repositorios.
 
-### Reference Links
+### Enlaces de Referencia
 
 1. [OpenAI ChatGPT Plugins](https://platform.openai.com/docs/plugins/introduction): **ChatGPT Developer’s Guide**
 2. [OpenAI ChatGPT Plugins - Plugin Flow](https://platform.openai.com/docs/plugins/introduction/plugin-flow): **OpenAI Documentation**
