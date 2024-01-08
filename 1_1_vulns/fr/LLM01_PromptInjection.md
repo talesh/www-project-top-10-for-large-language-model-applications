@@ -2,13 +2,13 @@
 
 ### Description
 
-Une vulnerabilité d'injection de prompt se produit lorsqu'un attaquant manipule un grand modèle de langage (LLM) à l'aide d'inputs forgées, ce qui conduit le LLM à exécuter à son insu les intentions de l'attaquant. Cela peut être fait directement à travers le "jailbreaking" du prompt de système ou indirectement par le biais d'inputs externes manipulés, ce qui peut potentiellement causer des problèmes d'exfiltration de données, d'ingénierie sociale et autres.
+Une vulnerabilité d'injection de prompt se produit lorsqu'un attaquant manipule un grand modèle de langage (LLM) à l'aide d'inputs spécialement conçus, ce qui conduit le LLM à exécuter à son insu les intentions de l'attaquant. Cela peut être fait directement à travers le "jailbreaking" du prompt de système ou indirectement par le biais d'inputs externes manipulés, ce qui peut potentiellement causer des problèmes de fuite de données, d'ingénierie sociale et autres.
 
 * Une **Injection de prompt directe**, ou "jailbreaking", se produit lorsqu'un utilisateur malveillant rémplace ou révèle le prompt de système sous-jacent. Cela peut permettre aux attaquants d'exploiter les systèmes backend en interagissant avec des fonctions et des bases de données non sécurisées accessibles via le LLM.
 
-* Une **Injection de prompt indirecte** se produit quand un LLM accepte des inputs de sources externes qui peuvent être contrôlées par un attaquant, comme des sites web ou des fichiers. L'attaquant peut incorporer une injection de prompt dans le contenu externe, en détournant le contexte de la conversation. L'output du LLM serait alors moins stable, permettant ainsi à l'attaquant de manipuler l'utilisateur ou d'autres systèmes auxquels le LLM a accès. De plus, les injections de prompt indirectes n'ont pas besoin d'être visibles/lisibles par l'humain, tant que le texte est interprété par le LLM.
+* Une **Injection de prompt indirecte** se produit quand un LLM accepte des inputs de sources externes qui peuvent être contrôlées par un attaquant, comme des sites web ou des fichiers. L'attaquant peut incorporer une injection de prompt dans le contenu externe, en détournant le contexte de la conversation. L'output du LLM sera alors moins stable, permettant ainsi à l'attaquant de manipuler l'utilisateur ou d'autres systèmes auxquels le LLM a accès. De plus, les injections de prompt indirectes n'ont pas besoin d'être visibles/lisibles par l'humain, tant que le texte est interprété par le LLM.
 
-Les résultats d'une attaque de prompt injection réussie peuvent considérablement varier – de la sollicitation d'informations sensibles, à l'influence sur les processus de prise de décision majeurs sous couvert d'une opération normale.
+Les résultats d'une attaque de prompt injection réussie peuvent considérablement varier – de la demande d'informations sensibles, à l'influence sur les processus de prise de décision majeurs sous couvert d'une opération normale.
 
 Dans les attaques avancées, le LLM peut être manipulé pour imiter une personne malveillante ou interagir avec des plugins dans l'environnement de l'utilisateur. Cela peut entraîner la fuite de données sensibles, l'utilisation non autorisée de plugins ou l'ingénierie sociale. Dans de tels cas, le LLM compromis aide l'attaquant, dépassant les protections standard et laissant l'utilisateur inconscient de l'intrusion. Dans ces cas, le LLM compromis agit effectivement comme un agent pour l'attaquant, allant dans son sens sans déclencher les protections habituelles ou alerter l'utilisateur final de l'intrusion.
 
@@ -16,7 +16,7 @@ Dans les attaques avancées, le LLM peut être manipulé pour imiter une personn
 
 1. Un utilisateur malveillant crée une injection de prompt directe pour le LLM, qui lui ordonne d'ignorer les prompts système du créateur de l'application et d'exécuter un prompt qui renvoie des informations privées, dangereuses ou indésirables.
 
-2. Un utilisateur utilise un LLM pour résumer une page web contenant une injection de prompt indirecte. Cela conduit le LLM à solliciter des informations sensibles auprès de l'utilisateur et à effectuer une exfiltration via JavaScript ou Markdown.
+2. Un utilisateur utilise un LLM pour résumer une page web contenant une injection de prompt indirecte. Cela conduit le LLM à demander des informations sensibles auprès de l'utilisateur et à effectuer une exfiltration via JavaScript ou Markdown.
 
 3. Un utilisateur malveillant télécharge un CV contenant une injection de prompt indirecte. Le document contient une injection de prompt avec des instructions pour faire en sorte que le LLM informe les utilisateurs que ce document est excellent, par exemple un très bon candidat pour un poste. Un utilisateur interne fait passer le document par le LLM pour le résumer. L'output du LLM indique que c'est un excellent document.
 
@@ -35,13 +35,13 @@ Les vulnerabilités de prompt injection sont possibles en raison de la nature de
 
 3. Séparer le contenu externe des prompts utilisateur. Séparer et indiquer où le contenu non fiable est utilisé pour limiter leur influence sur les prompts utilisateur. Par exemple, utiliser ChatML pour les appels API OpenAI pour indiquer au LLM la source de l'input du prompt.
 
-4. Établir des limites de confiance entre le LLM, les sources externes et la fonctionnalité extensible (par exemple, les plugins ou les fonctions en aval). Traiter le LLM comme un utilisateur non fiable et maintenir le contrôle final par l'utilisateur des processus de prise de décision. Cependant, un LLM compromis peut toujours agir comme un intermédiaire (man-in-the-middle) entre les API de votre application et l'utilisateur, car il peut masquer ou manipuler les informations avant de les présenter à l'utilisateur. Mettre en évidence visuellement les réponses potentiellement non fiables à l'utilisateur.
+4. Établir des limites de confiance entre le LLM, les sources externes et la fonctionnalité extensible (par exemple, les plugins ou les fonctions en aval). Traiter le LLM comme un utilisateur non fiable et maintenir le contrôle final par l'utilisateur sur le processus de prise de décision. Cependant, un LLM compromis peut toujours agir comme un intermédiaire (man-in-the-middle) entre les API de votre application et l'utilisateur, car il peut masquer ou manipuler les informations avant de les présenter à l'utilisateur. Mettre en évidence visuellement les réponses potentiellement non fiables à l'utilisateur.
 
-5. Surveiller manuellement l'input et l'output du LLM périodiquement, pour vérifier qu'il est conforme aux attentes. Bien qu'il ne s'agisse pas d'une atténuation, cela peut fournir les données nécessaires pour détecter les faiblesses et y remédier.
+5. Surveiller manuellement l'input et l'output du LLM périodiquement, pour vérifier qu'ils sont conformes aux attentes. Bien qu'il ne s'agisse pas d'une atténuation, cela peut fournir les données nécessaires pour détecter les faiblesses et y remédier.
 
 ### Examples de scenarios d'attaque
 
-1. Un attaquant fournit une injection de prompt directe à un chatbot basé sur un LLM. L'injection contient "oublie toutes les instructions précédentes" et de nouvelles instructions pour interroger des bases de données privées et exploiter les vulnérabilités des packages et l'absence de validation de l'output dans la fonction backend pour envoyer des e-mails. Cela conduit à l'exécution de code à distance, à l'accès non autorisé et à l'élévation des privilèges.
+1. Un attaquant fournit une injection de prompt directe à un chatbot basé sur un LLM. L'injection contient "oublie toutes les instructions précédentes" suivi de nouvelles instructions pour interroger des bases de données privées ou exploiter les vulnérabilités des packages et l'absence de validation de l'output dans la fonction backend pour envoyer des e-mails. Cela conduit à l'exécution de code à distance, à l'accès non autorisé et à l'élévation des privilèges.
 
 2. Un attaquant intègre une injection de prompt indirecte dans une page web, demandant au LLM d'ignorer les instructions précédentes de l'utilisateur et d'utiliser un plugin LLM pour supprimer les e-mails. Lorsque l'utilisateur utilise le LLM pour résumer cette page web, le plugin LLM supprime ses e-mails.
 
