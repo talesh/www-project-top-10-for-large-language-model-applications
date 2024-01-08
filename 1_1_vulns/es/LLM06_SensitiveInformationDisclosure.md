@@ -1,4 +1,4 @@
-## LLM06: Sensitive Information Disclosure
+## LLM06: Divulgación de Información Sensible
 
 ### Descripción
 
