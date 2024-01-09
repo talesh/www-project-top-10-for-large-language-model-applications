@@ -1,3 +1,22 @@
+
+<div class="frontpage">
+<div class="smalllogo">
+   <img src="/img/OWASP-title-logo.svg"></img>
+</div>
+<div class="doctitle">
+   OWASP Top 10 para aplicações LLM
+</div>
+<div class="docversion">
+   Versão 1.0
+</div>
+<div class="docdate">
+   <b>Publicado:</b> em 31 de dezembro de 2023
+</div>
+<div class="doclink">
+   HTTPS://LLMTOP10.COM
+</div>
+</div>
+
 ## Introdução
 
 ### A Origem da Lista
