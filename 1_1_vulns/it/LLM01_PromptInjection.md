@@ -20,7 +20,7 @@ In attacchi avanzati, l'LLM può essere manipolato per impersonare un personaggi
 4. Un utente abilita un plugin collegato a un sito di e-commerce. Un'istruzione nociva incorporata in un sito web visitato sfrutta questo plugin, portando a acquisti non autorizzati.
 5. Un'istruzione e del contenuto nocivi, incorporati in un sito web visitato, sfruttano altri plugin per truffare gli utenti.
 
-### Prevenzione e strategie di mitigazione
+### Strategie di prevenzione e mitigazione
 
 Le iniezioni di prompt sono possibili a causa della natura degli LLM, che non separano le istruzioni dai dati esterni. Poiché gli LLM utilizzano il linguaggio naturale, considerano entrambe le forme di input come fornite dall'utente. Di conseguenza, non esiste una prevenzione infallibile all'interno dell'LLM, ma le seguenti misure possono mitigare l'impatto delle iniezioni di prompt:
 
