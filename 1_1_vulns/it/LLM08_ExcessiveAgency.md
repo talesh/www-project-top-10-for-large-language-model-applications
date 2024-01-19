@@ -1,38 +1,35 @@
-## LLM08: Excessive Agency
+## LLM08: Eccessiva Autonomia
+### Descrizione
 
-### Description
+Un sistema basato su LLM è spesso dotato di una certa autonomia dallo sviluppatore - la capacità di interfacciarsi con altri sistemi e intraprendere azioni in risposta a un prompt. La decisione su quali funzioni invocare può anche essere delegata a un 'agente' per determinarla dinamicamente in base al prompt di input o all'output dell'LLM.
 
-An LLM-based system is often granted a degree of agency by its developer - the ability to interface with other systems and undertake actions in response to a prompt. The decision over which functions to invoke may also be delegated to an LLM 'agent' to dynamically determine based on input prompt or LLM output.
+L'Eccessiva Autonomia è la vulnerabilità che permette di eseguire azioni dannose in risposta a output inaspettati o ambigui da un LLM (indipendentemente dalla causa del malfunzionamento dell'LLM; sia essa allucinazione/confabulazione, iniezione di prompt diretta/indiretta, plugin maligno, prompt benigni mal progettati, o semplicemente un modello con scarse prestazioni). La causa radice dell'Eccessiva Autonomia è tipicamente una o più delle seguenti: funzionalità eccessive, permessi eccessivi o autonomia eccessiva. Questo si differenzia dalla Gestione Insicura dell'Output, che riguarda invece la mancanza di scrutinio sugli output generati dall'LLM.
 
-Excessive Agency is the vulnerability that enables damaging actions to be performed in response to unexpected/ambiguous outputs from an LLM (regardless of what is causing the LLM to malfunction; be it hallucination/confabulation, direct/indirect prompt injection, malicious plugin, poorly-engineered benign prompts, or just a poorly-performing model). The root cause of Excessive Agency is typically one or more of: excessive functionality, excessive permissions or excessive autonomy. This differs from Insecure Output Handling which is concerned with insufficient scrutiny of LLM outputs.
+L'Eccessiva Autonomia può portare a un'ampia gamma di impatti sull'intero spettro della riservatezza, integrità e disponibilità, e dipende dai sistemi con cui un'app basata su LLM può interagire.
 
-Excessive Agency can lead to a broad range of impacts across the confidentiality, integrity and availability spectrum, and is dependent on which systems an LLM-based app is able to interact with.
+### Esempi Comuni di Vulnerabilità
 
-### Common Examples of Vulnerability
+1. Funzionalità Eccessiva: Un agente LLM ha accesso a plugin che includono funzioni non necessarie per il funzionamento previsto del sistema. Ad esempio, uno sviluppatore deve concedere a un agente LLM la capacità di leggere documenti da un repository, ma il plugin di terze parti che sceglie di utilizzare include anche la capacità di modificare ed eliminare documenti.
+2. Funzionalità Eccessiva: Un plugin potrebbe essere stato testato durante una fase di sviluppo e poi scartato in favore di un'alternativa migliore, ma il plugin originale rimane disponibile all'agente LLM.
+3. Funzionalità Eccessiva: Un plugin LLM con funzionalità aperte non riesce a filtrare adeguatamente le istruzioni di input per comandi che vanno oltre quanto necessario per il funzionamento previsto dell'applicazione. Ad esempio, un plugin per eseguire un specifico comando shell non impedisce adeguatamente l'esecuzione di altri comandi shell.
+4. Permessi Eccessivi: Un plugin LLM ha permessi su altri sistemi che non sono necessari per il funzionamento previsto dell'applicazione. Ad esempio, un plugin progettato per leggere dati si connette a un server di database utilizzando un'identità che non ha solo permessi SELECT, ma anche UPDATE, INSERT e DELETE.
+5. Permessi Eccessivi: Un plugin LLM progettato per eseguire operazioni per conto di un utente accede a sistemi aggiuntivi rispetto a quelli previsti con un'identità generica che ha privilegi elevati. Ad esempio, un plugin per leggere l'archivio documenti dell'utente corrente si connette al repository dei documenti con un account privilegiato che ha accesso ai file di tutti gli utenti.
+6. Autonomia Eccessiva: Un'applicazione o plugin basato su LLM non verifica e approva in modo indipendente azioni ad alto impatto. Ad esempio, un plugin che consente di eliminare i documenti di un utente esegue cancellazioni senza esplicita conferma da parte dell'utente.
 
-1. Excessive Functionality: An LLM agent has access to plugins which include functions that are not needed for the intended operation of the system. For example, a developer needs to grant an LLM agent the ability to read documents from a repository, but the 3rd-party plugin they choose to use also includes the ability to modify and delete documents.
-2. Excessive Functionality: A plugin may have been trialed during a development phase and dropped in favor of a better alternative, but the original plugin remains available to the LLM agent.
-3. Excessive Functionality: An LLM plugin with open-ended functionality fails to properly filter the input instructions for commands outside what's necessary for the intended operation of the application. E.g., a plugin to run one specific shell command fails to properly prevent other shell commands from being executed.
-4. Excessive Permissions: An LLM plugin has permissions on other systems that are not needed for the intended operation of the application. E.g., a plugin intended to read data connects to a database server using an identity that not only has SELECT permissions, but also UPDATE, INSERT and DELETE permissions.
-5. Excessive Permissions: An LLM plugin that is designed to perform operations on behalf of a user accesses downstream systems with a generic high-privileged identity. E.g., a plugin to read the current user's document store connects to the document repository with a privileged account that has access to all users' files.
-6. Excessive Autonomy: An LLM-based application or plugin fails to independently verify and approve high-impact actions. E.g., a plugin that allows a user's documents to be deleted performs deletions without any confirmation from the user.
+### Strategie di Prevenzione e Mitigazione
 
-### Prevention and Mitigation Strategies
+Le seguenti azioni possono prevenire l'Eccessiva Autonomia:
+1. Limitare i plugin/strumenti che gli agenti LLM possono utilizzare solo alle funzioni minime necessarie. Ad esempio, se un sistema basato su LLM non richiede la capacità di recuperare i contenuti di un URL, tale plugin non dovrebbe essere offerto all'agente LLM.
+2. Limitare le funzioni implementate nei plugin/strumenti LLM al minimo necessario. Ad esempio, un plugin che accede alla casella di posta elettronica di un utente per riassumere le email potrebbe richiedere solo la capacità di leggere le email, quindi il plugin non dovrebbe contenere altre funzionalità come l'eliminazione o l'invio di messaggi.
+3. Evitare, dove possibile, funzioni aperte (ad esempio, eseguire un comando shell, recuperare un URL, ecc.) e usare plugin/strumenti con funzionalità più granulari. Ad esempio, un'app basata su LLM potrebbe aver bisogno di scrivere alcuni output su un file. Se ciò venisse implementato utilizzando un plugin per eseguire una funzione shell, l'ambito per azioni indesiderate sarebbe molto ampio (potrebbe essere eseguito qualsiasi altro comando shell). Un'alternativa più sicura sarebbe costruire un plugin per la scrittura di file che potesse supportare solo quella specifica funzionalità.
+4. Limitare i permessi concessi ai plugin/strumenti LLM verso altri sistemi al minimo necessario per limitare l'ambito di azioni indesiderate. Ad esempio, un agente LLM che utilizza un database di prodotti per fare raccomandazioni di acquisto a un cliente necessita solo dell'accesso in lettura alla tabella 'prodotti'; non dovrebbe avere accesso ad altre tabelle, né la capacità di inserire, aggiornare o eliminare record. Ciò dovrebbe essere assicurato applicando i permessi appropriati all'identità che il plugin LLM utilizza per connettersi al database.
+5. Monitorare le autorizzazioni dell'utente ed il perimetro di sicurezza per garantire che le azioni intraprese per conto di un utilizzatore vengano eseguite sui sistemi a valle nel contesto previsto per quell'utente specifico e con i privilegi minimi necessari. Ad esempio, un plugin LLM che legge il repository di codice di un utente dovrebbe richiedere all'utente di autenticarsi tramite OAuth e con l'ambito minimo richiesto per lo scopo.
+6. Utilizzare il controllo umano nel ciclo (human-in-the-loop) per richiedere l'approvazione da parte di un essere umano di tutte le azioni prima che queste vengano intraprese. Questo può essere implementato in un sistema "terzo" (al di fuori dell'ambito dell'applicazione LLM) o all'interno del plugin/strumento LLM stesso. Ad esempio, un'app basata su LLM che crea e pubblica contenuti sui social media per conto di un utente dovrebbe includere una routine che preveda l'esplicita approvazione di quest'ultimo all'interno nel plugin/strumento/API che effettua l'operazione di 'post'.
+7. Implementare l'autorizzazione nei sistemi esterni piuttosto che lasciar decidere al modello LLM se un'azione sia consentita o meno. Quando si implementano strumenti/plugin, applicare il principio di mediazione assoluta dei flussi per assicurare che tutte le richieste fatte ai sistemi a valle tramite i plugin/strumenti vengano validate rispetto alle politiche di sicurezza.
 
-The following actions can prevent Excessive Agency:
-
-1. Limit the plugins/tools that LLM agents are allowed to call to only the minimum functions necessary. For example, if an LLM-based system does not require the ability to fetch the contents of a URL then such a plugin should not be offered to the LLM agent.
-2. Limit the functions that are implemented in LLM plugins/tools to the minimum necessary. For example, a plugin that accesses a user's mailbox to summarise emails may only require the ability to read emails, so the plugin should not contain other functionality such as deleting or sending messages.
-3. Avoid open-ended functions where possible (e.g., run a shell command, fetch a URL, etc.) and use plugins/tools with more granular functionality. For example, an LLM-based app may need to write some output to a file. If this were implemented using a plugin to run a shell function then the scope for undesirable actions is very large (any other shell command could be executed). A more secure alternative would be to build a file-writing plugin that could only support that specific functionality.
-4. Limit the permissions that LLM plugins/tools are granted to other systems to the minimum necessary in order to limit the scope of undesirable actions. For example, an LLM agent that uses a product database in order to make purchase recommendations to a customer might only need read access to a 'products' table; it should not have access to other tables, nor the ability to insert, update or delete records. This should be enforced by applying appropriate database permissions for the identity that the LLM plugin uses to connect to the database.
-5. Track user authorization and security scope to ensure actions taken on behalf of a user are executed on downstream systems in the context of that specific user, and with the minimum privileges necessary. For example, an LLM plugin that reads a user's code repo should require the user to authenticate via OAuth and with the minimum scope required.
-6. Utilise human-in-the-loop control to require a human to approve all actions before they are taken. This may be implemented in a downstream system (outside the scope of the LLM application) or within the LLM plugin/tool itself. For example, an LLM-based app that creates and posts social media content on behalf of a user should include a user approval routine within the plugin/tool/API that implements the 'post' operation.
-7. Implement authorization in downstream systems rather than relying on an LLM to decide if an action is allowed or not. When implementing tools/plugins enforce the complete mediation principle so that all requests made to downstream systems via the plugins/tools are validated against security policies.
-
-The following options will not prevent Excessive Agency, but can limit the level of damage caused:
-
-1. Log and monitor the activity of LLM plugins/tools and downstream systems to identify where undesirable actions are taking place, and respond accordingly.
-2. Implement rate-limiting to reduce the number of undesirable actions that can take place within a given time period, increasing the opportunity to discover undesirable actions through monitoring before significant damage can occur.
+Le seguenti opzioni non prevengono l'Eccessiva Autonomia, ma possono limitare il livello di danno causato:
+1. Registrare e monitorare l'attività dei plugin/strumenti LLM e dei sistemi da essi contattati per identificare eventuali azioni indesiderate, e rispondere di conseguenza.
+2. Implementare un limite di frequenza (rate-limiting) per ridurre il numero di azioni indesiderate che possono verificarsi in un dato periodo di tempo, aumentando l'opportunità di scoprire azioni indesiderate tramite il monitoraggio prima che possano verificarsi danni significativi.
 
 ### Example Attack Scenarios
 
@@ -42,7 +39,15 @@ An LLM-based personal assistant app is granted access to an individual’s mailb
   (c) eliminating excessive autonomy by requiring the user to manually review and hit 'send' on every mail drafted by the LLM plugin.
 Alternatively, the damage caused could be reduced by implementing rate limiting on the mail-sending interface.
 
-### Reference Links
+### Esempi di Scenari di Attacco
+
+Un'app di assistenza personale basata su LLM ottiene l'accesso alla casella di posta elettronica di un individuo tramite un plugin per riassumere il contenuto delle email in arrivo. Per ottenere questa funzionalità, il plugin di posta elettronica richiede la capacità di leggere i messaggi, tuttavia il plugin scelto dallo sviluppatore del sistema contiene anche funzioni per inviare messaggi. L'LLM è vulnerabile a un attacco di iniezione indiretta di prompt, in cui un'email malevolamente elaborata inganna l'LLM nel comandare il plugin di posta elettronica a chiamare la funzione 'invia messaggio' per inviare spam dalla casella di posta dell'utente. Questo potrebbe essere evitato:<br><br>
+(a) eliminando la funzionalità eccessiva utilizzando un plugin che offre solo capacità di lettura della posta, <br>
+(b) eliminando i permessi eccessivi autenticandosi al servizio email dell'utente tramite una sessione OAuth con uno ruolo di sola lettura, e/o <br>
+(c) eliminando l'autonomia eccessiva chiedendo all'utente di rivedere manualmente e premere 'invia' su ogni email redatta dal plugin LLM.
+In aggiunta, il danno causato potrebbe essere ridotto implementando un limite alla frequenza di invio sull'interfaccia che spedisce la posta elettronica.
+
+### Riferimenti e Link (Inglese)
 
 1. [Embrace the Red: Confused Deputy Problem](https://embracethered.com/blog/posts/2023/chatgpt-cross-plugin-request-forgery-and-prompt-injection./): **Embrace The Red**
 2. [NeMo-Guardrails: Interface guidelines](https://github.com/NVIDIA/NeMo-Guardrails/blob/main/docs/security/guidelines.md): **NVIDIA Github**
