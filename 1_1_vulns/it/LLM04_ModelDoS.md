@@ -11,7 +11,8 @@ Un attaccante interagisce con un LLM in un modo che porta al consumo di una quan
 3. Sovraccarico continuo dell'input: un attaccante invia ripetutamente un flusso di input all'LLM che supera la sua finestra di contesto, causando al modello un consumo eccessivo di risorse computazionali.
 4. Input lunghi ripetuti: l'attaccante invia ripetutamente input lunghi all'LLM, ognuno dei quali supera la finestra di contesto.
 5. Espansione ricorsiva del contesto: l'attaccante costruisce un input che attiva l'espansione ricorsiva del contesto, forzando l'LLM a espandere e processare ripetutamente la finestra di contesto.
-6. Inondazione di input di lunghezza variabile: l'attaccante inonda l'LLM con un grande volume di input di lunghezza variabile, dove ogni input è attentamente costruito per raggiungere appena il limite della finestra di contesto. Questa tecnica mira a sfruttare qualsiasi inefficienza nel processamento di input di lunghezza variabile, mettendo sotto sforzo l'LLM e potenzialmente causandone il blocco.
+6. Inondazione di input di lunghezza variabile: l'attaccante inonda l'LLM con un grande volume di input di lunghezza variabile, dove ogni input è attentamente costruito per raggiungere appena il limite della finestra di contesto. Questa tecnica mira a sfruttare qualsiasi inefficienza nel trattamento di input di lunghezza variabile, mettendo sotto sforzo l'LLM e potenzialmente causandone il blocco.
+
 
 ### Strategie di Prevenzione e Mitigazione
 
