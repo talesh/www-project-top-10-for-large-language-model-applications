@@ -7,7 +7,7 @@ Un attaccante interagisce con un LLM in un modo che porta al consumo di una quan
 ### Esempi Comuni di Vulnerabilità
 
 1. Porre domande (prompts) che portano a un uso ricorrente delle risorse attraverso la generazione di un alto volume di compiti in una coda, ad esempio usando LangChain o AutoGPT.
-2. Inviare interrogazioni insolitamente onerose per le risorse che utilizzano un'ortografia o delle sequenze insolite di testo.
+2. Inviare interrogazioni insolitamente onerose in termini di risorse, usando un'ortografia o delle sequenze di testo insolite.
 3. Sovraccarico continuo dell'input: un attaccante invia ripetutamente un flusso di input all'LLM che supera la sua finestra di contesto, causando al modello un consumo eccessivo di risorse computazionali.
 4. Input lunghi ripetuti: l'attaccante invia ripetutamente input lunghi all'LLM, ognuno dei quali supera la finestra di contesto.
 5. Espansione ricorsiva del contesto: l'attaccante costruisce un input che attiva l'espansione ricorsiva del contesto, forzando l'LLM a espandere e processare ripetutamente la finestra di contesto.
