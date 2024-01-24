@@ -2,7 +2,7 @@
 
 ### Descrizione
 
-La vulnerabilità di tipo iniezione di prompt (inglese: prompt injection) si verifica quando un attaccante manipola un modello linguistico di grandi dimensioni (LLM) attraverso input artificiosi, facendo in modo che l’LLM risponda inconsapevolmente alle intenzioni dell’attaccante. Questo può essere fatto direttamente attraverso il “jailbreaking” del prompt di sistema, oppure indirettamente, attraverso degli input esterni manipolati, portando potenzialmente all’esfiltrazione di dati, all’ingegneria sociale e altri problemi.
+La vulnerabilità di tipo iniezione di prompt (inglese: prompt injection) si verifica quando un attaccante manipola un modello linguistico di grandi dimensioni (LLM) attraverso input artificiosi, facendo in modo che l’LLM risponda inconsapevolmente alle intenzioni dell’attaccante. Questo può essere fatto direttamente attraverso il “jailbreaking” (effrazione) del prompt di sistema, oppure indirettamente, attraverso degli input esterni manipolati, portando potenzialmente all’esfiltrazione di dati, all’ingegneria sociale e altri problemi.
 
 * **L'iniezione di prompt diretta**, conosciuta anche come "jailbreaking", si verifica quando un utente malintenzionato sovrascrive o rivela il prompt di sistema sottostante. Ciò può consentire agli attaccanti di sfruttare i sistemi backend interagendo con funzioni insicure e archivi di dati accessibili tramite l'LLM.
 
