@@ -30,7 +30,7 @@ Codice Sorgente generato da LLM, può introdurre silenziosamente delle vulnerabi
 
 1. Una testata giornalistica utilizza pesantemente un LLM per generare i propri articoli e notizie. Un malintenzionato può approfitteìare di questa eccessiva dipendenza, iniettando nel LLM informazioni fuorvianti, che favoriscano la diffusione di notizie false o mirate.
 2. L'intelligenza artificiale plagia contenuti anche se non intenzionalmente, portando a problemi di proprietà intellettuale che minano la credibilità dell'organizzazione.
-3. Un team di sviluppo software utilizza un LLM per accelerare il processo di codifica. Un'eccessiva dipendenza dai suggerimenti dell'AI introduce vulnerabilità nelle applicazioni generate a causa di parametri di default non modificati o raccomandazioni inconsistenti con le pratiche di sviluppo sicuro.
+3. Un team di sviluppo software utilizza un LLM per accelerare la scrittura di codice. Un'eccessiva dipendenza dai suggerimenti dell'AI introduce vulnerabilità nelle applicazioni generate a causa di parametri di default non modificati o raccomandazioni inconsistenti con le pratiche di sviluppo sicuro.
 4. Un'azienda che si occupa di sviluppo software utilizza un LLM per fornire assistenza agli sviluppatori. Il modello suggerisce una libreria o un pacchetto inesistenti e uno sviluppatore, affidandosi all'AI, integra senza saperlo un pacchetto malevolo nel software venduto dall'azienda. Questo esempio sottolinea l'importanza dei controlli incrociati sui suggerimenti del modello, in particolare quando questi si riferiscono a codice o librerie di terze parti.
 
 ### Link e Riferimenti (Inglese)
