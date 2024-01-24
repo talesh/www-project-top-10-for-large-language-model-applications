@@ -31,7 +31,8 @@ L'uso di un modello rubato, come un modello ombra (shadow model), può essere fi
 4. Monitorare e verificare regolarmente i registri (log) di accesso e le attività relative agli archivi dei modelli LLM, per rilevare e rispondere tempestivamente a qualsiasi comportamento sospetto o non autorizzato.
 5. Automatizzare l'implementazione delle cosiddette MLOps (Gestione Operativa dei Modelli di Machine Learning) attraverso flussi di lavoro per la governance, il tracciamento e l'approvazione, per rafforzare i controlli di accesso e rilascio all'interno dell'infrastruttura.
 
-6. Implementare controlli e strategie di mitigazione per ridurre e|o contenere il rischio di attacchi indiretti (side channel) causati da tecniche di iniezione di prompt (prompt injection).
+6. Implementare controlli e strategie di mitigazione per ridurre e/o contenere il rischio di attacchi indiretti (side channel) causati da tecniche di iniezione di prompt (prompt injection).
+
 7. Limitare la frequenza delle chiamate API dove applicabile e/o utilizzare filtri per ridurre il rischio di esfiltrazione dati dalle applicazioni LLM, o implementare tecniche (ad es. sistemi di Data Loss Prevention) per rilevare attività di estrazione anche da altre fonti.
 8. Implementare un addestramento avversariale mirato alla resilienza per aiutare a rilevare query di estrazione e rafforzare le misure di sicurezza fisica.
 9. Implementare un framework di marcatura modale e/o temporale (watermarking) nelle fasi di integrazione (input) e monitoraggio (output, trasformazione), parte del ciclo di vita di un LLM.
