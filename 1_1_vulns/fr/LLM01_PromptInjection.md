@@ -2,19 +2,19 @@
 
 ### Description
 
-Une vulnerabilité d'injection de prompt se produit lorsqu'un attaquant manipule un grand modèle de langage (LLM) à l'aide d'inputs spécialement conçus, ce qui conduit le LLM à exécuter à son insu les intentions de l'attaquant. Cela peut être fait directement à travers le "jailbreaking" du prompt de système ou indirectement par le biais d'inputs externes manipulés, ce qui peut potentiellement causer des problèmes de fuite de données, d'ingénierie sociale et autres.
+Une vulnérabilité d'injection de prompt se produit lorsqu'un attaquant manipule un grand modèle de langage (LLM) à l'aide d'inputs spécialement conçus, ce qui conduit le LLM à exécuter à son insu les intentions de l'attaquant. Cela peut être fait directement par le "jailbreaking" du prompt de système ou indirectement par le biais d'inputs externes manipulés, ce qui peut potentiellement causer des problèmes de fuite de données, d'ingénierie sociale et autres.
 
-* Une **Injection de prompt directe**, ou "jailbreaking", se produit lorsqu'un utilisateur malveillant rémplace ou révèle le prompt de système sous-jacent. Cela peut permettre aux attaquants d'exploiter les systèmes backend en interagissant avec des fonctions et des bases de données non sécurisées accessibles via le LLM.
+* Une **Injection de prompt directe**, ou "jailbreaking", se produit lorsqu'un utilisateur malveillant remplace ou révèle le prompt de système sous-jacent. Cela peut permettre aux attaquants d'exploiter les systèmes backend en interagissant avec des fonctions et des bases de données non sécurisées accessibles via le LLM.
 
 * Une **Injection de prompt indirecte** se produit quand un LLM accepte des inputs de sources externes qui peuvent être contrôlées par un attaquant, comme des sites web ou des fichiers. L'attaquant peut incorporer une injection de prompt dans le contenu externe, en détournant le contexte de la conversation. L'output du LLM sera alors moins stable, permettant ainsi à l'attaquant de manipuler l'utilisateur ou d'autres systèmes auxquels le LLM a accès. De plus, les injections de prompt indirectes n'ont pas besoin d'être visibles/lisibles par l'humain, tant que le texte est interprété par le LLM.
 
-Les résultats d'une attaque de prompt injection réussie peuvent considérablement varier – de la demande d'informations sensibles, à l'influence sur les processus de prise de décision majeurs sous couvert d'une opération normale.
+Les résultats d'une attaque d'injection de prompt réussie peuvent considérablement varier – de la demande d'informations sensibles, à l'influence sur les processus de prise de décision majeurs sous couvert d'une opération normale.
 
-Dans les attaques avancées, le LLM peut être manipulé pour imiter une personne malveillante ou interagir avec des plugins dans l'environnement de l'utilisateur. Cela peut entraîner la fuite de données sensibles, l'utilisation non autorisée de plugins ou l'ingénierie sociale. Dans de tels cas, le LLM compromis aide l'attaquant, dépassant les protections standard et laissant l'utilisateur inconscient de l'intrusion. Dans ces cas, le LLM compromis agit effectivement comme un agent pour l'attaquant, allant dans son sens sans déclencher les protections habituelles ou alerter l'utilisateur final de l'intrusion.
+Dans les attaques avancées, le LLM peut être manipulé pour imiter une personne malveillante ou interagir avec des plugins dans l'environnement de l'utilisateur. Cela peut entraîner la fuite de données sensibles, l'utilisation non autorisée de plugins ou l'ingénierie sociale. Dans de tels cas, le LLM compromis aide l'attaquant, dépassant les protections standards et laissant l'utilisateur inconscient de l'intrusion. Dans ces cas, le LLM compromis agit effectivement comme un agent pour l'attaquant, allant dans son sens sans déclencher les protections habituelles ou alerter l'utilisateur final de l'intrusion.
 
 ### Exemples communs de vulnérabilité
 
-1. Un utilisateur malveillant crée une injection de prompt directe pour le LLM, qui lui ordonne d'ignorer les prompts système du créateur de l'application et d'exécuter un prompt qui renvoie des informations privées, dangereuses ou indésirables.
+1. Un utilisateur malveillant crée une injection de prompt directe pour le LLM, qui lui ordonne d'ignorer les prompts de système du créateur de l'application et d'exécuter un prompt qui renvoie des informations privées, dangereuses ou indésirables.
 
 2. Un utilisateur utilise un LLM pour résumer une page web contenant une injection de prompt indirecte. Cela conduit le LLM à demander des informations sensibles auprès de l'utilisateur et à effectuer une exfiltration via JavaScript ou Markdown.
 
@@ -25,9 +25,9 @@ Dans les attaques avancées, le LLM peut être manipulé pour imiter une personn
 5. Une instruction et du contenu malveillant intégrés sur un site visité exploitent d'autres plugins pour escroquer les utilisateurs.
 
 
-### Stratégies de prevention et d'atténuation
+### Stratégies de prévention et d'atténuation
 
-Les vulnerabilités de prompt injection sont possibles en raison de la nature des LLM, qui ne séparent pas les instructions et les données externes les unes des autres. Comme les LLM utilisent le langage naturel, ils considèrent les deux formes d'input comme étant fournies par l'utilisateur. Par conséquent, il n'y a pas de prévention infaillible dans le LLM, mais les mesures suivantes peuvent atténuer l'impact des prompt injections :
+Les vulnérabilités d'injection de prompt sont possibles en raison de la nature des LLM, qui ne séparent pas les instructions et les données externes les unes des autres. Comme les LLM utilisent le langage naturel, ils considèrent les deux formes d'input comme étant fournies par l'utilisateur. Par conséquent, il n'y a pas de prévention infaillible dans le LLM, mais les mesures suivantes peuvent atténuer l'impact des injections de prompt :
 
 1. Mettre en œuvre un contrôle des privilèges sur l'accès du LLM aux systèmes backend. Fournir au LLM ses propres jetons d'API pour une fonctionnalité extensible, telle que les plugins, l'accès aux données et les permissions au niveau des fonctions. Suivre le principe du moindre privilège en limitant le LLM au niveau d'accès minimum nécessaire à ses opérations.
 
@@ -39,7 +39,7 @@ Les vulnerabilités de prompt injection sont possibles en raison de la nature de
 
 5. Surveiller manuellement l'input et l'output du LLM périodiquement, pour vérifier qu'ils sont conformes aux attentes. Bien qu'il ne s'agisse pas d'une atténuation, cela peut fournir les données nécessaires pour détecter les faiblesses et y remédier.
 
-### Examples de scenarios d'attaque
+### Exemples de scenarios d'attaque
 
 1. Un attaquant fournit une injection de prompt directe à un chatbot basé sur un LLM. L'injection contient "oublie toutes les instructions précédentes" suivi de nouvelles instructions pour interroger des bases de données privées ou exploiter les vulnérabilités des packages et l'absence de validation de l'output dans la fonction backend pour envoyer des e-mails. Cela conduit à l'exécution de code à distance, à l'accès non autorisé et à l'élévation des privilèges.
 
@@ -51,7 +51,7 @@ Les vulnerabilités de prompt injection sont possibles en raison de la nature de
 
 5. Un attaquant envoie des messages à un modèle propriétaire qui repose sur un prompt de système, demandant au modèle d'ignorer ses instructions précédentes et de répéter plutôt son prompt de système. Le modèle renvoie le prompt de système propriétaire et l'attaquant est en mesure d'utiliser ces instructions ailleurs, ou de construire d'autres attaques plus subtiles.
 
-### References
+### Références
 
 1. [Prompt injection attacks against GPT-3](https://simonwillison.net/2022/Sep/12/prompt-injection/): **Simon Willison**
 1. [ChatGPT Plugin Vulnerabilities - Chat with Code](https://embracethered.com/blog/posts/2023/chatgpt-plugin-vulns-chat-with-code/): **Embrace The Red**
