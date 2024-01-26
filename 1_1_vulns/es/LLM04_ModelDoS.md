@@ -1,39 +1,40 @@
-## LLM04: Model Denial of Service
+## LLM04: Denegación de Servicio en Modelos
 
-### Description
+### Descripción
 
-An attacker interacts with an LLM in a method that consumes an exceptionally high amount of resources, which results in a decline in the quality of service for them and other users, as well as potentially incurring high resource costs. Furthermore, an emerging major security concern is the possibility of an attacker interfering with or manipulating the context window of an LLM. This issue is becoming more critical due to the increasing use of LLMs in various applications, their intensive resource utilization, the unpredictability of user input, and a general unawareness among developers regarding this vulnerability. In LLMs, the context window represents the maximum length of text the model can manage, covering both input and output. It's a crucial characteristic of LLMs as it dictates the complexity of language patterns the model can understand and the size of the text it can process at any given time. The size of the context window is defined by the model's architecture and can differ between models.
+Un atacante interactúa con un LLM de una manera que consume una cantidad excepcionalmente alta de recursos, lo que resulta en una disminución en la calidad del servicio tanto para ellos como para otros usuarios, así como en la posible generación de altos costos de recursos. Además, una preocupación de seguridad emergente es la posibilidad de que un atacante interfiera o manipule la ventana de contexto de un LLM. Este problema se está volviendo más crítico debido al creciente uso de LLM en diversas aplicaciones, su intensiva utilización de recursos, la imprevisibilidad de la entrada del usuario y una falta de conciencia general entre los desarrolladores sobre esta vulnerabilidad. En los LLM, la ventana de contexto representa la longitud máxima de texto que el modelo puede manejar, cubriendo tanto la entrada como la salida. Es una característica crucial de los LLM ya que dicta la complejidad de los patrones de lenguaje que el modelo puede comprender y el tamaño del texto que puede procesar en un momento dado. El tamaño de la ventana de contexto está definido por la arquitectura del modelo y puede variar entre modelos.
 
-### Common Examples of Vulnerability
+### Ejemplos Comunes de Vulnerabilidad
 
-1. Posing queries that lead to recurring resource usage through high-volume generation of tasks in a queue, e.g. with LangChain or AutoGPT.
-2. Sending unusually resource-consuming queries that use unusual orthography or sequences.
-3. Continuous input overflow: An attacker sends a stream of input to the LLM that exceeds its context window, causing the model to consume excessive computational resources.
-4. Repetitive long inputs: The attacker repeatedly sends long inputs to the LLM, each exceeding the context window.
-5. Recursive context expansion: The attacker constructs input that triggers recursive context expansion, forcing the LLM to repeatedly expand and process the context window.
-6. Variable-length input flood: The attacker floods the LLM with a large volume of variable-length inputs, where each input is carefully crafted to just reach the limit of the context window. This technique aims to exploit any inefficiencies in processing variable-length inputs, straining the LLM and potentially causing it to become unresponsive.
+1. Realizar consultas que conducen a un uso recurrente de recursos a través de la generación de un alto volumen de tareas en una cola, por ejemplo, con LangChain o AutoGPT.
+2. Enviar consultas inusualmente consumidoras de recursos que utilizan ortografía o secuencias inusuales.
+3. Desbordamiento continuo de entrada: Un atacante envía un flujo de entrada al LLM que excede su ventana de contexto, causando que el modelo consuma recursos computacionales excesivos.
+4. Entradas largas repetitivas: El atacante envía repetidamente entradas largas al LLM, cada una excediendo la ventana de contexto.
+5. Expansión recursiva del contexto: El atacante construye una entrada que desencadena la expansión recursiva del contexto, obligando al LLM a expandir y procesar repetidamente la ventana de contexto.
+6. Inundación de entrada de longitud variable: El atacante inunda al LLM con un gran volumen de entradas de longitud variable, donde cada entrada está cuidadosamente diseñada para alcanzar justo el límite de la ventana de contexto. Esta técnica tiene como objetivo explotar cualquier ineficiencia en el procesamiento de entradas de longitud variable, forzando al LLM y potencialmente causando que se vuelva irresponsivo.
 
-### Prevention and Mitigation Strategies
+### Estrategias de Prevención y Mitigación
 
-1. Implement input validation and sanitization to ensure user input adheres to defined limits and filters out any malicious content.
-2. Cap resource use per request or step, so that requests involving complex parts execute more slowly.
-3. Enforce API rate limits to restrict the number of requests an individual user or IP address can make within a specific timeframe.
-4. Limit the number of queued actions and the number of total actions in a system reacting to LLM responses.
-5. Continuously monitor the resource utilization of the LLM to identify abnormal spikes or patterns that may indicate a DoS attack.
-6. Set strict input limits based on the LLM's context window to prevent overload and resource exhaustion.
-7. Promote awareness among developers about potential DoS vulnerabilities in LLMs and provide guidelines for secure LLM implementation.
+1. Implementar validación y sanitización de entradas para garantizar que las entradas de los usuarios se adhieran a los límites definidos y filtrar cualquier contenido malicioso.
+2. Limitar el uso de recursos por solicitud o paso, de modo que las solicitudes que involucren partes complejas se ejecuten más lentamente.
+3. Imponer límites de tasa en la API para restringir el número de solicitudes que un usuario individual o dirección IP puede hacer en un marco de tiempo específico.
+4. Limitar el número de acciones en cola y el número total de acciones en un sistema que reacciona a las respuestas del LLM.
+5. Monitorear continuamente la utilización de recursos del LLM para identificar picos anormales o patrones que puedan indicar un ataque de DoS.
+6. Establecer límites estrictos de entrada basados en la ventana de contexto del LLM para prevenir la sobrecarga y el agotamiento de recursos.
+7. Promover la concienciación entre los desarrolladores sobre posibles vulnerabilidades de DoS en los LLM y proporcionar pautas para la implementación segura de LLM.
 
-### Example Attack Scenarios
+### Ejemplos de Escenarios de Ataque
 
-1. An attacker repeatedly sends multiple difficult and costly requests to a hosted model leading to worse service for other users and increased resource bills for the host.
-2. A piece of text on a webpage is encountered while an LLM-driven tool is collecting information to respond to a benign query. This leads to the tool making many more web page requests, resulting in large amounts of resource consumption.
-3. An attacker continuously bombards the LLM with input that exceeds its context window. The attacker may use automated scripts or tools to send a high volume of input, overwhelming the LLM's processing capabilities. As a result, the LLM consumes excessive computational resources, leading to a significant slowdown or complete unresponsiveness of the system.
-4. An attacker sends a series of sequential inputs to the LLM, with each input designed to be just below the context window's limit. By repeatedly submitting these inputs, the attacker aims to exhaust the available context window capacity. As the LLM struggles to process each input within its context window, system resources become strained, potentially resulting in degraded performance or a complete denial of service.
-5. An attacker leverages the LLM's recursive mechanisms to trigger context expansion repeatedly. By crafting input that exploits the recursive behavior of the LLM, the attacker forces the model to repeatedly expand and process the context window, consuming significant computational resources. This attack strains the system and may lead to a DoS condition, making the LLM unresponsive or causing it to crash.
-6. An attacker floods the LLM with a large volume of variable-length inputs, carefully crafted to approach or reach the context window's limit. By overwhelming the LLM with inputs of varying lengths, the attacker aims to exploit any inefficiencies in processing variable-length inputs. This flood of inputs puts an excessive load on the LLM's resources, potentially causing performance degradation and hindering the system's ability to respond to legitimate requests.
-7. While DoS attacks commonly aim to overwhelm system resources, they can also exploit other aspects of system behavior, such as API limitations. For example, in a recent Sourcegraph security incident, the malicious actor employed a leaked admin access token to alter API rate limits, thereby potentially causing service disruptions by enabling abnormal levels of request volumes.
+1. Un atacante envía repetidamente múltiples solicitudes difíciles y costosas a un modelo alojado, lo que lleva a un peor servicio para otros usuarios y a un aumento en las facturas de recursos para el anfitrión.
+2. Un fragmento de texto en una página web se encuentra mientras una herramienta impulsada por LLM está recopilando información para responder a una consulta benigna. Esto lleva a que la herramienta realice muchas más solicitudes de páginas web, resultando en un gran consumo de recursos.
+3. Un atacante bombardea continuamente al LLM con entradas que exceden su ventana de contexto. El atacante puede usar scripts automáticos o herramientas para enviar un alto volumen de entradas, abrumando las capacidades de procesamiento del LLM. Como resultado, el LLM consume recursos computacionales excesivos, lo que lleva a una desaceleración significativa o completa falta de respuesta del sistema.
+4. Un atacante envía una serie de entradas secuenciales al LLM, con cada entrada diseñada para estar justo por debajo del límite de la ventana de contexto. Al enviar repetidamente estas entradas, el atacante busca agotar la capacidad disponible de la ventana de contexto. A medida que el LLM lucha por procesar cada entrada dentro de su ventana de contexto, los recursos del sistema se ven tensionados, lo que potencialmente resulta en un rendimiento degradado o una denegación completa del servicio.
+5. Un atacante aprovecha los mecanismos recursivos del LLM para desencadenar repetidamente la expansión del contexto. Al elaborar entradas que explotan el comportamiento recursivo del LLM, el atacante obliga al modelo a expandir y procesar repetidamente la ventana de contexto, consumiendo recursos computacionales significativos. Este ataque tensiona el sistema y puede llevar a una condición de DoS, haciendo que el LLM no responda o causando su caída.
+6. Un atacante inunda al LLM con un gran volumen de entradas de longitud variable, cuidadosamente elaboradas para acercarse o alcanzar el límite de la ventana de contexto. Al abrumar al LLM con entradas de longitudes variables, el atacante busca explotar cualquier ineficiencia en el procesamiento de entradas de longitud variable. Esta inundación de entradas pone una carga excesiva en los recursos del LLM, lo que potencialmente causa una degradación del rendimiento e impide la capacidad del sistema para responder a solicitudes legítimas.
+7. Aunque los ataques de DoS comúnmente buscan abrumar los recursos del sistema, también pueden explotar otros aspectos del comportamiento del sistema, como las limitaciones de la API. Por ejemplo, en un reciente incidente de seguridad de Sourcegraph, el actor malicioso empleó un token de acceso de administrador filtrado para alterar los límites de tasa de la API, lo que potencialmente causó interrupciones del servicio al permitir niveles anormales de volúmenes de solicitudes.
 
-### Reference Links
+
+### Enlaces de Referencia
 
 1. [LangChain max_iterations](https://twitter.com/hwchase17/status/1608467493877579777): **hwchase17 on Twitter**
 2. [Sponge Examples: Energy-Latency Attacks on Neural Networks](https://arxiv.org/abs/2006.03463): **Arxiv White Paper**

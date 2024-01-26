@@ -1,39 +1,39 @@
-## LLM09: Overreliance
+## LLM09: Sobredependencia
 
-### Description
+### Descripción
 
-Overreliance can occur when an LLM produces erroneous information and provides it in an authoritative manner. While LLMs can produce creative and informative content, they can also generate content that is factually incorrect, inappropriate or unsafe. This is referred to as hallucination or confabulation.  When people or systems trust this information without oversight or confirmation it can result in a security breach, misinformation, miscommunication, legal issues, and reputational damage.
+La Sobredependencia puede ocurrir cuando un LLM produce información errónea y la proporciona de manera autoritaria. Aunque los LLM pueden generar contenido creativo e informativo, también pueden crear contenido que es incorrecto, inapropiado o peligroso. Esto se conoce como alucinación o confabulación. Cuando las personas o sistemas confían en esta información sin supervisión o confirmación, puede resultar en una violación de seguridad, desinformación, mala comunicación, problemas legales y daño a la reputación.
 
-LLM-generated source code can introduce unnoticed security vulnerabilities. This poses a significant risk to the operational safety and security of applications. These risks show the importance of rigorous review processes, with:
+El código fuente generado por LLM puede introducir vulnerabilidades de seguridad no detectadas. Esto representa un riesgo significativo para la seguridad operativa y de las aplicaciones. Estos riesgos muestran la importancia de procesos de revisión rigurosos, con:
 
-* Oversight
-* Continuous validation mechanisms
-* Disclaimers on risk
+* Supervisión
+* Mecanismos de validación continua
+* Avisos sobre el riesgo
 
-### Common Examples of Vulnerability
+### Ejemplos Comunes de Vulnerabilidad
 
-1. LLM provides inaccurate information as a response while stating it in a fashion implying it is highly authoritative.  The overall system is designed without proper checks and balances to handle this and the information misleads the user in a way that leads to harm
-2. LLM suggests insecure or faulty code, leading to vulnerabilities when incorporated into a software system without proper oversight or verification.
+1. LLM proporciona información inexacta como respuesta, indicándola de manera que implica alta autoridad. El sistema en general está diseñado sin los controles y equilibrios adecuados para manejar esto y la información engaña al usuario de una manera que conduce a daños.
+2. LLM sugiere código inseguro o erroneo, lo que lleva a vulnerabilidades cuando se incorpora en un sistema de software sin la supervisión o verificación adecuada.
 
-### Prevention and Mitigation Strategies
+### Estrategias de Prevención y Mitigación
 
-1. Regularly monitor and review the LLM outputs. Use self-consistency or voting techniques to filter out inconsistent text. Comparing multiple model responses for a single prompt can better judge the quality and consistency of output.
-2. Cross-check the LLM output with trusted external sources. This additional layer of validation can help ensure the information provided by the model is accurate and reliable.
-3. Enhance the model with fine-tuning or embeddings to improve output quality. Generic pre-trained models are more likely to produce inaccurate information compared to tuned models in a particular domain.  Techniques such as prompt engineering, parameter efficient tuning (PET), full model tuning, and chain of thought prompting can be employed for this purpose.
-4. Implement automatic validation mechanisms that can cross-verify the generated output against known facts or data. This can provide an additional layer of security and mitigate the risks associated with hallucinations.
-5. Break down complex tasks into manageable subtasks and assign them to different agents. This not only helps in managing complexity, but it also reduces the chances of hallucinations as each agent can be held accountable for a smaller task.
-6. Clearly communicate the risks and limitations associated with using LLMs. This includes potential for information inaccuracies, and other risks. Effective risk communication can prepare users for potential issues and help them make informed decisions.
-7. Build APIs and user interfaces that encourage responsible and safe use of LLMs. This can involve measures such as content filters, user warnings about potential inaccuracies, and clear labeling of AI-generated content.
-8. When using LLMs in development environments, establish secure coding practices and guidelines to prevent the integration of possible vulnerabilities.
+1. Monitorear y revisar regularmente las salidas del LLM. Utilizar técnicas de autoconsistencia o votación para filtrar textos inconsistentes. Comparar múltiples respuestas del modelo para una sola solicitud puede ayudar a juzgar mejor la calidad y consistencia de la salida.
+2. Contrastar la salida del LLM con fuentes externas confiables. Esta capa adicional de validación puede ayudar a asegurar que la información proporcionada por el modelo sea precisa y confiable.
+3. Mejorar el modelo con ajustes finos o incrustaciones para mejorar la calidad de la salida. Los modelos preentrenados genéricos tienen más probabilidades de producir información inexacta en comparación con modelos ajustados en un dominio particular. Técnicas como la ingeniería de indicaciones, el ajuste eficiente de parámetros (PET), el ajuste completo del modelo y las indicaciones de cadena de pensamiento pueden emplearse para este propósito.
+4. Implementar mecanismos de validación automática que puedan verificar cruzadamente la salida generada contra hechos o datos conocidos. Esto puede proporcionar una capa adicional de seguridad y mitigar los riesgos asociados con las alucinaciones.
+5. Desglosar tareas complejas en subtareas manejables y asignarlas a diferentes agentes. Esto no solo ayuda a gestionar la complejidad, sino que también reduce las posibilidades de alucinaciones, ya que cada agente puede ser responsable de una tarea más pequeña.
+6. Comunicar claramente los riesgos y limitaciones asociados con el uso de LLM. Esto incluye la posibilidad de inexactitudes en la información y otros riesgos. Una comunicación efectiva de los riesgos puede preparar a los usuarios para problemas potenciales y ayudarles a tomar decisiones informadas.
+7. Desarrollar API e interfaces de usuario que fomenten un uso responsable y seguro de los LLM. Esto puede incluir medidas como filtros de contenido, advertencias a los usuarios sobre posibles inexactitudes y etiquetado claro del contenido generado por IA.
+8. Al usar LLM en entornos de desarrollo, establecer prácticas y directrices de codificación segura para prevenir la integración de posibles vulnerabilidades.
 
-### Example Attack Scenarios
+### Ejemplos de Escenarios de Ataque
 
-1. A news organization heavily uses an LLM to generate news articles. A malicious actor exploits this over-reliance, feeding the LLM misleading information, and causing the spread of disinformation.
-2. The AI unintentionally plagiarizes content, leading to copyright issues and decreased trust in the organization.
-3. A software development team utilizes an LLM system to expedite the coding process. Over-reliance on the AI's suggestions introduces security vulnerabilities in the application due to insecure default settings or recommendations inconsistent with secure coding practices.
-4. A software development firm uses an LLM to assist developers. The LLM suggests a non-existent code library or package, and a developer, trusting the AI, unknowingly integrates a malicious package into the firm's software. This highlights the importance of cross-checking LLM suggestions, especially when involving third-party code or libraries.
+1. Una organización de noticias utiliza intensivamente un LLM para generar artículos de noticias. Un actor malicioso explota esta sobredependencia, alimentando al LLM con información engañosa y causando la difusión de desinformación.
+2. La IA plagia involuntariamente contenido, lo que lleva a problemas de derechos de autor y disminución de la confianza en la organización.
+3. Un equipo de desarrollo de software utiliza un sistema LLM para acelerar el proceso de codificación. La sobredependencia en las sugerencias de la IA introduce vulnerabilidades de seguridad en la aplicación debido a configuraciones predeterminadas inseguras o recomendaciones inconsistentes con prácticas de codificación segura.
+4. Una empresa de desarrollo de software utiliza un LLM para asistir a los desarrolladores. El LLM sugiere una biblioteca o paquete de código inexistente, y un desarrollador, confiando en la IA, integra involuntariamente un paquete malicioso en el software de la empresa. Esto resalta la importancia de contrastar las sugerencias del LLM, especialmente cuando se involucran códigos o bibliotecas de terceros.
 
-### Reference Links
+### Enlaces de Referencia
 
 1. [Understanding LLM Hallucinations](https://towardsdatascience.com/llm-hallucinations-ec831dcd7786): **Towards Data Science**
 2. [How Should Companies Communicate the Risks of Large Language Models to Users?](https://techpolicy.press/how-should-companies-communicate-the-risks-of-large-language-models-to-users/): **Techpolicy**
