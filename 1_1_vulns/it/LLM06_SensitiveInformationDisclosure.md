@@ -1,35 +1,34 @@
-## LLM06: Sensitive Information Disclosure
+## LLM06: Diffusione di Informazioni Sensibili
 
-### Description
+### Descrizione
 
-LLM applications have the potential to reveal sensitive information, proprietary algorithms, or other confidential details through their output. This can result in unauthorized access to sensitive data, intellectual property, privacy violations, and other security breaches. It is important for consumers of LLM applications to be aware of how to safely interact with LLMs and identify the risks associated with unintentionally inputting sensitive data that may be subsequently returned by the LLM in output elsewhere.
+Le applicazioni LLM possono rivelare informazioni sensibili, algoritmi proprietari o altri dettagli confidenziali attraverso i loro output. Ciò può portare ad accessi non autorizzati a dati sensibili, proprietà intellettuale, violazioni della privacy e altre violazioni di sicurezza. È importante che gli utenti delle applicazioni LLM siano consapevoli di come interagire in modo sicuro con gli LLM e identificare i rischi associati all'inserimento involontario di dati sensibili che possono successivamente essere restituiti dall'LLM come output altrove.
 
-To mitigate this risk, LLM applications should perform adequate data sanitization to prevent user data from entering the training model data. LLM application owners should also have appropriate Terms of Use policies available to make consumers aware of how their data is processed and the ability to opt out of having their data included in the training model.
+Per mitigare questo rischio, le applicazioni LLM dovrebbero eseguire un'adeguata sanificazione dei dati per impedire che i dati degli utenti entrino indiscriminatamente nei dati di addestramento del modello. I proprietari di applicazioni LLM dovrebbero inoltre esporre dei Termini di Utilizzo adeguati, chiaramente esposti per far sapere ai consumatori come vengono trattati i loro dati, ed una chiara opzione per negare il consenso ad includere i loro dati nell'addestramento del modello.
 
-The consumer-LLM application interaction forms a two-way trust boundary, where we cannot inherently trust the client->LLM input or the LLM->client output. It is important to note that this vulnerability assumes that certain prerequisites are out of scope, such as threat modeling exercises, securing infrastructure, and adequate sandboxing. Adding restrictions within the system prompt around the types of data the LLM should return can provide some mitigation against sensitive information disclosure, but the unpredictable nature of LLMs means such restrictions may not always be honored and could be circumvented via prompt injection or other vectors.
+L'interazione tra il consumatore e l'applicazione LLM instaura un contesto di fiducia reciproca, nel quale non possiamo fidarci intrinsecamente né dell'input client->LLM né dell'output LLM->client. È importante notare che questa vulnerabilità presuppone che certi prerequisiti siano assicurati al di fuori del presente ambito di analisi, fra questi gli esercizi di modellazione delle minacce, la protezione delle infrastrutture ed una segregazione adeguata degli ambienti di esecuzioned. Aggiungere restrizioni all'interno del prompt del sistema riguardo ai tipi di dati che l'LLM dovrebbe restituire può fornire una certa mitigazione contro la rivelazione di informazioni sensibili, ma la natura imprevedibile degli LLM significa che tali restrizioni potrebbero non essere sempre rispettate e potrebbero essere eluse tramite iniezione di prompt o altri vettori.
 
-### Common Examples of Vulnerability
+### Esempi Comuni di Vulnerabilità
 
-1. Incomplete or improper filtering of sensitive information in the LLM’s responses.
-2. Overfitting or memorization of sensitive data in the LLM’s training process.
-3. Unintended disclosure of confidential information due to LLM misinterpretation, lack of data scrubbing methods or errors.
+1. Filtraggio incompleto o improprio delle informazioni sensibili nelle risposte dell'LLM.
+2. Sovradattamento o memorizzazione di dati sensibili nel processo di addestramento dell'LLM.
+3. Divulgazione involontaria di informazioni confidenziali a causa di errata interpretazione da parte dell'LLM, mancanza di metodi di pulizia dei dati o errori.
 
-### Prevention and Mitigation Strategies
+### Strategie di Prevenzione e Mitigazione
+1. Integrare adeguate tecniche di sanificazione e pulizia dei dati per impedire che i dati degli utenti entrino nei dati del modello di addestramento.
+2. Implementare metodi robusti di validazione e sanificazione degli input per identificare ed escludere potenziali input malevoli per prevenire l'avvelenamento (poisoning) del modello.
+3. Quando si arricchisce il modello con dati e se si effettua il [fine-tuning](https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/wiki/Definitions) di un modello (ad esempio, dati inseriti nel modello prima o durante il rilascio):
+	1. Qualunque informazione sensibile nei dati di fine-tuning ha il potenziale di essere rivelato ad un utente. Pertanto, si raccomanda di applicare la buona pratica di minimizzazione dei privilegi di accesso, e di non addestrare il modello su informazioni a cui un utente con privilegi elevati può accedere poichè potrebbero inavvertitamente essere mostrate a un utente con privilegi inferiori.
+	2. L'accesso a fonti di dati esterne (orchestrazione dei dati in tempo reale) dovrebbe essere limitato.
+	3. Applicare metodi rigorosi di controllo degli accessi alle fonti di dati esterne e un approccio rigoroso al mantenimento di una catena di fornitura sicura.
 
-1. Integrate adequate data sanitization and scrubbing techniques to prevent user data from entering the training model data.
-2. Implement robust input validation and sanitization methods to identify and filter out potential malicious inputs to prevent the model from being poisoned.
-3. When enriching the model with data and if [fine-tuning](https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/wiki/Definitions) a model: (I.E, data fed into the model before or during deployment)
-   1. Anything that is deemed sensitive in the fine-tuning data has the potential to be revealed to a user. Therefore, apply the rule of least privilege and do not train the model on information that the highest-privileged user can access which may be displayed to a lower-privileged user.
-   2. Access to external data sources (orchestration of data at runtime) should be limited.
-   3. Apply strict access control methods to external data sources and a rigorous approach to maintaining a secure supply chain.
+### Esempi di Scenari di Attacco
 
-### Example Attack Scenarios
+1. L'utente legittimo e ignaro A viene esposto a dati di altri utenti tramite l'LLM quando interagisce con l'applicazione LLM in modo non malevolo.
+2. L'utente A indirizza un insieme ben congegnato di prompt per bypassare i filtri di input e la sanificazione dell'LLM per far sì che riveli informazioni sensibili (PII) su altri utenti dell'applicazione.
+3. Dati personali come i "PII" vengono inseriti nel modello tramite i dati di addestramento a causa di negligenza da parte dell'utente stesso o dell'applicazione LLM. Questo caso potrebbe aumentare il rischio e la probabilità degli scenari 1 o 2 sopra descritti.
 
-1. Unsuspecting legitimate user A is exposed to certain other user data via the LLM when interacting with the LLM application in a non-malicious manner.
-2. User A targets a well-crafted set of prompts to bypass input filters and sanitization from the LLM to cause it to reveal sensitive information (PII) about other users of the application.
-3. Personal data such as PII is leaked into the model via training data due to either negligence from the user themselves, or the LLM application. This case could increase the risk and probability of scenario 1 or 2 above.
-
-### Reference Links
+### Riferimenti e Link (Inglese)
 
 1. [AI data leak crisis: New tool prevents company secrets from being fed to ChatGPT](https://www.foxbusiness.com/politics/ai-data-leak-crisis-prevent-company-secrets-chatgpt): **Fox Business**
 2. [Lessons learned from ChatGPT’s Samsung leak](https://cybernews.com/security/chatgpt-samsung-leak-explained-lessons/): **Cybernews**

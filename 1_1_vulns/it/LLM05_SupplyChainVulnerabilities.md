@@ -1,43 +1,43 @@
-## LLM05: Supply-Chain Vulnerabilities
+## LLM05: Vulnerabilità della Supply-Chain
 
-### Description
+### Descrizione
 
-The supply chain in LLMs can be vulnerable, impacting the integrity of training data, ML models, and deployment platforms. These vulnerabilities can lead to biased outcomes, security breaches, or even complete system failures. Traditionally, vulnerabilities are focused on software components, but Machine Learning extends this with the pre-trained models and training data supplied by third parties susceptible to tampering and poisoning attacks.
+La supply chain nei modelli di linguaggio di grandi dimensioni (LLM) può essere vulnerabile, influenzando l'integrità dei dati di addestramento, dei modelli di machine learning (ML) e delle piattaforme di erogazione. Queste vulnerabilità possono portare a risultati deviati, violazioni della sicurezza o addirittura a fallimenti completi del sistema. Tradizionalmente, le vulnerabilità si concentrano sui componenti software, ma il Machine Learning le estende anche ai modelli pre-addestrati e ai dati di addestramento forniti da terze parti, suscettibili di attacchi per manomissione ed avvelenamento.
 
-Finally, LLM Plugin extensions can bring their own vulnerabilities. These are described in [LLM07 - Insecure Plugin Design](InsecurePluginDesign.md), which covers writing LLM Plugins and provides helpful information to evaluate third-party plugins.
+Infine, le estensioni dei plugin LLM possono portare le loro vulnerabilità. Queste sono descritte in [LLM07 - Insecure Plugin Design](InsecurePluginDesign.md), che tratta della scrittura di plugin LLM e fornisce informazioni utili per valutare i plugin di terze parti.
 
-### Common Examples of Vulnerability
+### Esempi Comuni di Vulnerabilità
 
-1. Traditional third-party package vulnerabilities, including outdated or deprecated components.
-2. Using a vulnerable pre-trained model for fine-tuning.
-3. Use of poisoned crowd-sourced data for training.
-4. Using outdated or deprecated models that are no longer maintained leads to security issues.
-5. Unclear T&Cs and data privacy policies of the model operators lead to the application's sensitive data being used for model training and subsequent sensitive information exposure. This may also apply to risks from using copyrighted material by the model supplier.
+1. Vulnerabilità tradizionali derivanti dai pacchetti di terze parti, che includono componenti obsoleti o deprecati.
+2. Utilizzo di un modello pre-addestrato vulnerabile per il fine-tuning.
+3. Uso di dati di addestramento deviati provenienti da fonti aperte non verificate.
+4. L'utilizzo di modelli obsoleti o fuori supporto che non sono più mantenuti porta a problemi di sicurezza.
+5. Termini e Condizioni di Servizio (T&C) e politiche sulla privacy dei dati poco chiari da parte degli operatori dei modelli portano all'utilizzo di dati sensibili da un'applicazione per l'addestramento del modello, e alla successiva esposizione di informazioni sensibili. Questa situazione può anche generare rischi derivanti dall'uso di materiale protetto da proprietà intellettuale, da parte del fornitore del modello.
 
-### Prevention and Mitigation Strategies
+### Strategie di Prevenzione e Mitigazione
 
-1. Carefully vet data sources and suppliers, including T&Cs and their privacy policies, only using trusted suppliers. Ensure adequate and independently audited security is in place and that model operator policies align with your data protection policies, i.e., your data is not used for training their models; similarly, seek assurances and legal mitigations against using copyrighted material from model maintainers.
-2. Only use reputable plugins and ensure they have been tested for your application requirements. LLM-Insecure Plugin Design provides information on the LLM-aspects of Insecure Plugin design you should test against to mitigate risks from using third-party plugins.
-3. Understand and apply the mitigations found in the OWASP Top Ten's [A06:2021 – Vulnerable and Outdated Components](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/). This includes vulnerability scanning, management, and patching components. For development environments with access to sensitive data, apply these controls in those environments, too.
-4. Maintain an up-to-date inventory of components using a Software Bill of Materials (SBOM) to ensure you have an up-to-date, accurate, and signed inventory, preventing tampering with deployed packages. SBOMs can be used to detect and alert for new, zero-date vulnerabilities quickly.
-5. At the time of writing, SBOMs do not cover models, their artifacts, and datasets. If your LLM application uses its own model, you should use MLOps best practices and platforms offering secure model repositories with data, model, and experiment tracking.
-6. You should also use model and code signing when using external models and suppliers.
-7. Anomaly detection and adversarial robustness tests on supplied models and data can help detect tampering and poisoning as discussed in [ Training Data Poisoning](https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/blob/main/1_0_vulns/Training_Data_Poisoning.md); ideally, this should be part of MLOps pipelines; however, these are emerging techniques and may be easier to implement as part of red teaming exercises.
-8. Implement sufficient monitoring to cover component and environment vulnerabilities scanning, use of unauthorized plugins, and out-of-date components, including the model and its artifacts.
-9. Implement a patching policy to mitigate vulnerable or outdated components. Ensure the application relies on a maintained version of APIs and the underlying model.
-10. Regularly review and audit supplier Security and Access, ensuring no changes in their security posture or T&Cs.
+1. Valutare attentamente le fonti dei dati e i fornitori, inclusi i T&C e le loro politiche sulla privacy, ed impiegare solo fornitori affidabili. Assicurarsi della presenza di una pratica di sicurezza adeguata e verificata da terze parti e che le politiche degli operatori dei modelli siano allineate con le proprie politiche di protezione dei dati, ovvero che i propri dati non siano utilizzati per l'addestramento dei modelli senza consenso; non meno importante, predisporre le necessarie garanzie e mitigazioni legali contro l'eventuale uso di materiale protetto da copyright da parte dei manutentori dei modelli.
+2. Utilizzare solo plugin affidabili, con una reputazione elevata e assicurarsi che siano stati testati per i requisiti della propria applicazione. Il paragrafo [LLM07 - Insecure Plugin Design](InsecurePluginDesign.md) fornisce informazioni sugli aspetti del design di plugin insicuri, che dovrebbero essere testati dal punto di vista dell'LLM, per mitigare i rischi derivanti dall'uso di plugin di terze parti.
+3. Esaminare ed applicare le mitigazioni trovate nei Top Ten dell'OWASP [A06:2021 – Vulnerable and Outdated Components](https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/). Fra questi la scansione delle vulnerabilità e la gestione e l'aggiornamento dei componenti. Applicare questi controlli anche agli ambienti di sviluppo che hanno accesso a dati sensibili.
+4. Mantenere un inventario aggiornato dei componenti definendo una Software Bill of Materials (SBoM o lista artefatti) per assicurarsi di avere un inventario aggiornato, accurato e certificato, prevenendo così la manomissione dei pacchetti in produzione. Le  liste artefatti software (SBoM) possono essere attivamente impiegate per rilevare e segnalare rapidamente nuove vulnerabilità gravi (Zero-Day).
+5. Al momento della scrittura, le liste SBoM non coprono i modelli, i loro artefatti e i set di dati. Se la propria applicazione LLM utilizza un modello privato, è bene utilizzare le buone pratiche di "MLOps" e riferirsi a piattaforme che offrono repository di modelli sicuri con dati, modelli ed esperimenti identificabili e tracciabili.
+6. Utilizzare modelli e codice certificati o firmati, quando si impiegano modelli e fornitori esterni.
+7. L'esecuzione di test avversariali di robustezza e per la rilevazione di anomalie sui modelli e sui dati forniti possono aiutare a rilevare manomissioni e deviazioni (poisoning) come discusso in  [Training Data Poisoning](https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/blob/main/1_0_vulns/Training_Data_Poisoning.md); idealmente, i test dovrebbero essere parte integrante della pipeline di MLOps; tuttavia, trattandosi di tecniche emergenti, potrebbero risultare più semplici da implementare come parte degli esercizi di red teaming.
+8. Implementare un adeguato monitoraggio per assicurare la scansione delle vulnerabilità dei componenti e dell'ambiente che li ospita, l'uso di plugin non autorizzati e componenti obsoleti, inclusi il modello e i suoi artefatti.
+9. Implementare una politica di aggiornamento (patching) per mitigare l'insorgenza di componenti vulnerabili o obsoleti. Assicurarsi che l'applicazione si basi su una versione costantemente manutenuta delle API e del modello sottostante.
+10. Rivedere e controllare regolarmente la sicurezza ed i criteri di accesso dei fornitori, assicurandosi che non ci siano cambiamenti nella loro postura di sicurezza o nelle loro condizioni di servizio o T&C.
 
-### Example Attack Scenarios
+### Esempi di Scenari di Attacco
 
-1. An attacker exploits a vulnerable Python library to compromise a system. This happened in the first Open AI data breach.
-2. An attacker provides an LLM plugin to search for flights, generating fake links that lead to scamming users.
-3. An attacker exploits the PyPi package registry to trick model developers into downloading a compromised package and exfiltrating data or escalating privilege in a model development environment. This was an actual attack.
-4. An attacker poisons a publicly available pre-trained model specializing in economic analysis and social research to create a back door that generates misinformation and fake news. They deploy it on a model marketplace (e.g., Hugging Face) for victims to use.
-5. An attacker poisons publicly available datasets to help create a back door when fine-tuning models. The back door subtly favors certain companies in different markets.
-6. A compromised employee of a supplier (outsourcing developer, hosting company, etc.) exfiltrates data, model, or code stealing IP.
-7. An LLM operator changes its T&Cs and Privacy Policy to require an explicit opt out from using application data for model training, leading to the memorization of sensitive data.
+1. Un attaccante sfrutta una libreria Python vulnerabile per compromettere un sistema. Questo è effettivamente accaduto nel primo data breach di Open AI.
+2. Un attaccante fornisce un plugin LLM per la ricerca di voli, generando link falsi che portano a truffare gli utenti.
+3. Un attaccante sfrutta il registro dei pacchetti PyPi per ingannare gli sviluppatori di modelli a scaricare un pacchetto compromesso ed esfiltrare dati o scalare privilegi in un ambiente di sviluppo di modelli. Questo è stato un caso di attacco reale.
+4. Un attaccante avvelena un modello pre-addestrato disponibile pubblicamente specializzato in analisi economica e ricerca sociale per creare una backdoor che genera disinformazione e fake news. Lo distribuisce su un marketplace di modelli (ad esempio, Hugging Face) per farlo utilizzare da vittime ignare.
+5. Un attaccante avvelena set di dati pubblicamente disponibili per aiutare a creare una backdoor che acquisisce rilevanza quando si effettua il fine-tuning dei modelli. La backdoor favorisce in modo impercettibile alcune aziende in diversi mercati.
+6. Un dipendente vittima di compromissione presso un fornitore (sviluppatore in outsourcing, azienda di hosting, ecc.) esfiltra dati, modelli o codice di fatto trafugando proprietà intellettuale.
+7. Un operatore LLM cambia le sue condizioni d'uso (T&C) e la Politica sulla Privacy (DPA) richiedendo un opt-out esplicito relativamente all'uso dei dati dell'applicazione per l'addestramento del modello, portando alla memorizzazione inavvertita di dati sensibili.
 
-### Reference Links
+### Riferimenti e Link (Inglese)
 
 1. [ChatGPT Data Breach Confirmed as Security Firm Warns of Vulnerable Component Exploitation](https://www.securityweek.com/chatgpt-data-breach-confirmed-as-security-firm-warns-of-vulnerable-component-exploitation/): **Security Week**
 2. [Plugin review process](https://platform.openai.com/docs/plugins/review): **OpenAI**
