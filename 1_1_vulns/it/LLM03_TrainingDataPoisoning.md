@@ -28,7 +28,7 @@ L'avvelenamento dei dati è considerato un attacco all'integrità perché la man
 
 1. Verificare la filiera di approvvigionamento dei dati utilizzati per l'addestramento, soprattutto quando sono ottenuti da fonti esterne, nonché mantenere attestazioni tramite la metodologia "ML-BOM" (Machine Learning Bill of Materials) e verificare le model card.
 2. Verificare la legittimità delle fonti di dati e dei dati ottenuti durante le fasi di pre-apprendimento, fine-tuning e embedding.
-3. Verificare il caso d'uso dell'LLM e l'applicazione in cui verrà integrato. Sviluppare modelli specifici, utilizzando set di dati di addestramento distinti o tecniche di fine-tuning per ciascun caso d'uso, per affinare l'output dell'intelligenza artificiale generativa, rendendolo più dettagliato e preciso secondo il caso d'uso definito.
+3. Verificare il caso d'uso del LLM e l'applicazione in cui verrà integrato. Sviluppare modelli specifici, utilizzando set di dati di addestramento distinti o tecniche di fine-tuning per ciascun caso d'uso, per affinare l'output dell'intelligenza artificiale generativa, rendendolo più dettagliato e preciso secondo il caso d'uso definito.
 4. Assicurare un adeguato sandboxing attraverso controlli di rete rigorosi, per prevenire che il modello acceda a dati da fonti non autorizzate, evitando così il rischio di compromettere l'integrità dell'output del processo di apprendimento automatico.
 5. Adottare un controllo rigoroso o filtri sull'input per dati di addestramento specifici o per determinate categorie di fonti di dati, per mantenere sotto controllo il volume di dati non genuini. Sanificare i dati con tecniche come la rilevazione statistica degli outlier o il rilevamento delle anomalie, per identificare e rimuovere i dati "ostili" che potrebbero essere inseriti nel processo di fine-tuning.
 6. Elaborare domande di controllo riguardanti la fonte e la proprietà dei set di dati per garantire che il modello non sia stato avvelenato, e adottare questa cultura nel ciclo di vita "MLSecOps". Fare riferimento a risorse disponibili come ad esempio [The Foundation Model Transparency Index](https://crfm.stanford.edu/fmti/) o [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard).
@@ -41,7 +41,7 @@ L'avvelenamento dei dati è considerato un attacco all'integrità perché la man
    1. Monitorare e segnalare il numero di risposte distorte che superano una certa soglia.
    2. Usare una validazione umana per fare un audit delle risposte.
    3. Implementare LLM dedicati per mettere alla prova i modelli rispetto a conseguenze indesiderate e addestrare altri LLM usando [tecniche di apprendimento con rinforzo](https://wandb.ai/ayush-thakur/Intro-RLAIF/reports/An-Introduction-to-Training-LLMs-Using-Reinforcement-Learning-From-Human-Feedback-RLHF---VmlldzozMzYyNjcy).
-   4. Eseguire esercitazioni di tipo [red team](https://www.anthropic.com/index/red-teaming-language-models-to-reduce-harms-methods-scaling-behaviors-and-lessons-learned) basate su LLM o [scansioni di vulnerabilità](https://github.com/leondz/garak) nelle fasi di test del ciclo di vita dell'LLM.
+   4. Eseguire esercitazioni di tipo [red team](https://www.anthropic.com/index/red-teaming-language-models-to-reduce-harms-methods-scaling-behaviors-and-lessons-learned) basate su LLM o [scansioni di vulnerabilità](https://github.com/leondz/garak) nelle fasi di test del ciclo di vita del LLM.
 
 
 ### Esempi di scenari d'attacco
