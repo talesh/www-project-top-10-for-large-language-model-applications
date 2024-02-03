@@ -7,16 +7,16 @@ La gestione non sicura dell'output si riferisce nello specifico a una validazion
 
 La gestione non sicura dell'output si differenzia dalla dipendenza eccessiva (LLM09) in quanto si occupa degli output generati da un LLM prima che vengano passati a valle, mentre la dipendenza eccessiva si concentra su questioni più ampie riguardanti l'eccessiva fiducia nell'accuratezza e nell'appropriatezza degli output di un LLM.
 
-Un attacco che sfrutta la gestione non sicura dell'output può portare a XSS e CSRF nei browser web, nonché a SSRF, escalation dei privilegi o esecuzione di codice da remoto (RCE) nei sistemi backend.
+Un attacco che sfrutta la gestione non sicura dell'output può portare a XSS e CSRF nei browser web, nonché a SSRF, escalation dei privilegi o esecuzione di codice remoto (RCE) nei sistemi backend.
 
 Le condizioni seguenti possono aumentare l'impatto di questa vulnerabilità:
-* L'applicazione concede al LLM privilegi oltre a quelli previsti per gli utenti finali, consentendo l'escalation dei privilegi o l'esecuzione di codice da remoto.
+* L'applicazione concede al LLM privilegi oltre a quelli previsti per gli utenti finali, consentendo l'escalation dei privilegi o l'esecuzione di codice remoto.
 * L'applicazione è vulnerabile ad attacchi di iniezione di prompt indiretta, che potrebbero consentire a un attaccante di ottenere l'accesso privilegiato all'ambiente di un utente vittima.
 * Plugin di terze parti non validano adeguatamente gli input.
 
 ### Esempi comuni di vulnerabilità
 
-1. L'output di un LLM viene inserito direttamente in una shell di sistema o in una funzione simile come exec o eval, causando l'esecuzione di codice da remoto.
+1. L'output di un LLM viene inserito direttamente in una shell di sistema o in una funzione simile come exec o eval, causando l'esecuzione di codice remoto.
 2. JavaScript o Markdown generati dal LLM vengono restituiti all'utente. Il codice viene quindi interpretato dal browser, causando un XSS.
 
 ### Strategie di prevenzione e mitigazione

@@ -58,7 +58,7 @@ Manipola un modello di linguaggio di grandi dimensioni (LLM) attraverso input in
 
 
 LLM02: Gestione non sicura dell’output
-Questa vulnerabilità si verifica quando l’output di un LLM è accettato senza un controllo accurato, esponendo i sistemi backend. Lo può condurre a conseguenze rischiose come XSS, CSRF, SSRF, privilege escalation, o esecuzione di codice da remoto (RCE).
+Questa vulnerabilità si verifica quando l’output di un LLM è accettato senza un controllo accurato, esponendo i sistemi backend. Lo può condurre a conseguenze rischiose come XSS, CSRF, SSRF, privilege escalation, o esecuzione di codice remoto (RCE).
 
 
 LLM03: Avvelenamento dei dati di addestramento
@@ -78,7 +78,7 @@ Gli LLM possono inavvertitamente rivelare dati confidenziali nelle loro risposte
 
 
 LLM07: Design insicure di plugin
-I plugin LLM possono avere input non sicuri e controlli d’accesso insufficienti. La mancanza di controllo applicativo li rende più facili da sfruttare e può risultare in conseguenze gravi come l’esecuzione di codice da remoto (RCE)..
+I plugin LLM possono avere input non sicuri e controlli d’accesso insufficienti. La mancanza di controllo applicativo li rende più facili da sfruttare e può risultare in conseguenze gravi come l’esecuzione di codice remoto (RCE)..
 
 
 LLM08: Operatività eccessiva
