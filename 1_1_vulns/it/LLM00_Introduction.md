@@ -4,9 +4,9 @@ Pubblicato: 16 Ottobre 2023
 
 ## Introduzione
 
-L’ondata di interesse frenetico per i modelli di linguaggio a grandi dimensioni (LLM, dall’inglese Large Language Models), in seguito all’introduzione sul mercato di massa dei chatbot pre-addestrati a fine 2022, è stata notevole. Le aziende, impazienti di sfruttare il potenziale degli LLM, stanno rapidamente integrandoli nei loro sistemi e nelle offerte destinate ai clienti. Eppure, l’incredibile velocità alla quale gli LLM stanno venendo adottati ha superato il tempo necessario a stabilire dei protocolli di sicurezza completi, lasciando molte applicazioni vulnerabili a problemi di rischio elevato.
+L’ondata di interesse frenetico per i modelli di linguaggio a grandi dimensioni (LLM, dall’inglese Large Language Models), in seguito all’introduzione sul mercato di massa dei chatbot pre-addestrati a fine 2022, è stata notevole. Le aziende, impazienti di sfruttare il potenziale degli LLM, stanno rapidamente integrandoli nei loro sistemi e nelle offerte destinate ai clienti. Eppure, l’incredibile velocità alla quale gli LLM stanno venendo adottati ha superato il tempo necessario a stabilire dei protocolli di sicurezza esaustivi, lasciando molte applicazioni vulnerabili a problemi di rischio elevato.
 
-L’assenza di una risorsa unificata che affrontasse questi problemi di sicurezza negli LLM era evidente. Gli sviluppatori, non essendo familiari con i rischi associati agli LLM, sono stati lasciati con risorse sparse e la missione di OWASP sembrava prestarsi perfettamente ad aiutare a guidare un’adozione sicura di questa tecnologia.
+La necessità di una risorsa unificata che affrontasse questi problemi di sicurezza degli LLM era evidente. Gli sviluppatori, non essendo familiari con i rischi associati agli LLM, si sono trovati con risorse frammentate, e la missione di OWASP sembrava prestarsi perfettamente ad aiutare a guidare un’adozione sicura di questa tecnologia.
 
 
 ### A chi si rivolge questo documento?
@@ -15,7 +15,7 @@ Il nostro pubblico principale sono gli sviluppatori, i data scientist e gli espe
 
 ### La creazione della lista
 
-La creazione dell’OWASP Top 10 per le applicazioni LLM è stata un’impresa significativa, basata sull’esperienza collettiva di un gruppo internazionale di quasi 500 esperti, con più di 125 contributori attivi. I nostri collaboratori provengono da contesti diversi, che includono aziende nel campo dell’intelligenza artificiale, aziende del settore della sicurezza, editori di software indipendenti, piattaforme cloud e hyperscale, e il mondo della ricerca accademica.
+La creazione dell’OWASP Top 10 per le applicazioni LLM ha richiesto un impegno significativa, realizzata grazie all'esperienza collettiva di un gruppo internazionale di quasi 500 esperti, con più di 125 contributori attivi. I nostri collaboratori provengono da contesti diversi, che includono aziende nel campo dell’intelligenza artificiale, aziende del settore della sicurezza, fornitori indipendenti di software, piattaforme cloud e hyperscale, e il mondo della ricerca accademica.
 
 
 Nel corso di un mese, abbiamo discusso e proposto potenziali vulnerabilità e i membri del gruppo hanno considerato fino a 43 minacce distinte. Attraverso molteplici round di selezione, abbiamo ridotto queste proposte fino ad arrivare a una lista concisa delle 10 vulnerabilità più critiche.
@@ -60,7 +60,8 @@ GitHub: @GangGreenTemperTatum
 [https://www.linkedin.com/in/fabriziocilli/](https://www.linkedin.com/in/fabriziocilli/)  
 - **Matteo Dora**  
 [https://www.linkedin.com/in/mattbit/](https://www.linkedin.com/in/mattbit/)  
-
+- **Riccardo Sirigu**  
+[https://www.linkedin.com/in/riccardosirigu/](https://www.linkedin.com/in/riccardosirigu/) 
 
 Nella realizzazione di questa traduzione, abbiamo scelto consapevolmente di impiegare solo traduttori umani, riconoscendo la natura eccezionalmente tecnica e critica dell’OWASP Top Ten per gli LLM. I traduttori elencati sopra non solo possiedono una profonda comprensione del contenuto originale, ma anche la fluidità per rendere questa traduzione un successo.
 
@@ -76,10 +77,10 @@ Responsabile traduzioni, OWASP Top 10 per le applicazioni LLM
 Input artificiosi possono manipolare un modello linguistico di grandi dimensioni, causando azioni non volute. Le iniezioni dirette sovrascrivono i prompt di sistema, mentre quelle indirette manipolano gli input provenienti da fonti esterne.
 
 ### LLM02: Gestione non sicura dell'output
-Questa vulnerabilità accade quando l'output dell'LLM è accettato senza previa verifica, esponendo i sistemi backend. L'abuso può portare a conseguenze gravi come XSS, CSRF, SSRF, escalation dei privilegi o esecuzione di codice remoto.
+Questa vulnerabilità accade quando l'output del LLM è accettato senza previa verifica, esponendo i sistemi backend. L'abuso può portare a conseguenze gravi come XSS, CSRF, SSRF, escalation dei privilegi o esecuzione di codice remoto.
 
 ### LLM03: Avvelenamento dei dati di apprendimento
-Questo si verifica quando i dati di apprendimento dell'LLM vengono manomessi, introducendo vulnerabilità o bias che ne compromettono la sicurezza, l'efficacia o il comportamento etico. Le fonti di dati includono Common Crawl, WebText, OpenWebText e libri.
+Questo si verifica quando i dati di apprendimento del LLM vengono manomessi, introducendo vulnerabilità o bias che ne compromettono la sicurezza, l'efficacia o il comportamento etico. Le fonti di dati includono Common Crawl, WebText, OpenWebText e libri.
 
 ### LLM04: Denial of Service del Modello
 Degli attaccanti causano operazioni che richiedono risorse elevate sui modelli linguistici di grandi dimensioni, portando a degrado del servizio o a costi elevati. La vulnerabilità è amplificata dalla natura intensiva delle risorse degli LLM e dall'imprevedibilità degli input dell'utente.
