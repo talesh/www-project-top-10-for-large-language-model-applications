@@ -1,0 +1,147 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\subsection{LLM09:
+過度の信頼}\label{llm09-ux904eux5ea6ux306eux4fe1ux983c}
+
+\subsubsection{Description}\label{description}
+
+システムや人々が、十分な監督をせずに、意思決定やコンテンツ生成をLLMに依存すると、過度の信頼が生じます。LLMは創造的で有益なコンテンツを生成することができる一方で、事実と異なる、不適切な、あるいは安全でないコンテンツを生成することもあります。これは、ハルシネーション(幻覚)またはコンファビュレーション(作話)と呼ばれ、誤った情報、誤ったコミュニケーション、法的問題、風評被害をもたらす可能性があります。
+
+LLMが生成したソース・コードは、気づかないうちにセキュリティの脆弱性をもたらす可能性があります。これは、アプリケーションの運用上の安全性とセキュリティに重大なリスクをもたらします。これらのリスクは、以下のような厳格なレビュープロセスが重要であることを示しています：
++ 監督 + 継続的な検証メカニズム + リスクに関する免責事項
+
+\subsubsection{Common Examples of Risk}\label{common-examples-of-risk}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  LLMがレスポンスとして不正確な情報を提供し、誤報を引き起こす
+\item
+  LLMが、文法的には正しいが論理的に支離滅裂であったり、意味をなしていない文章を作成する
+\item
+  LLMが、さまざまな情報源からの情報を混ぜ合わせ、誤解を招くようなコンテンツを作成する
+\item
+  LLMが安全でない、あるいは欠陥のあるコードを提案し、ソフトウェアシステムに組み込んだときに脆弱性を引き起こす
+\item
+  プロバイダがLLMに内在するリスクをエンドユーザーに適切に伝えることができていないために有害な結果を引き起こす
+\end{enumerate}
+
+\subsubsection{Prevention and Mitigation
+Strategies}\label{prevention-and-mitigation-strategies}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  LLMのアウトプットを定期的にモニターし、レビューする。一貫性のないテキストをフィルタリングするために、自己一貫性または投票テクニックを使用します。一つのプロンプトに対する複数のモデル回答を比較することで、出力の質と一貫性をより適切に判断することができます。
+\item
+  LLMの出力を信頼できる外部の情報源と照合しする。このように検証のレイヤーを追加することで、モデルによって提供される情報が正確で信頼できるものであることを確認することができます。
+\item
+  出力品質を向上させるために、微調整や埋め込みによってモデルを強化する。事前に訓練された一般的なモデルは、特定のドメインでチューニングされたモデルと比較して、不正確な情報を生成する可能性が高くなります。この目的のために、プロンプトエンジニアリング、パラメータ効率チューニング（PET）、フルモデルチューニング、思考連鎖プロンプトなどの技術を採用することができます。
+\item
+  生成された出力を既知の事実やデータと照合する自動検証メカニズムを実装する。これにより、さらなるセキュリティ層を提供し、ハルシネーション(幻覚)に関連するリスクを軽減することができます。
+\item
+  複雑なタスクを管理可能なサブタスクに分解し、異なるエージェントに割り当てる。これは、複雑さを管理するのに役立つだけでなく、各エージェントがより小さなタスクに対して責任を負うことができるため、ハルシネーション(幻覚)の可能性を減らすことができます。
+\item
+  LLMの使用に伴うリスクと限界を伝える。これには、情報が不正確である可能性やその他のリスクが含まれる。効果的なリスクコミュニケーションは、ユーザーに潜在的な問題に対する準備をさせ、十分な情報に基づいた意思決定を助けることができます。
+\item
+  LLMの責任ある安全な利用を促すAPIとユーザー・インターフェースを構築する。これには、コンテンツのフィルタリング、不正確な可能性に関するユーザーへの警告、AIが生成したコンテンツの明確なラベリングなどの対策が含まれます。
+\item
+  開発環境でLLMを使用する場合、可能性のある脆弱性の統合を防ぐために、安全なコーディングの実践とガイドラインを確立する。
+\end{enumerate}
+
+\subsubsection{Example Attack Scenarios}\label{example-attack-scenarios}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  ある報道機関ではニュース記事の生成にAIモデルを多用していました。悪意のある行為者は、この「過度の信頼」を悪用し、AIに誤解を招く情報を与え、偽情報の拡散を引き起こしました。AIが意図せずコンテンツを盗用したため、著作権問題と組織の信頼低下につながりました。
+\item
+  ソフトウェア開発チームではCodexのようなAIシステムを利用し、コーディングプロセスを迅速化していました。安全でないデフォルト設定や、安全なコーディングプラクティスと矛盾する推奨といったAIの提案を「過度に信頼」することで、アプリケーションにセキュリティ脆弱性がもたらされました。
+\item
+  あるソフトウェア開発会社が、開発者を支援するためにLLMを使用していました。LLMは存在しないコードライブラリやパッケージを提案し、開発者はAIを信頼するあまり、会社のソフトウェアに悪意のあるパッケージを無意識のうちに組み込んでしまいました。これは、特にサードパーティのコードやライブラリが関係する場合、AIの提案をクロスチェックすることの重要性を浮き彫りにします。
+\end{enumerate}
+
+\subsubsection{Reference Links}\label{reference-links}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://towardsdatascience.com/llm-hallucinations-ec831dcd7786}{Understanding
+  LLM Hallucinations}: \textbf{Towards Data Science}
+\item
+  \href{https://techpolicy.press/how-should-companies-communicate-the-risks-of-large-language-models-to-users/}{How
+  Should Companies Communicate the Risks of Large Language Models to
+  Users?}: \textbf{Techpolicy}
+\item
+  \href{https://www.washingtonpost.com/media/2023/01/17/cnet-ai-articles-journalism-corrections/}{A
+  news site used AI to write articles. It was a journalistic disaster}:
+  \textbf{Washington Post}
+\item
+  \href{https://vulcan.io/blog/ai-hallucinations-package-risk}{AI
+  Hallucinations: Package Risk}: \textbf{Vulcan.io}
+\item
+  \href{https://thenewstack.io/how-to-reduce-the-hallucinations-from-large-language-models/}{How
+  to Reduce the Hallucinations from Large Language Models}: \textbf{The
+  New Stack}
+\item
+  \href{https://newsletter.victordibia.com/p/practical-steps-to-reduce-hallucination}{Practical
+  Steps to Reduce Hallucination}: \textbf{Victor Debia}
+\end{enumerate}
+
+\end{document}

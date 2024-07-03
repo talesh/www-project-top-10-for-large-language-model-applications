@@ -1,0 +1,198 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\subsection{LLM02: Unsichere
+Ausgabeverarbeitung}\label{llm02-unsichere-ausgabeverarbeitung}
+
+\subsubsection{Beschreibung}\label{beschreibung}
+
+Unsichere Ausgabeverarbeitung bezieht sich speziell auf die
+unzureichende Validierung, Bereinigung und Handhabung von Ausgaben, die
+von Large Language Models erzeugt werden, bevor sie an andere
+Komponenten und Systeme weitergeleitet werden. Da der von LLMs erzeugte
+Inhalt durch Prompt-Eingaben gesteuert werden kann, ähnelt dieses
+Verhalten dem indirekten Zugriff des Benutzers auf zusätzliche
+Funktionen.
+
+Unsichere Ausgabeverarbeitung unterscheidet sich von Übermäßiger
+Abhängigkeit insofern, als sie sich mit den Ausgaben befasst, die von
+LLMs generiert werden, bevor sie weitergeleitet werden. Im Gegensatz
+dazu konzentriert sich Übermäßige Abhängigkeit auf allgemeinere Bedenken
+hinsichtlich der Angewiesenheit auf die Genauigkeit und Angemessenheit
+des LLM-Outputs.
+
+Die erfolgreiche Ausnutzung einer Schwachstelle in der unsicheren
+Ausgabeverarbeitung kann zu XSS (Cross-Site Scripting) und CSRF
+(Cross-Site Request Forgery) in Webbrowsern sowie zu SSRF (Server-Side
+Request Forgery), Rechteerweiterung (Privilege Escalation) oder
+Remote-Code-Ausführung in Backend-Systemen führen.
+
+Die folgenden Bedingungen können die Auswirkungen dieser Schwachstelle
+verstärken:
+
+\begin{itemize}
+\tightlist
+\item
+  Die Anwendung gewährt dem LLM Privilegien, die über die für den
+  Endbenutzer vorgesehenen Privilegien hinausgehen, was eine Eskalation
+  der Privilegien oder die Ausführung von Remote-Code ermöglicht.
+\item
+  Die Anwendung ist anfällig für indirekte Prompt Injection-Angriffe,
+  die es Angreifenden ermöglichen, privilegierten Zugriff auf die
+  Umgebung eines Zielbenutzers zu erlangen.
+\item
+  Plug-ins von Drittanbietern validieren Eingaben nicht ausreichend.
+\end{itemize}
+
+\subsubsection{Gängige Beispiele für
+Schwachstellen}\label{guxe4ngige-beispiele-fuxfcr-schwachstellen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Die Ausgabe des LLM wird direkt in eine Systemshell oder eine ähnliche
+  Funktion wie exec oder eval eingegeben, was zu einer
+  Remote-Code-Ausführung führt.
+\item
+  JavaScript oder Markdown wird vom LLM generiert und an die aufrufende
+  Person zurückgegeben. Der Code wird dann vom Browser interpretiert,
+  was zu XSS führt.
+\end{enumerate}
+
+\subsubsection{Präventions- und
+Mitigationsstrategien}\label{pruxe4ventions--und-mitigationsstrategien}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Behandeln Sie das Sprachmodell mit einem Zero-Trust-Ansatz und wenden
+  Sie eine geeignete Eingabevalidierung auf die Antworten an, die vom
+  Modell an die Backend-Funktionen gesendet werden.
+\item
+  Befolgen Sie die OWASP ASVS (Application Security Verification
+  Standard) Richtlinien, um eine effektive Eingabevalidierung und
+  -bereinigung zu gewährleisten.
+\item
+  Encoden Sie die Modellausgabe zurück an den Benutzer, um unerwünschte
+  Codeausführung durch JavaScript oder Markdown zu verhindern. Der OWASP
+  ASVS bietet detaillierte Anweisungen zum Output Encoding.
+\end{enumerate}
+
+\subsubsection{Beispiele für
+Angriffsszenarien}\label{beispiele-fuxfcr-angriffsszenarien}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Eine Anwendung verwendet ein LLM-Plug-in, um Antworten für eine
+  Chatbot-Funktion zu generieren. Das Plug-in bietet auch eine Reihe von
+  administrativen Funktionen, die einem anderen privilegierten LLM zur
+  Verfügung stehen. Das allgemeine LLM sendet seine Antwort direkt an
+  das Plug-in, ohne die Ausgabe ordnungsgemäß zu validieren, was dazu
+  führt, dass das Plug-in für Wartungsarbeiten heruntergefahren wird.
+\item
+  Eine Person verwendet ein von einem LLM betriebenes Tool, das
+  Webseiten zusammenfasst, um eine kurze Übersicht über einen Artikel zu
+  erstellen. Die Website enthält eine Eingabeaufforderung, die das LLM
+  anweist, sensible Inhalte entweder von der Website oder aus der
+  Konversation des Benutzers zu erfassen. Anschließend kann der LLM die
+  sensiblen Daten verschlüsseln und ohne Validierung oder Filterung der
+  Ausgabe an einen von Angreifenden kontrollierten Server senden.
+\item
+  Ein LLM ermöglicht es Personen, SQL-Abfragen für eine
+  Backend-Datenbank über eine Chat-ähnliche Funktion zu erstellen. Eine
+  Person stellt eine Abfrage zum Löschen aller Datenbanktabellen. Wenn
+  die vom LLM erstellte Abfrage nicht überprüft wird, könnten alle
+  Datenbanktabellen gelöscht werden.
+\item
+  Eine Webanwendung verwendet einen LLM, um Inhalte aus Benutzereingaben
+  zu generieren, ohne die Ausgabe zu bereinigen. Angreifende könnten
+  eine manipulierte Anfrage einreichen, die das LLM dazu veranlasst,
+  eine unbereinigte JavaScript-Payload zurückzugeben, die zu XSS führt,
+  wenn sie im Browser des Opfers ausgeführt wird. Unzureichende
+  Validierung von Anfragen ermöglicht diesen Angriff.
+\end{enumerate}
+
+\subsubsection{Referenzen}\label{referenzen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://security.snyk.io/vuln/SNYK-PYTHON-LANGCHAIN-5411357}{Arbitrary
+  Code Execution}: \textbf{Snyk Security Blog}
+\item
+  \href{https://embracethered.com/blog/posts/2023/chatgpt-cross-plugin-request-forgery-and-prompt-injection./}{ChatGPT
+  Plugin Exploit Explained: From Prompt Injection to Accessing Private
+  Data}: \textbf{Embrace The Red}
+\item
+  \href{https://systemweakness.com/new-prompt-injection-attack-on-chatgpt-web-version-ef717492c5c2?gi=8daec85e2116}{New
+  prompt injection attack on ChatGPT web version. Markdown images can
+  steal your chat data.}: \textbf{System Weakness}
+\item
+  \href{https://embracethered.com/blog/posts/2023/ai-injections-threats-context-matters/}{Don't
+  blindly trust LLM responses. Threats to chatbots}: \textbf{Embrace The
+  Red}
+\item
+  \href{https://aivillage.org/large\%20language\%20models/threat-modeling-llm/}{Threat
+  Modeling LLM Applications}: \textbf{AI Village}
+\item
+  \href{https://owasp-aasvs4.readthedocs.io/en/latest/V5.html\#validation-sanitization-and-encoding}{OWASP
+  ASVS - 5 Validation, Sanitization and Encoding}: \textbf{OWASP AASVS}
+\end{enumerate}
+
+\end{document}

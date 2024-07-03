@@ -1,0 +1,200 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\subsection{LLM06: Offenlegung sensibler
+Informationen}\label{llm06-offenlegung-sensibler-informationen}
+
+\subsubsection{Beschreibung}\label{beschreibung}
+
+LLM-Anwendungen haben das Potenzial, durch ihre Ausgabe sensible
+Informationen, proprietäre Algorithmen oder andere vertrauliche Details
+zu offenbaren. Dies kann zu unberechtigtem Zugriff auf sensible Daten,
+geistiges Eigentum, Verletzungen der Privatsphäre und anderen
+Sicherheitsverletzungen führen. Es ist wichtig, dass die Benutzerinnen
+und Benutzer von LLM-Anwendungen wissen, wie sie sicher mit LLMs
+interagieren können, und dass sie sich der Risiken bewusst sind, die mit
+der unbeabsichtigten Eingabe sensibler Daten verbunden sind, die dann
+von der LLM in der Ausgabe an anderer Stelle zurückgegeben werden
+können.
+
+Um dieses Risiko zu minimieren, sollten LLM-Anwendungen eine angemessene
+Datenbereinigung durchführen, um zu verhindern, dass Benutzerdaten in
+die Daten des Trainingsmodells gelangen. Die Eigentümer von
+LLM-Anwendungen sollten auch über angemessene Nutzungsbedingungen
+verfügen, um die Verbraucher darüber zu informieren, wie ihre Daten
+verarbeitet werden, und ihnen die Möglichkeit zu geben, die Aufnahme
+ihrer Daten in das Trainingsmodell abzulehnen.
+
+Die Interaktion zwischen Verbraucher und LLM-Anwendung bildet eine
+zweiseitige Vertrauensgrenze, bei der wir weder den Eingaben des
+Clients-\textgreater LLM noch den Ausgaben des LLM-\textgreater Client
+vertrauen können. Es ist wichtig zu beachten, dass diese Schwachstelle
+davon ausgeht, dass bestimmte Voraussetzungen nicht gegeben sind, wie
+z.B. Bedrohungsmodellierungsverfahren, eine sichere Infrastruktur und
+eine angemessene Sandbox. Das Hinzufügen von Einschränkungen in der
+System-Eingabeaufforderung bezüglich der Datentypen, die der LLM
+zurückgeben soll, kann einen gewissen Schutz vor der Offenlegung
+sensibler Informationen bieten. Die unvorhersehbare Natur von LLMs
+bedeutet jedoch, dass solche Einschränkungen nicht immer beachtet werden
+und durch Prompt Injection oder andere Vektoren umgangen werden könnten.
+
+\subsubsection{Gängige Beispiele für
+Schwachstellen}\label{guxe4ngige-beispiele-fuxfcr-schwachstellen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Unvollständige oder unsachgemäße Filterung von sensiblen Informationen
+  in den Antworten des LLM.
+\item
+  Übermäßige Angleichung oder Einprägung sensibler Daten im
+  Trainingsprozess des LLM.
+\item
+  Unbeabsichtigte Offenlegung vertraulicher Informationen aufgrund von
+  Fehlinterpretationen des LLM, fehlenden Datenbereinigungsmethoden oder
+  Fehlern.
+\end{enumerate}
+
+\subsubsection{Präventions- und
+Mitigationsstrategien}\label{pruxe4ventions--und-mitigationsstrategien}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Integrieren Sie geeignete Datenbereinigungs- und Scrubbing-Techniken,
+  um zu verhindern, dass Benutzerdaten in die Daten des Trainingsmodells
+  gelangen.
+\item
+  Implementierung robuster Eingabevalidierungs- und
+  -bereinigungsmethoden, um potenziell schädliche Eingaben zu
+  identifizieren und zu entfernen, damit das Modell nicht vergiftet
+  wird.
+\item
+  Wenn das Modell mit Daten angereichert und Fine-Tuning (Ref.7)
+  betrieben wird: (z. B. Daten, die dem Modell vor oder während der
+  Bereitstellung zugeführt werden)
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Alles, was in den Fine-Tuning-Daten als sensibel eingestuft ist,
+  könnte Personen offengelegt werden. Wenden Sie daher das
+  Least-Privilege-Prinzip an und trainieren Sie das Modell nicht mit
+  Informationen, auf die Personen mit den höchsten Rechten zugreifen
+  können und die dann einer weniger privilegierten Person angezeigt
+  werden könnten.
+\item
+  Der Zugriff auf externe Datenquellen (Orchestrierung von Daten zur
+  Laufzeit) sollte eingeschränkt werden.
+\item
+  Strenge Zugriffskontrollmethoden für externe Datenquellen und ein
+  rigoroser Ansatz zur Aufrechterhaltung einer sicheren Lieferkette.
+\end{itemize}
+
+\subsubsection{Beispiele für
+Angriffsszenarien}\label{beispiele-fuxfcr-angriffsszenarien}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Die ahnungslose, legitime Benutzerin A erhält über das LLM Zugang zu
+  anderen Benutzerdaten, wenn sie in nicht böswilliger Absicht mit der
+  LLM-Anwendung interagiert.
+\item
+  Benutzer A zielt darauf ab, die Eingabefilter und die
+  Bereinigungsfunktionen des LLM durch eine ausgeklügelte Abfolge von
+  Eingabeaufforderungen zu umgehen und Personen dazu zu bringen,
+  personenbezogene Informationen (PII) über andere Personen der
+  Anwendung preiszugeben.
+\item
+  Personenbezogene Daten wie z.B. PII gelangen über Trainingsdaten in
+  das Modell, entweder durch Unachtsamkeit der Person selbst oder durch
+  die LLM-Anwendung. Dies könnte das Risiko und die Wahrscheinlichkeit
+  von Szenario 1 oder 2 oben erhöhen.
+\end{enumerate}
+
+\subsubsection{Referenzen}\label{referenzen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://www.foxbusiness.com/politics/ai-data-leak-crisis-prevent-company-secrets-chatgpt}{AI
+  data leak crisis: New tool prevents company secrets from being fed to
+  ChatGPT}: \textbf{Fox Business}
+\item
+  \href{https://cybernews.com/security/chatgpt-samsung-leak-explained-lessons/}{Lessons
+  learned from ChatGPT's Samsung leak}: \textbf{Cybernews}
+\item
+  \href{https://cohere.com/terms-of-use}{Cohere - Terms Of Use}
+  \textbf{Cohere}
+\item
+  \href{https://aivillage.org/large\%20language\%20models/threat-modeling-llm/}{A
+  threat modeling example}: \textbf{AI Village}
+\item
+  \href{https://owasp.org/www-project-ai-security-and-privacy-guide/}{OWASP
+  AI Security and Privacy Guide}: \textbf{OWASP AI Security \& Privacy
+  Guide}
+\item
+  \href{https://www.experts-exchange.com/articles/38220/Ensuring-the-Security-of-Large-Language-Models-Strategies-and-Best-Practices.html}{Ensuring
+  the Security of Large Language Models}: \textbf{Experts Exchange}
+\item
+  \href{https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/wiki/Definitions}{Fine-Tuning}
+\end{enumerate}
+
+\end{document}

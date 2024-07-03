@@ -1,0 +1,221 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\subsection{LLM05: सप्लाई चेन की
+कमजोरियाँ}\label{llm05-ux938ux92aux932ux908-ux91aux928-ux915-ux915ux92eux91cux930ux92f}
+
+\subsubsection{विवरण}\label{ux935ux935ux930ux923}
+
+LLM में आपूर्ति श्रृंखला कमजोर हो सकती है, जो प्रशिक्षण डेटा, LLM मॉडल और परिनियोजन
+प्लेटफार्मों (deployment platforms) की अखंडता को प्रभावित कर सकती है। इन
+कमजोरियों के कारण पक्षपातपूर्ण परिणाम, सुरक्षा उल्लंघन या यहां तक कि संपूर्ण सिस्टम
+विफलताएं हो सकती हैं। परंपरागत रूप से, कमजोरियाँ सॉफ़्टवेयर घटकों (components) पर
+केंद्रित होती हैं, लेकिन मशीन लर्निंग इसे पूर्व-प्रशिक्षित मॉडल और तीसरे-पक्षों द्वारा
+दिये किए गए प्रशिक्षण डेटा के साथ जोड़ती है जो छेड़छाड़ और विषाक्तपूर्ण हमलों के लिए
+अतिसंवेदनशील होते हैं। अंत में, LLM plugin एक्सटेंशन अपनी कमजोरियां ला सकते हैं। इन्हें
+LLM के असुरक्षित plugin डिज़ाइन में वर्णित किया गया है, जो LLM plugin लिखना
+शामिल करता है और तीसरे पक्ष के plugin ्स का मूल्यांकन करने के लिए उपयोगी जानकारी
+प्रदान करता है।
+
+\subsubsection{कमज़ोरी के सामान्य
+उदाहरण}\label{ux915ux92eux95bux930-ux915-ux938ux92eux928ux92f-ux909ux926ux939ux930ux923}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  पारंपरिक तृतीय-पक्ष पैकेज की कमजोरियाँ, जिनमें पुराने या पुराने हो चुके घटक शामिल हैं।
+\item
+  फाइने-ट्यूनिंग के लिए पहले से प्रशिक्षित कमज़ोर मॉडल का इस्तेमाल करना।
+\item
+  प्रशिक्षण के लिए विषाक्त क्राउड-सोर्स डेटा का इस्तेमाल करना ।
+\item
+  पुराने या ख़त्म हो चुके मॉडल जिनका रखरखाव नहीं किया जाता है, उनका उपयोग करने से
+  सुरक्षा संबंधी समस्याएं पैदा हो जाती हैं।
+\item
+  मॉडल ऑपरेटर्स (model operators) की अस्पष्ट शर्तें और डेटा गोपनीयता नीतियां
+  (T\&Cs) होने की वजह से ऐप्लिकेशन के संवेदनशील डेटा का इस्तेमाल मॉडल प्रशिक्षण और
+  बाद में संवेदनशील जानकारी को उजागर करने के लिए करता है। यह मॉडल सप्लायर द्वारा
+  कॉपीराइट (copyrighted) की गई सामग्री का इस्तेमाल करने से होने वाले जोखिमों पर
+  भी लागू हो सकता है।
+\end{enumerate}
+
+\subsubsection{बचाव कैसे करें}\label{ux92cux91aux935-ux915ux938-ux915ux930}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  सिर्फ़ भरोसेमंद सप्लायर्स का इस्तेमाल करके डेटा स्रोतों और आपूर्तिकर्ताओं की सावधानी से
+  जाँच करें, जिनमें नियम और शर्तें और उनकी गोपनीय नीतियां शामिल हैं। इसके लिए पर्याप्त
+  और स्वतंत्र रूप से ऑडिट की गई सुरक्षा मौजूद हो और मॉडल ऑपरेटर नीतियां आपकी डेटा
+  सुरक्षा नीतियों के अनुरूप हों (यानी आपके डेटा का इस्तेमाल उनके मॉडलों के प्रशिक्षण के
+  लिए नहीं किया जाता है) । इसी तरह, मॉडल अनुरक्षकों से कॉपीराइट सामग्री का
+  इस्तेमाल करने के खिलाफ आश्वासन और कानूनी कार्रवाई की तलाश करें।
+\item
+  सिर्फ़ प्रतिष्ठित प्लग-इन का इस्तेमाल करें और पक्का करें कि आपकी ऐप्लिकेशन से जुड़ी
+  ज़रूरतों के लिए उनका परीक्षण किया गया हो। LLM के असुरक्षित plugin डिज़ाइन से उसके
+  विभिन्न पहलुओं के बारे में जानकारी प्रदान करता है, जिनके खिलाफ आपको तीसरे पक्ष के
+  plugin का उपयोग करने से होने वाले जोखिमों को कम करने के लिए परीक्षण करना
+  चाहिए।
+\item
+  ``OWASP टॉप टेन A06:2021 - कमज़ोर और पुराने घटक'' को समझें और लागू करें । इसमें
+  कमजोरिया ढूढ़ना, प्रबंधन और पैचिंग घटक (patching components) शामिल हैं।
+  संवेदनशील डेटा तक पहुंच वाले डेवलपमेंट वातावरण के लिए, इन नियंत्रणों को लागू करें।
+\item
+  डिप्लॉय किए गए पैकेज के साथ छेड़छाड़ को रोकने के लिए, सॉफ़्टवेयर सामग्री के बिल
+  (SBOM) के उपयोग से घटकों (components) की नवीनतम,सटीक और हस्ताक्षरित सूचि
+  बनाए रखें। SBOM, जीरो-डेट कमजोरियों (zero-date vulnerabilities) को तुरंत पता
+  लगा लगा कर, सचेत कर सकते है।
+\item
+  लिखते समय SBOM मॉडल उसकी सामग्री एवं डेटासेट को कवर नहीं करता।अगर आपका LLM
+  ऐप्लिकेशन अपने मॉडल का इस्तेमाल करता है, तो आपको MLOP के तरीकों और प्लेटफ़ॉर्म का
+  इस्तेमाल करना चाहिए, जो डेटा, मॉडल और प्रयोग ट्रैकिंग के साथ सुरक्षित मॉडल सूची
+  पेश करते हैं।
+\item
+  बाहरी मॉडल और सप्लायर (suppliers) का इस्तेमाल करते समय आपको मॉडल और कोड
+  साइनिंग (code signing) का भी इस्तेमाल करना चाहिए।
+\item
+  जैसा कि प्रशिक्षण डेटा पॉइज़निंग में चर्चा की गई है, की दिये गये मॉडल और डेटा में
+  विसंगति ढूंढना और प्रतिकूल समर्थ परीक्षण के प्रयोग से छेड़छाड़ और विषाक्तता का पता
+  लगाया जा है। आदर्श रूप से, यह एम. एल. ओपी पाइपलाइन (MLOps pipelines) का
+  हिस्सा होना चाहिए; हालाँकि, ये उभरती हुई तकनीकें हैं और रेड टीमिंग अभ्यासों के रूप में
+  इन्हें आसानी से लागू किया जा सकता है।
+\item
+  मॉडल एवं उसकी सामग्री, पुराने घटक (out-of-date components), पर्यावरण की
+  कमजोरियों को स्कैन करने तथा अनाधिकृत plugin के इस्तेमाल को कवर करने के लिए
+  पर्याप्त निगरानी आवशयक है।
+\item
+  कमज़ोर या पुराने घटकों को कम करने के लिए पैचिंग नीति आवशयक है। यह सुनिश्चित करे की
+  ऐप्लिकेशन,API के अनुरक्षित संस्करण और दिए गये मॉडल पर निर्भर करता है।
+\item
+  सप्लायर की सुरक्षा और पहुंच की नियमित समीक्षा करें और उनका ऑडिट कर यह निश्चित
+  करें कि उनकी सुरक्षा स्थिति या नियम और शर्तों में कोई बदलाव न हो।
+\end{enumerate}
+
+\subsubsection{हमले के परिदृश्य में
+उदाहरण}\label{ux939ux92eux932-ux915-ux92aux930ux926ux936ux92f-ux92e-ux909ux926ux939ux930ux923}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  एक हमलावर कमज़ोर पायथन लाइब्रेरी का इस्तेमाल कर सिस्टम को जोखिम में डाल सकता
+  है। यह पहली बार Open AI डेटा चोरी (data breach) में हुआ था।
+\item
+  एक हमलावर फ़्लाइट खोजने के लिए एक LLM plugin प्रदान करता है, जो नकली लिंक
+  बनाता है, जिससे plugin के यूज़र को धोके का सामना करना पड़ता है।
+\item
+  एक असल हमले में, हमलावर PyPI पैकेज सूचि का इस्तेमाल कर मॉडल के डेवलपर्स को धोखा
+  देता है,जिसमे वह खराब पैकेज को डाउनलोड करा कर, डेटा निकाल सकें या मॉडल के विकास
+  माहौल में विशेषाधिकार बढ़ा सकें।
+\item
+  एक हमलावर आर्थिक विश्लेषण और सामाजिक शोध में विशेषज्ञता वाले सार्वजनिक रूप से
+  उपलब्ध, पूर्व-प्रशिक्षित मॉडल को विषाक्त बना देता है। इससे एक बैकडोर बनाता है,
+  जिससे ग़लत सूचनाएं और फ़र्ज़ी ख़बरें बनती हैं। यह टारगेट को लक्षित करने के लिये इसे किसी
+  मॉडल मार्केटप्लेस (जैसे HuggingFace) में स्तापित कर देते है।
+\item
+  एक हमलावर सार्वजनिक रूप से उपलब्ध डेटा को विषाक्त करता है, ताकि मॉडल को ठीक
+  करते समय बैकडोर बन सके, जो अलग-अलग मार्केट्स की कुछ कंपनियों को फेवर करता है।
+\item
+  सप्लायर (आउटसोर्सिंग डेवलपर, होस्टिंग कंपनी आदि) के एक कम्प्रोमाइज़्ड कर्मचारी के
+  द्वारा IP चुराने के लिए डेटा, मॉडल या कोड में घुसपैठ करना।
+\item
+  एक LLM ऑपरेटर अपनी नियम व शर्तों एवं गोपनीयता नीति में बदलाव करता है, ताकि उसे
+  मॉडल प्रशिक्षण के लिए ऐप्लिकेशन डेटा का इस्तेमाल न करना पड़े, जिससे संवेदनशील डेटा
+  याद रहे।
+\end{enumerate}
+
+\subsubsection{संदर्भ लिंक}\label{ux938ux926ux930ux92d-ux932ux915}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://www.securityweek.com/chatgpt-data-breach-confirmed-as-security-firm-warns-of-vulnerable-component-exploitation/}{ChatGPT
+  Data Breach Confirmed as Security Firm Warns of Vulnerable Component
+  Exploitation}: Security Week
+\item
+  \href{https://platform.openai.com/docs/plugins/review}{Plugin review
+  process} OpenAI
+\item
+  \href{https://pytorch.org/blog/compromised-nightly-dependency/}{Compromised
+  PyTorch-nightly dependency chain}: Pytorch
+\item
+  \href{https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/}{PoisonGPT:
+  How we hid a lobotomized LLM on Hugging Face to spread fake news}:
+  Mithril Security
+\item
+  \href{https://defensescoop.com/2023/05/25/army-looking-at-the-possibility-of-ai-boms-bill-of-materials/}{Army
+  looking at the possibility of 'AI BOMs}: Defense Scoop
+\item
+  \href{https://learn.microsoft.com/en-us/security/engineering/failure-modes-in-machine-learning}{Failure
+  Modes in Machine Learning}: Microsoft
+\item
+  \href{https://atlas.mitre.org/techniques/AML.T0010/}{ML Supply Chain
+  Compromise}: MITRE ATLAS
+\item
+  \href{https://arxiv.org/pdf/1605.07277.pdf}{Transferability in Machine
+  Learning: from Phenomena to Black-Box Attacks using Adversarial
+  Samples}: Arxiv White Paper
+\item
+  \href{https://arxiv.org/abs/1708.06733}{BadNets: Identifying
+  Vulnerabilities in the Machine Learning Model Supply Chain}: Arxiv
+  White Paper
+\item
+  \href{https://atlas.mitre.org/studies/AML.CS0002}{VirusTotal
+  Poisoning}: MITRE ATLAS
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,190 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\subsection{LLM02: Manipulação Insegura de
+Output}\label{llm02-manipulauxe7uxe3o-insegura-de-output}
+
+\subsubsection{Descrição}\label{descriuxe7uxe3o}
+
+A Manipulação Insegura de Output refere-se especificamente à validação,
+sanitização e tratamento insuficientes das saídas geradas por modelos de
+linguagem grandes (LLMs) antes de serem encaminhadas para outros
+componentes e sistemas. Como o conteúdo gerado pelo LLM pode ser
+controlado pela entrada do prompt, esse comportamento é semelhante a
+fornecer aos usuários acesso indireto a funcionalidades adicionais.
+
+A Manipulação Insegura de Output difere da Dependência Excessiva, pois
+lida com as saídas geradas pelo LLM antes de serem encaminhadas,
+enquanto a Dependência Excessiva se concentra em preocupações mais
+amplas em torno da superdependência da precisão e adequação das saídas
+do LLM.
+
+A exploração bem-sucedida de uma vulnerabilidade de Manipulação Insegura
+de Output pode resultar em XSS e CSRF em navegadores da web, bem como
+SSRF, escalonamento de privilégios ou execução remota de código em
+sistemas de backend.
+
+As seguintes condições podem aumentar o impacto dessa vulnerabilidade:
+
+\begin{itemize}
+\tightlist
+\item
+  A aplicação concede privilégios ao LLM além do que é destinado aos
+  usuários finais, possibilitando a escalada de privilégios ou a
+  execução remota de código.
+\item
+  A aplicação é vulnerável a ataques de injeção de prompt indireta, o
+  que pode permitir que um atacante ganhe acesso privilegiado ao
+  ambiente de um usuário-alvo.
+\item
+  Plugins de terceiros que não validam adequadamente as entradas.
+\end{itemize}
+
+\subsubsection{Exemplos Comuns desta
+Vulnerabilidade}\label{exemplos-comuns-desta-vulnerabilidade}
+
+\begin{itemize}
+\tightlist
+\item
+  A saída do LLM é inserida diretamente em um shell do sistema ou função
+  semelhante, como exec ou eval, resultando na execução remota de
+  código.
+\item
+  JavaScript ou Markdown é gerado pelo LLM e retornado a um usuário. O
+  código é então interpretado pelo navegador, resultando em XSS.
+\end{itemize}
+
+\subsubsection{Estratégias de Prevenção e
+Mitigação}\label{estratuxe9gias-de-prevenuxe7uxe3o-e-mitigauxe7uxe3o}
+
+\begin{itemize}
+\tightlist
+\item
+  Trate o modelo como qualquer outro usuário, adotando uma abordagem de
+  confiança zero, e aplique validação adequada nas respostas
+  provenientes do modelo para funções de backend.
+\item
+  Siga as diretrizes do OWASP ASVS (Application Security Verification
+  Standard) para garantir uma validação e sanitização eficazes de
+  entrada.
+\item
+  Codifique a saída do modelo de volta para os usuários para mitigar a
+  execução indesejada de código JavaScript ou Markdown. O OWASP ASVS
+  fornece orientações detalhadas sobre codificação de saída.
+\end{itemize}
+
+\subsubsection{Exemplos de Cenários de
+Ataque}\label{exemplos-de-cenuxe1rios-de-ataque}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Uma aplicação utiliza um plugin de LLM para gerar respostas para uma
+  funcionalidade de chatbot. O plugin também oferece diversas funções
+  administrativas acessíveis a outro LLM privilegiado. O LLM de
+  propósito geral passa diretamente sua resposta, sem uma validação
+  adequada de saída, para o plugin, causando o desligamento do plugin
+  para manutenção.
+\item
+  Um usuário utiliza uma ferramenta de resumo de site alimentada por um
+  LLM para gerar um resumo conciso de um artigo. O site inclui uma
+  injeção de prompt instruindo o LLM a capturar conteúdo sensível do
+  site ou da conversa do usuário. A partir daí, o LLM pode codificar os
+  dados sensíveis e enviá-los, sem validação ou filtragem adequada de
+  saída, para um servidor controlado pelo atacante.
+\item
+  Um LLM permite que os usuários criem consultas SQL para um banco de
+  dados de backend por meio de uma funcionalidade semelhante a um chat.
+  Um usuário solicita uma consulta para excluir todas as tabelas do
+  banco de dados. Se a consulta elaborada pelo LLM não for examinada
+  cuidadosamente, todas as tabelas do banco de dados serão excluídas.
+\item
+  Um aplicativo da web usa um LLM para gerar conteúdo a partir de
+  prompts de texto do usuário sem sanitização de saída. Um atacante pode
+  enviar um prompt manipulado fazendo com que o LLM retorne uma carga
+  útil de JavaScript não sanitizada, resultando em XSS quando
+  renderizado no navegador da vítima. A validação insuficiente dos
+  prompts possibilitou esse ataque.
+\end{enumerate}
+
+\subsubsection{Links de Referência}\label{links-de-referuxeancia}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://security.snyk.io/vuln/SNYK-PYTHON-LANGCHAIN-5411357}{Arbitrary
+  Code Execution}: \textbf{Snyk Security Blog}
+\item
+  \href{https://embracethered.com/blog/posts/2023/chatgpt-cross-plugin-request-forgery-and-prompt-injection./}{ChatGPT
+  Plugin Exploit Explained: From Prompt Injection to Accessing Private
+  Data}: \textbf{Embrace The Red}
+\item
+  \href{https://systemweakness.com/new-prompt-injection-attack-on-chatgpt-web-version-ef717492c5c2?gi=8daec85e2116}{New
+  prompt injection attack on ChatGPT web version. Markdown images can
+  steal your chat data.}: \textbf{System Weakness}
+\item
+  \href{https://embracethered.com/blog/posts/2023/ai-injections-threats-context-matters/}{Don't
+  blindly trust LLM responses. Threats to chatbots}: \textbf{Embrace The
+  Red}
+\item
+  \href{https://aivillage.org/large\%20language\%20models/threat-modeling-llm/}{Threat
+  Modeling LLM Applications}: \textbf{AI Village}
+\item
+  \href{https://owasp-aasvs4.readthedocs.io/en/latest/V5.html\#validation-sanitization-and-encoding}{OWASP
+  ASVS - 5 Validation, Sanitization and Encoding}: \textbf{OWASP AASVS}
+\end{enumerate}
+
+\end{document}

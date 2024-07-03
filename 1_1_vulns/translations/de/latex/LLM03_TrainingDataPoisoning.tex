@@ -1,0 +1,384 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\subsection{LLM03: Poisoning von
+Trainingsdaten}\label{llm03-poisoning-von-trainingsdaten}
+
+\subsubsection{Beschreibung}\label{beschreibung}
+
+Ausgangspunkt jedes Ansatzes zum maschinellen Lernen sind
+Trainingsdaten, einfach gesagt ``Rohdaten''. Um eine hohe Effizienz zu
+erreichen (z. B. linguistisches Wissen und Wissen über die Welt), müssen
+diese Daten eine große Bandbreite an Domänen, Genres und Sprachen
+abdecken. Ein Large Language Model verwendet tiefe neuronale Netze, um
+Ausgaben zu erzeugen, die auf Mustern basieren, die aus den
+Trainingsdaten gelernt wurden.
+
+Das Poisoning von Trainingsdaten bezieht sich auf die Manipulation von
+Daten vor dem Training oder von Daten, die in den Fine-Tuning- oder
+Embedding-Prozess involviert sind, um Schwachstellen (die alle
+einzigartige und manchmal gemeinsame Angriffsvektoren haben),
+Hintertüren oder Verzerrungen einzuführen, die die Sicherheit, die
+Effektivität oder das ethische Verhalten des Modells beeinträchtigen
+könnten. Vergiftete Informationen können an Personen weitergegeben
+werden oder andere Risiken wie Leistungseinbußen, die Ausnutzung
+nachgelagerter Software und Rufschädigung mit sich bringen. Selbst wenn
+Personen der problematischen KI-Ausgabe misstrauen, bleiben die Risiken
+bestehen, einschließlich der Beeinträchtigung der Leistung des Modells
+und der potenziellen Imageschäden.
+
+\begin{itemize}
+\tightlist
+\item
+  Das Pre-Training von Daten bezieht sich auf den Prozess des
+  Trainierens eines Modells auf der Grundlage einer Aufgabe oder eines
+  Datensatzes.
+\item
+  Die Feinabstimmung umfasst die Anpassung eines bereits trainierten
+  Modells an ein enger gefasstes Thema oder ein spezifischeres Ziel,
+  indem es mit einem kuratierten Datensatz trainiert wird. Dieser
+  Datensatz enthält typischerweise Beispiele für Eingaben und die
+  entsprechenden gewünschten Ausgaben.
+\item
+  Embedding ist der Prozess der Umwandlung von kategorialen Daten (oft
+  Text) in eine digitale Repräsentation, die für das Training eines
+  Sprachmodells verwendet werden kann. Beim Embedding werden Wörter oder
+  Phrasen aus den Textdaten als Vektoren in einem kontinuierlichen
+  Vektorraum dargestellt. Die Vektoren werden typischerweise durch
+  Eingabe der Textdaten in ein neuronales Netz erzeugt, das auf einem
+  großen Textkorpus trainiert wurde.
+\end{itemize}
+
+Die Vergiftung von Daten wird als Angriff auf die Integrität betrachtet,
+da die Manipulation der Trainingsdaten die Fähigkeit des Modells
+beeinträchtigt, korrekte Vorhersagen zu liefern. Es liegt auf der Hand,
+dass externe Datenquellen ein höheres Risiko bergen, da die
+Modellersteller keine Kontrolle über die Daten haben und nicht sicher
+sein können, dass der Inhalt frei von Bias, falschen Informationen oder
+unangemessenen Inhalten ist.
+
+\subsubsection{Gängige Beispiele für
+Schwachstellen}\label{guxe4ngige-beispiele-fuxfcr-schwachstellen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Bösartige Akteure oder Wettbewerber erstellen absichtlich ungenaue
+  oder bösartige Dokumente, die auf das Pre-Training-, Fine-Tuning oder
+  Embedding eines Modells abzielen. Betrachten Sie sowohl Split-View
+  Data Poisoning (Ref.12) als auch Frontranking Poisoning (Ref.13)
+  Angriffsvektoren zur Veranschaulichung.
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Das Opfermodell wird anhand von gefälschten Informationen trainiert,
+  die sich in den Ausgaben der generativen KI-Prompts an die Endkunden
+  widerspiegeln.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Böswillige Akteure können direkt gefälschte, voreingenommene oder
+  schädliche Inhalte in die Trainingsprozesse eines Modells einspeisen,
+  die in späteren Ausgaben zurückgegeben werden.
+\item
+  Eine ahnungslose Person injiziert indirekt sensible oder proprietäre
+  Daten in die Trainingsprozesse eines Modells, die in nachfolgenden
+  Ausgaben zurückgegeben werden.
+\item
+  Ein Modell wird mit Daten trainiert, deren Quelle, Herkunft oder
+  Inhalt in keinem der Trainingsbeispiele verifiziert wurde, was zu
+  falschen Ergebnissen führen kann, wenn die Daten verfälscht oder
+  fehlerhaft sind.
+\item
+  Uneingeschränkter Zugang zur Infrastruktur oder unzureichende
+  Sandbox-Umgebungen können dazu führen, dass ein Modell unsichere
+  Trainingsdaten verwendet, was zu verzerrten oder schädlichen
+  Ergebnissen führt. Dieses Beispiel kann in allen Trainingsstadien
+  vorkommen.
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  In diesem Szenario kann die Eingabe einer Person in das Modell in der
+  Ausgabe einer anderen Person widergespiegelt werden (was zu einem
+  Datenleck führt), oder Nutzende eines LLM können Ausgaben aus dem
+  Modell erhalten, die, abhängig von der Art der erfassten Daten,
+  ungenau, irrelevant oder schädlich für den Anwendungsfall des Modells
+  sein können (in der Regel durch eine Modellkarte widergespiegelt).
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Ob Entwicklerinnen und Entwickler, die Kundschaft oder allgemeine
+  Nutzende des LLM, es ist wichtig zu verstehen, wie sich diese
+  Schwachstelle auf die potenziellen Risiken innerhalb Ihrer
+  LLM-Anwendung auswirken könnte, wenn sie mit einem fremden LLM
+  interagiert, um die Legitimität der Modellausgaben zu verstehen, die
+  auf dessen Trainingsverfahren basieren. In ähnlicher Weise könnten
+  LLM-Entwickelnde sowohl direkten als auch indirekten Angriffen auf
+  interne Daten oder Daten von Drittanbietern ausgesetzt sein, die für
+  die (gängigste Variante) Fine-Tuning und Embeddings verwendet werden,
+  was ein Risiko für alle LLM-Anwender darstellt.
+\end{enumerate}
+
+\subsubsection{Präventions- und
+Mitigationsstrategien}\label{pruxe4ventions--und-mitigationsstrategien}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Überprüfen Sie die Lieferkette der Trainingsdaten, insbesondere wenn
+  diese extern bezogen werden, und führen Sie Bescheinigungen mit der
+  „ML-BOM``-Methode (Machine Learning Bill of Materials) sowie die
+  Überprüfung der Modellkarten durch.
+\item
+  Überprüfen Sie die korrekte Eignung der angestrebten Datenquellen und
+  der darin enthaltenen Daten, die sowohl in der Vorbereitungsphase als
+  auch in der Fine-Tuning- und Integrationsphase gewonnen wurden.
+\item
+  Überprüfen Sie Ihren Use Case für das LLM und die Anwendung, in die es
+  integriert werden soll. Entwickeln Sie verschiedene Modelle mit
+  separaten Trainingsdaten oder Fine-Tuning für verschiedene
+  Anwendungsfälle, um eine granularere und genauere generative
+  KI-Ausgabe für den jeweiligen Anwendungsfall zu erzeugen.
+\item
+  Stellen Sie sicher, dass ein ausreichendes Sandboxing durch
+  Netzwerkkontrollen vorhanden ist, um zu verhindern, dass das Modell
+  unbeabsichtigte Datenquellen nutzt, die die Ergebnisse des
+  maschinellen Lernens beeinträchtigen könnten.
+\item
+  Verwenden Sie strenge Kontrollen oder Eingabefilter für bestimmte
+  Trainingsdaten oder Kategorien von Datenquellen, um die Menge an
+  gefälschten Daten zu kontrollieren. Bereinigung der Daten durch
+  Techniken wie statistische Ausreißererkennung und Methoden zur
+  Erkennung von Anomalien, um unerwünschte Daten zu erkennen und zu
+  entfernen, bevor sie möglicherweise in den Feinabstimmungsprozess
+  einfließen.
+\item
+  Entwickeln Sie Kontrollfragen bezüglich der Quelle und des Eigentums
+  von Datensätzen, um sicherzustellen, dass das Modell nicht
+  verunreinigt wurde, und integrieren Sie diese Kultur in den
+  MLSecOps-Zyklus. Beziehen Sie sich auf verfügbare Ressourcen wie z. B.
+  The Foundation Model Transparency Index (Ref.14) oder Open LLM
+  Leaderboard (Ref.15).
+\item
+  Verwenden Sie DVC (Data Version Control (Ref.16)), um Teile eines
+  Datensatzes, die manipuliert, gelöscht oder hinzugefügt wurden und zu
+  Poisoning geführt haben, genau zu identifizieren und zu verfolgen.
+\item
+  Verwenden Sie eine Vektordatenbank, um von Benutzern bereitgestellte
+  Informationen zu speichern, um andere Personen vor Manipulationen zu
+  schützen und um sogar während der Produktion Fehler zu beheben, ohne
+  ein neues Modell trainieren zu müssen.
+\item
+  Verwenden Sie Techniken zur Abwehr von Angriffen, wie z. B.
+  föderiertes Lernen und Einschränkungen, um den Einfluss von Ausreißern
+  zu minimieren, oder adverses Training, um robust gegenüber den
+  schlimmsten Störungen der Trainingsdaten zu sein.
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Ein ``MLSecOps''-Ansatz könnte darin bestehen, die adversariale
+  Robustheit mithilfe der Autopoison-Technik in den
+  Trainingslebenszyklus zu integrieren.
+\item
+  Ein Beispiel Repository hierfür ist das Autopoison (Ref.17), das
+  sowohl Angriffe wie Content Injection Attacks (der Versuch, einen
+  Markennamen in den Antworten des Modells zu bewerben) als auch Refusal
+  Attacks (``das Modell immer dazu bringen, die Antwort zu verweigern'')
+  umfasst, die mit diesem Ansatz durchgeführt werden können.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Testen und Erkennen durch Messen der Verluste während der
+  Trainingsphase sowie Analyse der trainierten Modelle, um Anzeichen
+  eines Poisoning-Angriffs zu erkennen, indem das Modellverhalten bei
+  bestimmten Testeingaben analysiert wird.
+\item
+  Überwachung und Alarmierung, wenn die Anzahl der verzerrten Antworten
+  einen Schwellenwert überschreitet.
+\item
+  Menschliche Kontrolle bei der Überprüfung von Antworten und Audits.
+\item
+  Implementierung dedizierter LLMs, um unerwünschte Auswirkungen zu
+  messen und andere LLMs mit Reinforcement Learning Techniken zu
+  trainieren (Ref.18).
+\item
+  Durchführung von LLM-basierten Red-Team-Übungen (Ref.19) oder
+  LLM-Schwachstellenanalysen (Ref.20) in den Testphasen des
+  LLM-Lebenszyklus.
+\end{enumerate}
+
+\subsubsection{Beispiele für
+Angriffsszenarien}\label{beispiele-fuxfcr-angriffsszenarien}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Die generative KI-Prompt-Ausgabe des LLM kann die Benutzer der
+  Anwendung irreführen, was zu Bias (voreingenommenen Meinungen),
+  Schlussfolgerungen oder, schlimmer noch, zu Hassverbrechen usw. führen
+  kann.
+\item
+  Wenn die Trainingsdaten nicht ordnungsgemäß gefiltert und/oder
+  bereinigt werden, kann eine böswillige Person versuchen, toxische
+  Daten in das Modell einzuspeisen, damit es sich an die
+  voreingenommenen und falschen Daten anpasst.
+\item
+  Böswillige Akteure oder Wettbewerber erstellen absichtlich ungenaue
+  oder schädliche Dokumente, die auf die Trainingsdaten eines Modells
+  abzielen, das gleichzeitig auf der Grundlage von Eingaben trainiert
+  wird. Das Opfermodell trainiert mit diesen gefälschten Informationen,
+  die sich in den Ausgaben generativer KI-Aufforderungen an seine
+  Verbraucher widerspiegeln.
+\item
+  Die Schwachstelle Prompt Injection (Ref.21) könnte ein Angriffsvektor
+  für diese Schwachstelle sein, wenn unzureichende Sanierung und
+  Filterung durchgeführt werden, wenn Eingaben von LLM-Anwendungskunden
+  zum Trainieren des Modells verwendet werden. D.h., wenn bösartige oder
+  gefälschte Daten als Teil einer Prompt-Injektionstechnik in das Modell
+  eingegeben werden, könnte dies inhärent in die Modeldaten übertragen
+  werden.
+\end{enumerate}
+
+\subsubsection{Referenzen}\label{referenzen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://stanford-cs324.github.io/winter2022/lectures/data/}{Stanford
+  Research Paper:CS324}: \textbf{Stanford Research}
+\item
+  \href{https://www.csoonline.com/article/3613932/how-data-poisoning-attacks-corrupt-machine-learning-models.html}{How
+  data poisoning attacks corrupt machine learning models}: \textbf{CSO
+  Online}
+\item
+  \href{https://atlas.mitre.org/studies/AML.CS0009/}{MITRE ATLAS
+  (framework) Tay Poisoning}: \textbf{MITRE ATLAS}
+\item
+  \href{https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/}{PoisonGPT:
+  How we hid a lobotomized LLM on Hugging Face to spread fake news}:
+  \textbf{Mithril Security}
+\item
+  \href{https://kai-greshake.de/posts/inject-my-pdf/}{Inject My PDF:
+  Prompt Injection for your Resume}: \textbf{Kai Greshake}
+\item
+  \href{https://towardsdatascience.com/backdoor-attacks-on-language-models-can-we-trust-our-models-weights-73108f9dcb1f}{Backdoor
+  Attacks on Language Models}: \textbf{Towards Data Science}
+\item
+  \href{https://arxiv.org/abs/2305.00944}{Poisoning Language Models
+  During Instruction}: \textbf{Arxiv White Paper}
+\item
+  \href{https://arxiv.org/abs/2306.04959}{FedMLSecurity:arXiv:2306.04959}:
+  \textbf{Arxiv White Paper}
+\item
+  \href{https://softwarecrisis.dev/letters/the-poisoning-of-chatgpt/}{The
+  poisoning of ChatGPT}: \textbf{Software Crisis Blog}
+\item
+  \href{https://www.youtube.com/watch?v=h9jf1ikcGyk}{Poisoning Web-Scale
+  Training Datasets - Nicholas Carlini \textbar{} Stanford MLSys \#75}:
+  \textbf{YouTube Video}
+\item
+  \href{https://cyclonedx.org/capabilities/mlbom/}{OWASP CycloneDX
+  v1.5}: \textbf{OWASP CycloneDX}
+\item
+  \href{https://github.com/GangGreenTemperTatum/speaking/blob/main/dc604/hacker-summer-camp-23/Ads\%20_\%20Poisoning\%20Web\%20Training\%20Datasets\%20_\%20Flow\%20Diagram\%20-\%20Exploit\%201\%20Split-View\%20Data\%20Poisoning.jpeg}{Split-View
+  Data Poisoning}
+\item
+  \href{https://github.com/GangGreenTemperTatum/speaking/blob/main/dc604/hacker-summer-camp-23/Ads\%20_\%20Poisoning\%20Web\%20Training\%20Datasets\%20_\%20Flow\%20Diagram\%20-\%20Exploit\%202\%20Frontrunning\%20Data\%20Poisoning.jpeg}{Frontrunning
+  Poisoning}
+\item
+  \href{https://crfm.stanford.edu/fmti/}{The Foundation Model
+  Transparency Index}
+\item
+  \href{https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard}{Open
+  LLM Leaderboard}
+\item
+  \href{https://dvc.org/doc/user-guide/analytics}{Data Version Control}
+\item
+  \href{https://github.com/azshue/AutoPoison}{Autopoison}
+\item
+  \href{https://wandb.ai/ayush-thakur/Intro-RLAIF/reports/An-Introduction-to-Training-LLMs-Using-Reinforcement-Learning-From-Human-Feedback-RLHF---VmlldzozMzYyNjcy}{Reinforcement
+  Learning Techniken}
+\item
+  \href{https://www.anthropic.com/index/red-teaming-language-models-to-reduce-harms-methods-scaling-behaviors-and-lessons-learned}{Red
+  Team Exercises}
+\item
+  \href{https://github.com/leondz/garak}{LLM Vulnerability Scans}
+\item
+  \href{https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/blob/main/1_0_vulns/PromptInjection.md}{Prompt
+  Injection}
+\end{enumerate}
+
+\end{document}

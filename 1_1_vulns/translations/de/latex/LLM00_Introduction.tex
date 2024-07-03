@@ -1,0 +1,282 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\subsection{Einleitung}\label{einleitung}
+
+\subsubsection{Die Entstehung der Liste}\label{die-entstehung-der-liste}
+
+Seit der Einführung von massentauglichen, vortrainierten Chatbots Ende
+2022 ist das Interesse an Large Language Models (LLMs) enorm.
+Unternehmen, die das Potenzial von LLMs nutzen wollen, integrieren sie
+rasch in ihre Geschäftsprozesse und Angebote für Kunden. Die rasante
+Geschwindigkeit der Einführung von LLMs hat jedoch dazu geführt, dass
+die Etablierung umfassender Sicherheitsprotokolle in Verzug geraten ist,
+sodass viele Anwendungen mit hohen Risiken behaftet sind.
+
+Das Fehlen einer zentralen Ressource, die sich mit diesen
+Sicherheitsbedenken in Bezug auf LLMs befasst, war unübersehbar.
+Entwicklerinnen und Entwickler, die mit den spezifischen Risiken von
+LLMs nicht vertraut waren, standen nur wenige Quellen zur Verfügung, und
+die Mission von OWASP schien die perfekte Lösung zu sein, um eine
+sichere Einführung dieser Technologie zu fördern.
+
+\subsubsection{Für wen diese Liste
+ist}\label{fuxfcr-wen-diese-liste-ist}
+
+Unsere Hauptzielgruppe sind Entwickelnde, Data Scientists sowie
+Sicherheitsexpertinnen und -experten, die Anwendungen und Plug-ins
+basierend auf LLM-Technologien entwerfen und erstellen. Unser Ziel ist
+es, praktische, umsetzbare und prägnante Sicherheitsleitlinien
+bereitzustellen, die diesen Fachleuten helfen, sich auf dem komplexen
+und sich ständig weiterentwickelnden Gebiet der Sicherheit von
+LLM-Anwendungen zurechtzufinden.
+
+\subsubsection{Die Erstellung der Liste}\label{die-erstellung-der-liste}
+
+Das Erstellen der OWASP Top 10 für LLM-Applikationen war ein bedeutendes
+Unterfangen, das auf der kollektiven Expertise eines internationalen
+Teams von fast 500 Expertinnen und Experten mit mehr als 125 aktiven
+Mitgestaltenden basiert. Unsere Mitwirkenden kommen aus den
+unterschiedlichsten Bereichen, darunter KI-Unternehmen,
+Sicherheitsfirmen, ISVs, Cloud-Hyperscaler, Hardware-Anbieter und die
+akademische Welt.
+
+Wir haben einen Monat lang gebrainstormt, potenzielle Schwachstellen
+vorgeschlagen und dabei 43 verschiedene Bedrohungen formuliert. In
+mehreren Abstimmungsrunden haben wir diese Vorschläge zu einer
+prägnanten Liste der zehn kritischsten Schwachstellen verfeinert.
+Spezialisierte Untergruppen untersuchten jede Schwachstelle und
+unterzogen sie einer öffentlichen Überprüfung, um sicherzustellen, dass
+die endgültige Liste so umfassend und nützlich wie möglich war.
+
+\subsubsection{Das Verhältnis zu anderen OWASP
+Top-10-Listen}\label{das-verhuxe4ltnis-zu-anderen-owasp-top-10-listen}
+
+Obwohl unsere Liste Gemeinsamkeiten mit den Schwachstellentypen anderer
+OWASP Top-10-Listen aufweist, wiederholen wir diese Schwachstellen nicht
+einfach. Stattdessen fokussieren wir uns auf die einzigartigen
+Auswirkungen dieser Schwachstellen bei der Verwendung von LLMs.
+
+Unser Ziel ist es, die Lücke zwischen allgemeinen Prinzipien der
+Anwendungssicherheit und den spezifischen Herausforderungen von LLMs zu
+schließen. Dazu gehört die Untersuchung, wie herkömmliche Schwachstellen
+in LLMs andere Risiken darstellen oder auf neue Weise ausgenutzt werden
+können und wie herkömmliche Abwehrmaßnahmen für LLM-basierte Anwendungen
+angepasst werden müssen.
+
+\subsubsection{Die Zukunft}\label{die-zukunft}
+
+Version 1.1 der Liste wird nicht die letzte sein. Wir planen, sie
+regelmäßig zu aktualisieren, um mit den Entwicklungen in der Branche
+Schritt zu halten. Wir werden mit der erweiterten Community
+zusammenarbeiten, um den Stand der Technik voranzutreiben und mehr
+Schulungsmaterial für eine Vielzahl von Anwendungen zu erstellen. Ebenso
+streben wir auch die Zusammenarbeit mit Standardisierungsorganisationen
+und Regierungen in Fragen der KI-Sicherheit an. Sie sind herzlich
+eingeladen, sich unserer Gruppe anzuschließen und einen Beitrag zu
+leisten.
+
+\paragraph{Steve Wilson}\label{steve-wilson}
+
+Projektleiter, OWASP Top 10 für LLM-Applikationen
+\href{https://www.linkedin.com/in/wilsonsd/}{https://www.linkedin.com/in/wilsonsd}\\
+Twitter/X: @virtualsteve
+
+\paragraph{Ads Dawson}\label{ads-dawson}
+
+v1.1 Release Lead \& Vulnerability Entries Lead, OWASP Top 10 für
+LLM-Applikationen
+\href{https://www.linkedin.com/in/adamdawson0/}{https://www.linkedin.com/in/adamdawson0}
+GitHub: @GangGreenTemperTatum
+
+\subsection{Über diese Übersetzung}\label{uxfcber-diese-uxfcbersetzung}
+
+\subsubsection{Übersetzer}\label{uxfcbersetzer}
+
+Johann-Peter Hartmann
+\url{https://www.linkedin.com/in/johann-peter-hartmann-92b70a/}
+
+Philippe Schrettenbrunner
+\url{https://www.linkedin.com/in/philippe-schrettenbrunner/}
+
+Bei der Erstellung dieser Übersetzung haben wir uns bewusst dafür
+entschieden, nur menschliche Übersetzer einzusetzen, in Anerkennung der
+außerordentlich technischen und kritischen Natur der OWASP Top 10 für
+LLM-Applikationen. Die oben aufgeführten Übersetzer verfügen nicht nur
+über ein tiefes Verständnis des Originalinhalts, sondern auch über die
+sprachliche Kompetenz, um diese Übersetzung sinnvoll zu gestalten.
+
+Talesh Seeparsan Übersetzungsleiter, OWASP Top 10 für LLM-Applikationen
+\url{https://www.linkedin.com/in/talesh/}
+
+\subsection{OWASP Top 10 für
+LLM-Applikationen}\label{owasp-top-10-fuxfcr-llm-applikationen}
+
+\subsubsection{LLM01: Prompt Injection}\label{llm01-prompt-injection}
+
+Mittels raffinierter Eingaben kann ein Large Language Model manipuliert
+werden und unbeabsichtigte Aktionen auslösen. Direkte Injections
+überschreiben System-Prompts, während indirekte Injection Eingaben über
+externe Quellen manipulieren.
+
+\subsubsection{LLM02: Unsichere
+Ausgabeverarbeitung}\label{llm02-unsichere-ausgabeverarbeitung}
+
+Diese Schwachstelle tritt auf, wenn eine Ausgabe von einem LLM ungeprüft
+akzeptiert wird, wodurch Backend-Systeme angreifbar werden. Ein
+Missbrauch kann zu schwerwiegenden Folgen wie XSS (Cross-Site
+Scripting), CSRF (Cross-Site Request Forgery), SSRF (Server Side Request
+Forgery), Privilegienerweiterung oder Remote-Code-Ausführung führen.
+
+\subsubsection{LLM03: Poisoning von
+Trainingsdaten}\label{llm03-poisoning-von-trainingsdaten}
+
+Dies tritt auf, wenn LLM-Trainingsdaten manipuliert werden und dadurch
+Sicherheitslücken oder Bias entstehen, die Sicherheit, Performance oder
+ethisches Verhalten beeinträchtigen. Quellen umfassen Common Crawl,
+WebText, OpenWebText und Bücher.
+
+\subsubsection{LLM04: Denial of Service des
+Modells}\label{llm04-denial-of-service-des-modells}
+
+Angreifende verursachen ressourcenintensive Operationen auf Large
+Language Models, was zu Beeinträchtigung oder hohen Kosten führt. Die
+Schwachstelle wird durch die ressourcenintensive Natur von LLMs und die
+Unvorhersehbarkeit von Benutzereingaben verstärkt.
+
+\subsubsection{LLM05: Schwachstellen in der
+Lieferkette}\label{llm05-schwachstellen-in-der-lieferkette}
+
+Der Lebenszyklus von LLM-Anwendungen kann durch verwundbare Komponenten
+oder Dienste kompromittiert werden, was Angriffe auf die Sicherheit zur
+Folge haben kann. Die Verwendung von Datensätzen von Drittanbietern,
+vortrainierten Modellen und Plug-ins kann zu weiteren Schwachstellen
+führen.
+
+\subsubsection{LLM06: Offenlegung sensibler
+Informationen}\label{llm06-offenlegung-sensibler-informationen}
+
+LLMs können in ihren Antworten vertrauliche Daten preisgeben, was zu
+unbefugtem Datenzugriff, Datenschutzverletzungen und
+Sicherheitsverstößen führt. Datenbereinigung und strenge
+Benutzerrichtlinien sind unerlässlich, um dies zu verhindern.
+
+\subsubsection{LLM07: Unsicheres
+Plug-in-Design}\label{llm07-unsicheres-plug-in-design}
+
+LLM-Plug-ins können unsichere Eingaben und unzureichende
+Zugriffskontrollen aufweisen. Dieser Mangel an Anwendungskontrolle
+erleichtert das Ausnutzen von LLM-Plug-ins und kann zu Folgen wie der
+Ausführung von Remote-Code führen.
+
+\subsubsection{LLM08: Übermäßige
+Handlungsfreiheit}\label{llm08-uxfcbermuxe4uxdfige-handlungsfreiheit}
+
+LLM-basierte Systeme können Aktionen ausführen, die unbeabsichtigte
+Folgen haben. Das Problem entsteht, wenn diesen Systemen zu viele
+Funktionalitäten, zu viele Berechtigungen oder zu viel Autonomie
+eingeräumt werden.
+
+\subsubsection{LLM09: Übermäßige
+Abhängigkeit}\label{llm09-uxfcbermuxe4uxdfige-abhuxe4ngigkeit}
+
+Systeme oder Personen, die sich zu sehr und unkontrolliert auf LLMs
+verlassen, können durch falsche oder unangemessene Inhalte, die von LLMs
+erzeugt werden, mit Fehlinformationen, Fehlkommunikation, rechtlichen
+Problemen und Sicherheitslücken konfrontiert werden.
+
+\subsubsection{LLM10: Modell-Diebstahl}\label{llm10-modell-diebstahl}
+
+Dies schließt den unbefugten Zugriff, das Kopieren oder die Weitergabe
+von geschützten LLM-Modellen ein. Die Folgen sind wirtschaftliche
+Verluste, gefährdete Wettbewerbsvorteile und potenzieller Zugang zu
+sensiblen Informationen.
+
+\subsection{Datenfluss einer
+LLM-Anwendung}\label{datenfluss-einer-llm-anwendung}
+
+Das folgende Diagramm zeigt die High-Level-Architektur einer
+hypothetischen LLM-Anwendung. Im Diagramm sind die Risikobereiche
+hervorgehoben, die veranschaulichen, wie sich die Punkte der OWASP Top
+10 für LLM-Anwendungen mit dem Datenfluss der Anwendung überschneiden.
+
+Dieses Diagramm kann als visueller Leitfaden verwendet werden, um zu
+verstehen, wie sich die Sicherheitsrisiken großer Sprachmodelle auf das
+gesamte Anwendungsökosystem auswirken.
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{images/fig_5_2.jpg}}
+\caption{Abb\_1}
+\end{figure}
+
+\subparagraph{Abbildung 1: OWASP Top 10 für LLM-Applikationen
+visualisiert}\label{abbildung-1-owasp-top-10-fuxfcr-llm-applikationen-visualisiert}
+
+\end{document}

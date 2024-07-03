@@ -1,0 +1,257 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\subsection{LLM05: Schwachstellen in der
+Lieferkette}\label{llm05-schwachstellen-in-der-lieferkette}
+
+\subsubsection{Beschreibung}\label{beschreibung}
+
+Die LLM-Lieferkette kann Schwachstellen aufweisen, die die Integrität
+von Trainingsdaten, ML-Modellen und Anwendungsplattformen
+beeinträchtigen. Diese Schwachstellen können zu verzerrten Ergebnissen,
+Sicherheitsverletzungen oder sogar zu kompletten Systemausfällen führen.
+Traditionell konzentrieren sich Schwachstellen auf Softwarekomponenten,
+doch beim maschinellen Lernen kommt hinzu, dass vortrainierte Modelle
+und Trainingsdaten, die von Dritten bereitgestellt werden, anfällig für
+Manipulationen und Schadangriffe sind.
+
+Schließlich können LLM-Plug-in-Erweiterungen ihre eigenen Schwachstellen
+mitbringen. Diese werden in LLM07 - Unsicheres Plug-in-Design (Ref.11)
+beschrieben, das das Schreiben von LLM-Plug-ins abdeckt und nützliche
+Informationen zur Bewertung von Plug-ins von Drittanbietern liefert.
+
+\subsubsection{Gängige Beispiele für
+Schwachstellen}\label{guxe4ngige-beispiele-fuxfcr-schwachstellen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Traditionelle Schwachstellen in Paketen von Drittanbietern,
+  einschließlich veralteter oder nicht mehr unterstützter Komponenten.
+\item
+  Verwendung eines anfälligen, vortrainierten Modells für das
+  Fine-Tuning.
+\item
+  Verwendung vergifteter Crowd-Sourced-Daten für das Training.
+\item
+  Verwendung veralteter oder nicht mehr unterstützter Modelle, die nicht
+  mehr gewartet werden und zu Sicherheitsproblemen führen.
+\item
+  Unklare AGB und Datenschutzrichtlinien der Modellbetreiber führen
+  dazu, dass sensible Daten der Anwendung für das Modelltraining
+  verwendet und anschließend sensible Informationen preisgegeben werden.
+  Dies kann auch für Risiken gelten, die sich aus der Verwendung von
+  urheberrechtlich geschütztem Material durch den Modellanbieter
+  ergeben.
+\end{enumerate}
+
+\subsubsection{Präventions- und
+Mitigationsstrategien}\label{pruxe4ventions--und-mitigationsstrategien}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Prüfen Sie Datenquellen und -anbieter sorgfältig, einschließlich der
+  allgemeinen Geschäftsbedingungen und Datenschutzrichtlinien; verwenden
+  Sie nur vertrauenswürdige Anbieter. Stellen Sie sicher, dass ein
+  angemessenes und unabhängig verifiziertes Sicherheitsniveau vorhanden
+  ist und dass die Richtlinien des Modellanbieters mit Ihren
+  Datenschutzrichtlinien übereinstimmen, d.~h. dass Ihre Daten nicht für
+  das Training Ihrer Modelle verwendet werden.
+\item
+  Verwenden Sie nur seriöse Plug-ins und stellen Sie sicher, dass diese
+  für Ihre Anwendungsanforderungen getestet wurden. LLM07 Unsicheres
+  Plug-in-Design bietet Informationen über die LLM-Aspekte eines
+  unsicheren Plug-in-Designs, gegen die Sie testen sollten, um die
+  Risiken bei der Verwendung von Plug-ins Dritter zu minimieren.
+\item
+  Verständnis und Anwendung der in den OWASP Top 10 A06:2021 -
+  Vulnerable and Outdated Components (Ref.12) identifizierten
+  Abhilfemaßnahmen. Dies beinhaltet das Scannen, Verwalten und Patchen
+  von Komponenten. Für Entwicklungsumgebungen mit Zugriff auf sensible
+  Daten sollten diese Kontrollen auch in diesen Umgebungen angewendet
+  werden.
+\item
+  Führen Sie ein aktuelles Inventar der Komponenten mit einer
+  Software-Bill-of-Materials (SBOM), um sicherzustellen, dass Sie über
+  ein aktuelles, genaues und signiertes Inventar verfügen, das
+  Manipulationen an bereitgestellten Paketen verhindert. SBOMs können
+  verwendet werden, um neue Zero-Day-Schwachstellen schnell zu
+  identifizieren und zu melden.
+\item
+  Zum Zeitpunkt der Erstellung dieses Dokuments decken die SBOMs keine
+  Modelle, deren Artefakte und Datensätze ab. Wenn Ihre LLM-Anwendung
+  ein proprietäres Modell verwendet, sollten Sie bewährte
+  MLOps-Praktiken und -Plattformen verwenden, die sichere
+  Model-Repositorys mit Daten-, Modell- und Experimentverfolgung bieten.
+\item
+  Sie sollten auch Modell- und Codesignaturen verwenden, wenn Sie
+  externe Modelle und Anbieter verwenden.
+\item
+  Die Erkennung von Anomalien und Robustheitstests gegen die
+  bereitgestellten Modelle und Daten können helfen, Manipulationen und
+  Vergiftungen aufzudecken, wie in Poisoning von Trainingsdaten (Ref.13)
+  erörtert. Idealerweise sollte dies Teil der MLOps-Pipelines sein,
+  obwohl es sich hierbei um neue Techniken handelt, die möglicherweise
+  leichter im Rahmen von Red-Teaming-Übungen implementiert werden
+  können.
+\item
+  Implementieren Sie eine ausreichende Überwachung, um das Scannen von
+  Komponenten und Umgebungen auf Schwachstellen, die Verwendung nicht
+  autorisierter Plug-ins und veraltete Komponenten, einschließlich des
+  Modells und seiner Artefakte, abzudecken.
+\item
+  Implementieren Sie eine Patch-Richtlinie, um anfällige oder veraltete
+  Komponenten zu entschärfen. Stellen Sie sicher, dass die Anwendung
+  eine gepflegte Version der APIs und des zugrundeliegenden Modells
+  verwendet.
+\item
+  Überprüfen Sie regelmäßig die Sicherheit und den Zugang des Anbieters
+  und stellen Sie sicher, dass es keine Änderungen an der
+  Sicherheitslage oder den Nutzungsbedingungen gibt.
+\end{enumerate}
+
+\subsubsection{Beispiele für
+Angriffsszenarien}\label{beispiele-fuxfcr-angriffsszenarien}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Angreifende verwenden eine verwundbare Python-Bibliothek, um ein
+  System zu kompromittieren. Dies geschah beim ersten OpenAI-Datenleck.
+\item
+  Angreifende bieten ein LLM-Plug-in für die Flugsuche an, das
+  gefälschte Links generiert, die Benutzer auf betrügerische Websites
+  leiten.
+\item
+  Angreifende nutzen die PyPi-Paket-Registry aus, um Modellentwickler
+  dazu zu bringen, ein kompromittiertes Paket herunterzuladen und Daten
+  zu exfiltrieren oder Privilegien in einer Modellentwicklungsumgebung
+  zu eskalieren. Dies war ein echter Angriff.
+\item
+  Angreifende vergiften ein öffentlich verfügbares, vortrainiertes
+  Modell, das auf Wirtschaftsanalyse und Sozialforschung spezialisiert
+  ist, um eine Hintertür zu schaffen, die Falschinformationen und Fake
+  News generiert. Sie stellen das Modell auf einem Marktplatz für
+  Modelle (z. B. Hugging Face) zur Verfügung, damit die Opfer es
+  verwenden.
+\item
+  Angreifende vergiften öffentlich verfügbare Datensätze, um eine
+  Hintertür beim Fine-Tuning von Modellen zu schaffen. Die Hintertür
+  begünstigt auf subtile Weise bestimmte Unternehmen in verschiedenen
+  Märkten.
+\item
+  Eine kompromittierte Person eines Lieferanten (Outsourcing-Entwickler,
+  Hosting-Unternehmen usw.) exfiltriert Daten, Modell oder Code und
+  stiehlt geistiges Eigentum.
+\item
+  Ein LLM-Betreiber ändert seine AGB und Datenschutzbestimmungen dahin
+  gehend, dass eine ausdrückliche Ablehnung der Verwendung von
+  Anwendungsdaten für das Modelltraining erforderlich ist, was zur
+  Speicherung sensibler Daten führt.
+\end{enumerate}
+
+\subsubsection{Referenzen}\label{referenzen}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://www.securityweek.com/chatgpt-data-breach-confirmed-as-security-firm-warns-of-vulnerable-component-exploitation/}{ChatGPT
+  Data Breach Confirmed as Security Firm Warns of Vulnerable Component
+  Exploitation}: \textbf{Security Week}
+\item
+  \href{https://platform.openai.com/docs/plugins/review}{Plugin review
+  process}: \textbf{OpenAI}
+\item
+  \href{https://pytorch.org/blog/compromised-nightly-dependency/}{Compromised
+  PyTorch-nightly dependency chain}: \textbf{Pytorch}
+\item
+  \href{https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/}{PoisonGPT:
+  How we hid a lobotomized LLM on Hugging Face to spread fake news}:
+  \textbf{Mithril Security}
+\item
+  \href{https://defensescoop.com/2023/05/25/army-looking-at-the-possibility-of-ai-boms-bill-of-materials/}{Army
+  looking at the possibility of 'AI BOMs}: \textbf{Defense Scoop}
+\item
+  \href{https://learn.microsoft.com/en-us/security/engineering/failure-modes-in-machine-learning}{Failure
+  Modes in Machine Learning}: \textbf{Microsoft}
+\item
+  \href{https://atlas.mitre.org/techniques/AML.T0010/}{ML Supply Chain
+  Compromise}: \textbf{MITRE ATLAS}
+\item
+  \href{https://arxiv.org/pdf/1605.07277.pdf}{Transferability in Machine
+  Learning: from Phenomena to Black-Box Attacks using Adversarial
+  Samples}: \textbf{Arxiv White Paper}
+\item
+  \href{https://arxiv.org/abs/1708.06733}{BadNets: Identifying
+  Vulnerabilities in the Machine Learning Model Supply Chain}:
+  \textbf{Arxiv White Paper}
+\item
+  \href{https://atlas.mitre.org/studies/AML.CS0002}{VirusTotal
+  Poisoning}: \textbf{MITRE ATLAS}
+\item
+  \href{InsecurePluginDesign.md}{LLM07 - Insecure Plugin Design}
+\item
+  \href{https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/}{A06:2021
+  -- Vulnerable and Outdated Components}
+\item
+  \href{https://github.com/OWASP/www-project-top-10-for-large-language-model-applications/blob/main/1_0_vulns/Training_Data_Poisoning.md}{Training
+  Data Poisoning}
+\end{enumerate}
+
+\end{document}
