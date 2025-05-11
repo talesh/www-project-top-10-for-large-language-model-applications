@@ -1,0 +1,5 @@
+/* toc.css */
+h1, h2, h3 { 
+  bookmark-level: 1;  /* Enable bookmarking */
+}
+
