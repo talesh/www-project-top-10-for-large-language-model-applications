@@ -63,7 +63,7 @@ pdftk toc-rest.pdf background "$BG_DIR/a4-draft.pdf" output bg-toc-rest.pdf
 pdftk bg-cover.pdf bg-toc-page1.pdf bg-toc-rest.pdf bg-body.pdf cat output complete.pdf
 
 # Clean up intermediate PDFs except complete.pdf
-find . -type f \( -name "*.pdf" ! -name "complete.pdf" -o -name "*.md" -o -name "*.css" \) -delete
+#find . -type f \( -name "*.pdf" ! -name "complete.pdf" -o -name "*.md" -o -name "*.css" \) -delete
 
 FINAL_NAME="$(basename "$SOURCE_DIR")_$(date +"%Y%m%d_%H%M%S").pdf"
 mv complete.pdf "$FINAL_NAME"

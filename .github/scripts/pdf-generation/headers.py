@@ -1,6 +1,20 @@
+import unicodedata
 from collections import defaultdict
 
 import pdfplumber
+
+
+def is_rtl_text(text):
+    for ch in text:
+        bidi = unicodedata.bidirectional(ch)
+        if bidi in ('R', 'AL'):
+            print(f"First strong character: {repr(ch)} → RTL")
+            return True
+        elif bidi == 'L':
+            print(f"First strong character: {repr(ch)} → LTR")
+            return False
+    print("No strong character found, defaulting to LTR.")
+    return False
 
 
 def extract_lines_with_sizes(pdf_path):
@@ -39,8 +53,11 @@ def extract_lines_with_sizes(pdf_path):
 
 # Usage example:
 lines = extract_lines_with_sizes("body.pdf")
+# Detect direction from the first line only
+first_line_text = lines[1]['text']
+document_is_rtl = is_rtl_text(first_line_text)
+print("Detected direction:", "RTL" if document_is_rtl else "LTR")
 
-# Combine consecutive lines with the same size
 combined_lines = []
 i = 0
 while i < len(lines):
@@ -50,7 +67,11 @@ while i < len(lines):
     size = current['size']
     i += 1
     while i < len(lines) and abs(lines[i]['size'] - size) < 1e-3:
-        combined_text += ' ' + lines[i]['text']
+        next_text = lines[i]['text']
+        if document_is_rtl:
+            combined_text = next_text + ' ' + combined_text  # RTL
+        else:
+            combined_text += ' ' + next_text  # LTR
         i += 1
     combined_lines.append({'text': combined_text.strip(), 'page': page, 'size': size})
 
