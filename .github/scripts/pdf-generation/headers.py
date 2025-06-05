@@ -38,7 +38,7 @@ def extract_lines_with_sizes(pdf_path):
 
 
 # Usage example:
-lines = extract_lines_with_sizes("content.pdf")
+lines = extract_lines_with_sizes("./generated/body.pdf")
 
 # Combine consecutive lines with the same size
 combined_lines = []
@@ -71,11 +71,7 @@ for line in lines:
 
 print('\n'.join(toc))
 
-# Empty the file first
-with open("toc.md", "w", encoding="utf-8") as f:
-    pass
-
 # Now write the TOC
-with open("toc.md", "w", encoding="utf-8") as f:
-    f.write("## Inhaltsverzeichnis\n")
+with open("./generated/toc.md", "a", encoding="utf-8") as f:
+    f.write('\n')
     f.write('\n'.join(toc))

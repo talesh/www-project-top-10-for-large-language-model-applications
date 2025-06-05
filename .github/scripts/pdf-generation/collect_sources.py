@@ -1,8 +1,9 @@
 import os
-import shutil
 import re
+import shutil
 import sys
 from pathlib import Path
+
 
 def print_error(message):
     print(f"ERROR: {message}", file=sys.stderr)
@@ -105,7 +106,7 @@ def process_locale_directory(locale_dir):
 
     safe_copy(locale_path / 'ADD00_Cover.md', cover_md)
     safe_copy(locale_path / 'ADD01_Table_of_Contents.md', toc_md)
-    safe_copy(locale_path / 'style.css', generated_path / 'style.css')
+    safe_copy(locale_path / 'styles.css', generated_path / 'styles.css')
 
     # Step 7: Prepend frontmatter
     prepend_frontmatter(frontmatter_path / 'a4-body-frontmatter.md', body_md)
