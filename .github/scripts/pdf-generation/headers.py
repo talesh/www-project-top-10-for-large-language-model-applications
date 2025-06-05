@@ -2,6 +2,7 @@ import unicodedata
 from collections import defaultdict
 
 import pdfplumber
+from bidi import get_display
 
 
 def is_rtl_text(text):
@@ -81,6 +82,8 @@ toc = []
 toc.append("| | |")
 toc.append("|-----------|-------|")
 for line in lines:
+    # Normalize text for proper display in right-to-left languages (e.g., handle Arabic/Persian)
+    line['text'] = get_display(line['text'])
     if line['size'] > 30:
         # Main section
         toc.append(f"| **{line['text']}** | **{line['page']}** |")
