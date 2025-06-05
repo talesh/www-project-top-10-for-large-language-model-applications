@@ -6,9 +6,23 @@ IFS=$'\n\t'
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
+
+# Validate and use the first argument as the source directory
+if [[ $# -lt 1 ]]; then
+	echo "Usage: $0 <source_directory>"
+	exit 1
+fi
+
+SOURCE_DIR="$1"
+
+if [[ ! -d "$SOURCE_DIR" ]]; then
+	echo "Error: Source directory '$SOURCE_DIR' does not exist."
+	exit 1
+fi
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-GEN_DIR="$SCRIPT_DIR/../../generated"
-BG_DIR="$SCRIPT_DIR/../../backgrounds"
+GEN_DIR="$SCRIPT_DIR/generated"
+BG_DIR="$SCRIPT_DIR/backgrounds"
 
 # Helper to check command existence
 require_cmd() {
@@ -19,6 +33,11 @@ require_cmd md-to-pdf
 require_cmd python
 require_cmd pdftk
 require_cmd find
+
+# Clean up any existing markdown and pdf files in the generated directory
+find "$GEN_DIR" -type f \( -name "*.md" -o -name "*.pdf" -o -name "*.css" \) -delete
+
+python collect_sources.py "$SOURCE_DIR"
 
 cd "$GEN_DIR"
 
@@ -44,4 +63,9 @@ pdftk toc-rest.pdf background "$BG_DIR/a4-draft.pdf" output bg-toc-rest.pdf
 pdftk bg-cover.pdf bg-toc-page1.pdf bg-toc-rest.pdf bg-body.pdf cat output complete.pdf
 
 # Clean up intermediate PDFs except complete.pdf
-find . -type f -name "*.pdf" ! -name "complete.pdf" -delete
+find . -type f \( -name "*.pdf" ! -name "complete.pdf" -o -name "*.md" -o -name "*.css" \) -delete
+
+FINAL_NAME="$(basename "$SOURCE_DIR")_$(date +"%Y%m%d_%H%M%S").pdf"
+mv complete.pdf "$FINAL_NAME"
+echo "Generated PDF: $GEN_DIR/$FINAL_NAME"
+
