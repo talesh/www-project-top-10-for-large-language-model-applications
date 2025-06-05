@@ -1,6 +1,6 @@
 ---
 pdf_options:
-  format: a4
+  format: letter
   margin: 0mm 0mm 0mm 0mm
   printBackground: true
   headerTemplate: |-
@@ -11,9 +11,3 @@ pdf_options:
       }
     </style>
 ---
-
-# OWASP Top 10 für LLM-Applikationen 2025
-
-##### Version 2025
-
-##### Veröffentlicht am: 13. Januar 2025
