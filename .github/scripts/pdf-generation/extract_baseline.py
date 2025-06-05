@@ -34,6 +34,13 @@ def generate_files(base_path):
     with open(os.path.join(base_path, "ADD02_Figures.md"), 'w', encoding='utf-8') as f:
         f.write(f"###### {figures_title}\n")
 
+    # Rename Supplemental_Content.md → ADD04_Supplemental_Content.md
+    supplemental_src = os.path.join(base_path, "Supplemental_Content.md")
+    supplemental_dest = os.path.join(base_path, "ADD04_Supplemental_Content.md")
+    if os.path.exists(supplemental_src):
+        os.rename(supplemental_src, supplemental_dest)
+        print(f"Renamed '{supplemental_src}' → '{supplemental_dest}'")
+
     # Delete baseline directory
     try:
         shutil.rmtree(baseline_dir)
