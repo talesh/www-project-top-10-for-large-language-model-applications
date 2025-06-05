@@ -22,25 +22,25 @@ Vielen Dank an alle, die an der Erstellung dieses Dokuments mitgewirkt haben und
 
 #### Steve Wilson
 
-Projektleiter
-OWASP Top 10 for Large Language Model Applications
-LinkedIn: <https://www.linkedin.com/in/wilsonsd/>
+Projektleiter  
+OWASP Top 10 for Large Language Model Applications  
+LinkedIn: <https://www.linkedin.com/in/wilsonsd/>  
 
 #### Ads Dawson
 
-Technischer Leiter und Leiter der Schwachstellenmeldungen
-OWASP Top 10 for Large Language Model Applications
-LinkedIn: <https://www.linkedin.com/in/adamdawson0/>
+Technischer Leiter und Leiter der Schwachstellenmeldungen  
+OWASP Top 10 for Large Language Model Applications  
+LinkedIn: <https://www.linkedin.com/in/adamdawson0/>  
 
 ### Das deutsche Übersetzungsteam
 
 #### Rico Komenda
 
-[https://www.linkedin.com/in/ricokomenda/](https://www.linkedin.com/in/ricokomenda/)  
+LinkedIn: <https://www.linkedin.com/in/ricokomenda/>  
 
 #### Philippe Schrettenbrunner
 
-[https://www.linkedin.com/in/philippe-schrettenbrunner/](https://www.linkedin.com/in/philippe-schrettenbrunner/)
+LinkedIn: <https://www.linkedin.com/in/philippe-schrettenbrunner/>
 
 ### Über diese Übersetzung
 
@@ -48,5 +48,6 @@ Bei der Erstellung dieser Übersetzung haben wir uns bewusst dafür entschieden,
 
 #### Talesh Seeparsan
 
-Übersetzungsleiter, OWASP Top 10 für LLM-Applikationen
-[https://www.linkedin.com/in/talesh/](https://www.linkedin.com/in/talesh/)
+Übersetzungsleiter  
+OWASP Top 10 für LLM-Applikationen  
+LinkedIn: <https://www.linkedin.com/in/talesh/>
