@@ -5,7 +5,7 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
 md-to-pdf ./generated/body.md --stylesheet ./generated/styles.css
-#python headers.py
+python headers.py
 md-to-pdf ./generated/toc.md --stylesheet ./generated/styles.css
 md-to-pdf ./generated/cover.md --stylesheet ./generated/styles.css
 
