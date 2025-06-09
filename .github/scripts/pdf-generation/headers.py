@@ -17,6 +17,20 @@ def is_rtl_text(text):
     print("No strong character found, defaulting to LTR.")
     return False
 
+# Added a function to solve the problem of Korean characters not being spaced
+def join_line_with_spaces(line_chars, space_threshold=2.0):
+    # Detect character spacing, insert spaces, and merge into one line
+    text = ""
+    prev_char = None
+    for c in line_chars:
+        if prev_char is not None:
+            # Measure space between characters (current character x0 - previous character x1)
+            gap = c['x0'] - prev_char['x1']
+            if gap > space_threshold:  # Insert blank space if threshold is exceeded
+                text += " "
+        text += c['text']
+        prev_char = c
+    return text
 
 def extract_lines_with_sizes(pdf_path):
     lines_with_sizes = []
@@ -39,7 +53,8 @@ def extract_lines_with_sizes(pdf_path):
                 line_chars.sort(key=lambda x: x['x0'])
                 
                 # Extract text and average size for the line
-                text = ''.join(c['text'] for c in line_chars)
+                #text = ''.join(c['text'] for c in line_chars)
+                text = join_line_with_spaces(line_chars, space_threshold=2.0)   # Calling a function to solve the Korean character spacing problem
                 sizes = [c['size'] for c in line_chars if c['size']]
                 avg_size = sum(sizes) / len(sizes) if sizes else 0
                 
@@ -84,7 +99,7 @@ toc.append("|-----------|-------|")
 for line in lines:
     # Normalize text for proper display in right-to-left languages (e.g., handle Arabic/Persian)
     line['text'] = get_display(line['text'])
-    if line['size'] > 30:
+    if line['size'] > 25:   # Change in value according to change in title font size
         # Main section
         toc.append(f"| **{line['text']}** | **{line['page']}** |")
     elif line['size'] > 20:
