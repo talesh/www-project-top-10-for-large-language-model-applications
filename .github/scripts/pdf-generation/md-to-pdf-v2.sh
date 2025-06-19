@@ -37,13 +37,14 @@ require_cmd find
 # Clean up any existing markdown and pdf files in the generated directory
 find "$GEN_DIR" -type f \( -name "*.md" -o -name "*.pdf" -o -name "*.css" \) -delete
 
-python collect_sources.py "$SOURCE_DIR"
+python "$SCRIPT_DIR/collect_sources.py" "$SOURCE_DIR"
 
 cd "$GEN_DIR"
 
 # Generate PDFs from markdown
 md-to-pdf body.md --stylesheet styles.css
 python "$SCRIPT_DIR/headers.py"
+python "$SCRIPT_DIR/fix_toc.py"
 md-to-pdf toc.md --stylesheet styles.css
 md-to-pdf cover.md --stylesheet styles.css
 
@@ -68,4 +69,3 @@ pdftk bg-cover.pdf bg-toc-page1.pdf bg-toc-rest.pdf bg-body.pdf cat output compl
 FINAL_NAME="$(basename "$SOURCE_DIR")_$(date +"%Y%m%d_%H%M%S").pdf"
 mv complete.pdf "$FINAL_NAME"
 echo "Generated PDF: $GEN_DIR/$FINAL_NAME"
-
