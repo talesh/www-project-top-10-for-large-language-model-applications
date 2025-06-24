@@ -21,11 +21,16 @@ jobs:
       - name: Get latest modified translation folder
         run: |
           cd 2_0_vulns/translations
-          latest_folder=$(git log --name-only --pretty=format: | grep '^.*/$' | grep -E '^[^/]+/$' | head -n1 | sed 's:/$::')
-          
+
+          # Get the most recently changed subfolder
+          latest_folder=$(git log -1 --name-only --pretty=format: | \
+            grep '/' | \
+            awk -F/ '{print $1}' | \
+            sort | uniq | head -n1)
+
           if [ -z "$latest_folder" ]; then
-            # Fallback: check which folder had latest file modified
-            latest_folder=$(git log -1 --name-only | grep '/' | grep -oE '^([^/]+)' | head -n1)
+            echo "No translation folder was modified."
+            exit 1
           fi
 
           absolute_path="$(realpath "$latest_folder")"
