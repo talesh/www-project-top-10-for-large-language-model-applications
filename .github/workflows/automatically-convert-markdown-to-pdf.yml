@@ -1,0 +1,32 @@
+## Code
+
+name: Markdown to PDF V2
+
+on:
+  push:
+    paths:
+      - '2_0_vulns/translations/**'
+  pull_request:
+    paths:
+      - '2_0_vulns/translations/**'
+
+jobs:
+  find-latest-translation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get latest modified translation folder
+        run: |
+          cd 2_0_vulns/translations
+          latest_folder=$(git log --name-only --pretty=format: | grep '^.*/$' | grep -E '^[^/]+/$' | head -n1 | sed 's:/$::')
+          
+          if [ -z "$latest_folder" ]; then
+            # Fallback: check which folder had latest file modified
+            latest_folder=$(git log -1 --name-only | grep '/' | grep -oE '^([^/]+)' | head -n1)
+          fi
+
+          absolute_path="$(realpath "$latest_folder")"
+          echo "Latest modified translation folder: $absolute_path"
