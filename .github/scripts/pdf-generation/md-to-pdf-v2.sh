@@ -42,10 +42,10 @@ python collect_sources.py "$SOURCE_DIR"
 cd "$GEN_DIR"
 
 # Generate PDFs from markdown
-md-to-pdf body.md --stylesheet styles.css
+md-to-pdf body.md --stylesheet styles.css --md-file-encoding utf-8
 python "$SCRIPT_DIR/headers.py"
-md-to-pdf toc.md --stylesheet styles.css
-md-to-pdf cover.md --stylesheet styles.css
+md-to-pdf toc.md --stylesheet styles.css --md-file-encoding utf-8
+md-to-pdf cover.md --stylesheet styles.css --md-file-encoding utf-8
 
 # Add backgrounds
 pdftk cover.pdf background "$BG_DIR/a4-cover.pdf" output bg-cover.pdf

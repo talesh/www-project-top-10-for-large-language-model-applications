@@ -1,3 +1,4 @@
+import re
 import unicodedata
 from collections import defaultdict
 
@@ -9,12 +10,9 @@ def is_rtl_text(text):
     for ch in text:
         bidi = unicodedata.bidirectional(ch)
         if bidi in ('R', 'AL'):
-            print(f"First strong character: {repr(ch)} → RTL")
             return True
         elif bidi == 'L':
-            print(f"First strong character: {repr(ch)} → LTR")
             return False
-    print("No strong character found, defaulting to LTR.")
     return False
 
 # Added a function to solve the problem of Korean characters not being spaced
@@ -30,6 +28,13 @@ def join_line_with_spaces(line_chars, space_threshold=2.0):
                 text += " "
         text += c['text']
         prev_char = c
+    return text
+
+def clean_text(text):
+    # Remove NUL and non-printable characters
+    text = text.replace('\x00', '')
+    # Normalize Unicode (important for Devanagari)
+    text = unicodedata.normalize('NFC', text)
     return text
 
 def extract_lines_with_sizes(pdf_path):
@@ -55,6 +60,7 @@ def extract_lines_with_sizes(pdf_path):
                 # Extract text and average size for the line
                 #text = ''.join(c['text'] for c in line_chars)
                 text = join_line_with_spaces(line_chars, space_threshold=2.0)   # Calling a function to solve the Korean character spacing problem
+                text = clean_text(text)
                 sizes = [c['size'] for c in line_chars if c['size']]
                 avg_size = sum(sizes) / len(sizes) if sizes else 0
                 
@@ -66,51 +72,61 @@ def extract_lines_with_sizes(pdf_path):
     
     return lines_with_sizes
 
+def extract_headers_from_md(md_path):
+    headers = []
+    with open(md_path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith("### "):
+                headers.append({'level': 3, 'text': line[4:].strip()})
+            elif line.startswith("## "):
+                headers.append({'level': 2, 'text': line[3:].strip()})
+    return headers
 
-# Usage example:
+# --- Main logic ---
+
 lines = extract_lines_with_sizes("body.pdf")
-# Detect direction from the first line only
-first_line_text = lines[1]['text']
-document_is_rtl = is_rtl_text(first_line_text)
-print("Detected direction:", "RTL" if document_is_rtl else "LTR")
+# Only keep lines that are headers by size
+header_lines = []
+for line in lines:
+    if line['size'] > 25:
+        header_lines.append({'level': 2, 'page': line['page'], 'size': line['size']})
+    elif line['size'] > 20:
+        header_lines.append({'level': 3, 'page': line['page'], 'size': line['size']})
 
-combined_lines = []
-i = 0
-while i < len(lines):
-    current = lines[i]
-    combined_text = current['text']
-    page = current['page']
-    size = current['size']
-    i += 1
-    while i < len(lines) and abs(lines[i]['size'] - size) < 1e-3:
-        next_text = lines[i]['text']
-        if document_is_rtl:
-            combined_text = next_text + ' ' + combined_text  # RTL
-        else:
-            combined_text += ' ' + next_text  # LTR
-        i += 1
-    combined_lines.append({'text': combined_text.strip(), 'page': page, 'size': size})
+# Extract headers from Markdown
+md_headers = extract_headers_from_md("body.md")
 
-lines = combined_lines
+# Sanity check: warn if counts don't match
+if len(md_headers) != len(header_lines):
+    print(f"Warning: Found {len(md_headers)} headers in body.md but {len(header_lines)} in PDF.")
+
+# Detect direction from the first header line in PDF
+document_is_rtl = False
+if header_lines:
+    # Try to get the actual text from the PDF for direction detection
+    first_pdf_line = next((l for l in lines if l['size'] == header_lines[0]['size'] and l['page'] == header_lines[0]['page']), None)
+    if first_pdf_line:
+        document_is_rtl = is_rtl_text(first_pdf_line['text'])
 
 toc = []
 toc.append("| | |")
 toc.append("|-----------|-------|")
-for line in lines:
-    # Normalize text for proper display in right-to-left languages (e.g., handle Arabic/Persian)
-    line['text'] = get_display(line['text'])
-    if line['size'] > 25:   # Change in value according to change in title font size
-        # Main section
-        toc.append(f"| **{line['text']}** | **{line['page']}** |")
-    elif line['size'] > 20:
-        # Sub section (indent with non-breaking space for clarity)
-        toc.append(f"| {line['text']} | {line['page']} |")
-    else:
-        continue
+
+for i, md_header in enumerate(md_headers):
+    if i >= len(header_lines):
+        break
+    page = header_lines[i]['page']
+    text = md_header['text']
+    if document_is_rtl:
+        text = get_display(text)
+    if md_header['level'] == 2:
+        toc.append(f"| **{text}** | **{page}** |")
+    elif md_header['level'] == 3:
+        toc.append(f"| {text} | {page} |")
 
 print('\n'.join(toc))
 
-# Now write the TOC
 with open("toc.md", "a", encoding="utf-8") as f:
     f.write('\n')
     f.write('\n'.join(toc))
