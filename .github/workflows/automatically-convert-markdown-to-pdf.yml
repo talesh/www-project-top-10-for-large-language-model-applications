@@ -11,7 +11,7 @@ on:
       - '2_0_vulns/translations/**'
 
 jobs:
-  find-latest-translation:
+  convert-markdown-to-pdf:
     runs-on: ubuntu-latest
 
     steps:
