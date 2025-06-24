@@ -20,12 +20,11 @@ jobs:
 
       - name: Get latest modified translation folder
         run: |
-          cd 2_0_vulns/translations
+          cd $GITHUB_WORKSPACE
 
-          # Get the most recently changed subfolder
           latest_folder=$(git log -1 --name-only --pretty=format: | \
-            grep '/' | \
-            awk -F/ '{print $1}' | \
+            grep '^2_0_vulns/translations/[^/]\+/' | \
+            awk -F/ '{print $3}' | \
             sort | uniq | head -n1)
 
           if [ -z "$latest_folder" ]; then
@@ -33,5 +32,5 @@ jobs:
             exit 1
           fi
 
-          absolute_path="$(realpath "$latest_folder")"
-          echo "Latest modified translation folder: $absolute_path"
+          abs_path="$(realpath "2_0_vulns/translations/$latest_folder")"
+          echo "Latest modified translation folder: $abs_path"
