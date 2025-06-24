@@ -17,22 +17,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Find most recently modified translation folder in current branch
         run: |
           cd "$GITHUB_WORKSPACE"
 
-          # Get the latest commit touching a folder inside translations/
-          latest_folder=$(git log --name-only HEAD -- 2_0_vulns/translations/ | \
-            grep '^2_0_vulns/translations/[^/]\+/' | \
-            awk -F/ '{print $3}' | \
-            while read folder; do
-              # Get last commit time for this folder, restrict to HEAD branch only
-              timestamp=$(git log HEAD -1 --format="%ct" -- "2_0_vulns/translations/$folder")
-              echo "$timestamp $folder"
-            done | sort -nr | head -n1 | awk '{print $2}')
+          # Iterate through recent commits on the current branch
+          latest_folder=$(git rev-list HEAD | while read commit; do
+            # For each commit, get changed files under translations/
+            folder=$(git diff-tree --no-commit-id --name-only -r "$commit" | \
+              grep '^2_0_vulns/translations/[^/]\+/' | \
+              awk -F/ '{print $3}' | head -n1)
+
+            if [ -n "$folder" ]; then
+              echo "$folder"
+              break  # first matching folder is the most recent one
+            fi
+          done)
 
           if [ -z "$latest_folder" ]; then
-            echo "No translation folder was modified."
+            echo "No translation folder was modified in recent commits."
             exit 1
           fi
 
