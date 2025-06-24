@@ -3,3 +3,6 @@
 /favicon.ico
 _site/
 .DS_Store
+
+.github/scripts/pdf-generation/generated/*
+!.github/scripts/pdf-generation/generated/.gitkeep
