@@ -22,21 +22,20 @@ jobs:
         run: |
           cd "$GITHUB_WORKSPACE"
 
-          # Iterate through recent commits on the current branch
-          latest_folder=$(git rev-list HEAD | while read commit; do
-            # For each commit, get changed files under translations/
+          # Get the most recent commit that touched a translation folder
+          latest_folder=$(git log --pretty=format:%H -- 2_0_vulns/translations/ | while read commit; do
             folder=$(git diff-tree --no-commit-id --name-only -r "$commit" | \
               grep '^2_0_vulns/translations/[^/]\+/' | \
               awk -F/ '{print $3}' | head -n1)
 
             if [ -n "$folder" ]; then
               echo "$folder"
-              break  # first matching folder is the most recent one
+              break
             fi
           done)
 
           if [ -z "$latest_folder" ]; then
-            echo "No translation folder was modified in recent commits."
+            echo "No translation folder was modified."
             exit 1
           fi
 
