@@ -42,10 +42,10 @@ python collect_sources.py "$SOURCE_DIR"
 cd "$GEN_DIR"
 
 # Generate PDFs from markdown
-md-to-pdf body.md --stylesheet styles.css
+md-to-pdf body.md --stylesheet styles.css --md-file-encoding utf-8
 python "$SCRIPT_DIR/headers.py"
-md-to-pdf toc.md --stylesheet styles.css
-md-to-pdf cover.md --stylesheet styles.css
+md-to-pdf toc.md --stylesheet styles.css --md-file-encoding utf-8
+md-to-pdf cover.md --stylesheet styles.css --md-file-encoding utf-8
 
 # Add backgrounds
 pdftk cover.pdf background "$BG_DIR/a4-cover.pdf" output bg-cover.pdf
@@ -63,7 +63,7 @@ pdftk toc-rest.pdf background "$BG_DIR/a4-draft.pdf" output bg-toc-rest.pdf
 pdftk bg-cover.pdf bg-toc-page1.pdf bg-toc-rest.pdf bg-body.pdf cat output complete.pdf
 
 # Clean up intermediate PDFs except complete.pdf
-find . -type f \( -name "*.pdf" ! -name "complete.pdf" -o -name "*.md" -o -name "*.css" \) -delete
+#find . -type f \( -name "*.pdf" ! -name "complete.pdf" -o -name "*.md" -o -name "*.css" \) -delete
 
 FINAL_NAME="$(basename "$SOURCE_DIR")_$(date +"%Y%m%d_%H%M%S").pdf"
 mv complete.pdf "$FINAL_NAME"
