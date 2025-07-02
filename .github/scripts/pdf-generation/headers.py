@@ -53,6 +53,9 @@ def extract_lines_with_sizes(pdf_path):
             for ypos, line_chars in lines.items():
                 if not line_chars:
                     continue
+
+                if all(c['text'].isspace() for c in line_chars):
+                    continue
                 
                 # Sort characters left-to-right
                 line_chars.sort(key=lambda x: x['x0'])
@@ -86,13 +89,37 @@ def extract_headers_from_md(md_path):
 # --- Main logic ---
 
 lines = extract_lines_with_sizes("body.pdf")
+
+# Combine adjacent lines with the same size
+combined_lines = []
+i = 0
+while i < len(lines):
+    current = lines[i]
+    combined_text = current['text']
+    j = i + 1
+    while j < len(lines) and abs(lines[j]['size'] - current['size']) < 0.01 and lines[j]['page'] == current['page']:
+        combined_text += ' ' + lines[j]['text']
+        j += 1
+    combined_lines.append({
+        'text': combined_text.strip(),
+        'page': current['page'],
+        'size': current['size']
+    })
+    i = j
+
+lines = [l for l in combined_lines if l['text']]
+
+
 # Only keep lines that are headers by size
 header_lines = []
 for line in lines:
-    if line['size'] > 25:
+    if line['size'] > 30:
+        #print(f"DEBUG: Page {line['page']} | Size {line['size']:.2f} | Text: {line['text']}")
         header_lines.append({'level': 2, 'page': line['page'], 'size': line['size']})
     elif line['size'] > 20:
+        #print(f"DEBUG: Page {line['page']} | Size {line['size']:.2f} | Text: {line['text']}")
         header_lines.append({'level': 3, 'page': line['page'], 'size': line['size']})
+    
 
 # Extract headers from Markdown
 md_headers = extract_headers_from_md("body.md")
