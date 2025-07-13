@@ -1,19 +1,8 @@
-import re
 import unicodedata
 from collections import defaultdict
 
 import pdfplumber
-from bidi import get_display
 
-
-def is_rtl_text(text):
-    for ch in text:
-        bidi = unicodedata.bidirectional(ch)
-        if bidi in ('R', 'AL'):
-            return True
-        elif bidi == 'L':
-            return False
-    return False
 
 # Added a function to solve the problem of Korean characters not being spaced
 def join_line_with_spaces(line_chars, space_threshold=2.0):
@@ -128,14 +117,6 @@ md_headers = extract_headers_from_md("body.md")
 if len(md_headers) != len(header_lines):
     print(f"Warning: Found {len(md_headers)} headers in body.md but {len(header_lines)} in PDF.")
 
-# Detect direction from the first header line in PDF
-document_is_rtl = False
-if header_lines:
-    # Try to get the actual text from the PDF for direction detection
-    first_pdf_line = next((l for l in lines if l['size'] == header_lines[0]['size'] and l['page'] == header_lines[0]['page']), None)
-    if first_pdf_line:
-        document_is_rtl = is_rtl_text(first_pdf_line['text'])
-
 toc = []
 toc.append("| | |")
 toc.append("|-----------|-------|")
@@ -145,8 +126,6 @@ for i, md_header in enumerate(md_headers):
         break
     page = header_lines[i]['page']
     text = md_header['text']
-    if document_is_rtl:
-        text = get_display(text)
     if md_header['level'] == 2:
         toc.append(f"| **{text}** | **{page}** |")
     elif md_header['level'] == 3:
