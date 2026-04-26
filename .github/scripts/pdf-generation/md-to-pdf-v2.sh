@@ -9,6 +9,9 @@ trap 'echo "md-to-pdf-v2.sh failed on line $LINENO" >&2' ERR
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
+# Don't litter __pycache__/ next to source files
+export PYTHONDONTWRITEBYTECODE=1
+
 
 # Validate and use the first argument as the source directory
 if [[ $# -lt 1 ]]; then
@@ -44,7 +47,7 @@ require_cmd python3
 require_cmd pdftk
 
 # Fail fast if Python deps are missing rather than mid-pipeline
-python3 -c 'import pdfplumber, bidi' 2>/dev/null || {
+python3 -c 'import pdfplumber, bidi, tinycss2' 2>/dev/null || {
 	echo "Error: missing Python dependencies. Install with:" >&2
 	echo "  pip3 install -r '$SCRIPT_DIR/requirements.txt'" >&2
 	exit 1

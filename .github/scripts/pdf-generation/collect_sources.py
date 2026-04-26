@@ -117,7 +117,7 @@ def process_locale_directory(locale_dir):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python generate_book.py <locale_directory>")
+        print("Usage: python3 collect_sources.py <locale_directory>")
         sys.exit(1)
 
     process_locale_directory(sys.argv[1])
