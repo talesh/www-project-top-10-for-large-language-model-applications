@@ -34,6 +34,14 @@ GEN_DIR="$SCRIPT_DIR/generated"
 BG_DIR="$SCRIPT_DIR/backgrounds"
 OUTPUT_DIR="$SCRIPT_DIR/output"
 
+BODY_BG="${FINAL_BODY_BG:-$BG_DIR/a4-draft.pdf}"
+if [[ ! -f "$BODY_BG" ]]; then
+	echo "Error: body background PDF not found at '$BODY_BG'" >&2
+	[[ -n "${FINAL_BODY_BG:-}" ]] && echo "  (FINAL_BODY_BG was set)" >&2
+	exit 1
+fi
+[[ -n "${FINAL_BODY_BG:-}" ]] && echo "Using FINAL_BODY_BG=$BODY_BG"
+
 # Ensure relative paths inside collect_sources.py resolve against the script dir
 cd "$SCRIPT_DIR"
 
@@ -69,7 +77,7 @@ md-to-pdf cover.md --stylesheet styles.css --md-file-encoding utf-8
 
 # Add backgrounds
 pdftk cover.pdf background "$BG_DIR/a4-cover.pdf" output bg-cover.pdf
-pdftk body.pdf background "$BG_DIR/a4-draft.pdf" output bg-body.pdf
+pdftk body.pdf background "$BODY_BG" output bg-body.pdf
 
 # Split TOC and apply backgrounds — branch on page count so a 1-page TOC works
 TOC_PAGES=$(pdftk toc.pdf dump_data | awk '/NumberOfPages/ {print $2}')
@@ -77,7 +85,7 @@ if [[ "$TOC_PAGES" -ge 2 ]]; then
 	pdftk toc.pdf cat 1 output toc-page1.pdf
 	pdftk toc.pdf cat 2-end output toc-rest.pdf
 	pdftk toc-page1.pdf background "$BG_DIR/a4-toc.pdf" output bg-toc-page1.pdf
-	pdftk toc-rest.pdf background "$BG_DIR/a4-draft.pdf" output bg-toc-rest.pdf
+	pdftk toc-rest.pdf background "$BODY_BG" output bg-toc-rest.pdf
 	TOC_PARTS=(bg-toc-page1.pdf bg-toc-rest.pdf)
 else
 	pdftk toc.pdf background "$BG_DIR/a4-toc.pdf" output bg-toc-page1.pdf
