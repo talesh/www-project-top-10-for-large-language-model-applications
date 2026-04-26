@@ -2,9 +2,15 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Surface where a failure happened (otherwise set -e exits silently)
+trap 'echo "md-to-pdf-v2.sh failed on line $LINENO" >&2' ERR
+
 # Ensure UTF-8 encoding in the environment
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+
+# Don't litter __pycache__/ next to source files
+export PYTHONDONTWRITEBYTECODE=1
 
 
 # Validate and use the first argument as the source directory
@@ -20,9 +26,24 @@ if [[ ! -d "$SOURCE_DIR" ]]; then
 	exit 1
 fi
 
+# Normalize to absolute so a relative arg survives the cd below
+SOURCE_DIR="$(cd "$SOURCE_DIR" && pwd)"
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GEN_DIR="$SCRIPT_DIR/generated"
 BG_DIR="$SCRIPT_DIR/backgrounds"
+OUTPUT_DIR="$SCRIPT_DIR/output"
+
+BODY_BG="${FINAL_BODY_BG:-$BG_DIR/a4-draft.pdf}"
+if [[ ! -f "$BODY_BG" ]]; then
+	echo "Error: body background PDF not found at '$BODY_BG'" >&2
+	[[ -n "${FINAL_BODY_BG:-}" ]] && echo "  (FINAL_BODY_BG was set)" >&2
+	exit 1
+fi
+[[ -n "${FINAL_BODY_BG:-}" ]] && echo "Using FINAL_BODY_BG=$BODY_BG"
+
+# Ensure relative paths inside collect_sources.py resolve against the script dir
+cd "$SCRIPT_DIR"
 
 # Helper to check command existence
 require_cmd() {
@@ -30,42 +51,58 @@ require_cmd() {
 }
 
 require_cmd md-to-pdf
-require_cmd python
+require_cmd python3
 require_cmd pdftk
-require_cmd find
+
+# Fail fast if Python deps are missing rather than mid-pipeline
+python3 -c 'import pdfplumber, bidi, tinycss2' 2>/dev/null || {
+	echo "Error: missing Python dependencies. Install with:" >&2
+	echo "  pip3 install -r '$SCRIPT_DIR/requirements.txt'" >&2
+	exit 1
+}
 
 # Clean up any existing markdown and pdf files in the generated directory
+mkdir -p "$GEN_DIR"
 find "$GEN_DIR" -type f \( -name "*.md" -o -name "*.pdf" -o -name "*.css" \) -delete
 
-python collect_sources.py "$SOURCE_DIR"
+python3 collect_sources.py "$SOURCE_DIR"
 
 cd "$GEN_DIR"
 
 # Generate PDFs from markdown
 md-to-pdf body.md --stylesheet styles.css --md-file-encoding utf-8
-python "$SCRIPT_DIR/headers.py"
+python3 "$SCRIPT_DIR/headers.py"
 md-to-pdf toc.md --stylesheet styles.css --md-file-encoding utf-8
 md-to-pdf cover.md --stylesheet styles.css --md-file-encoding utf-8
 
 # Add backgrounds
 pdftk cover.pdf background "$BG_DIR/a4-cover.pdf" output bg-cover.pdf
-pdftk body.pdf background "$BG_DIR/a4-draft.pdf" output bg-body.pdf
+pdftk body.pdf background "$BODY_BG" output bg-body.pdf
 
-# Split TOC
-pdftk toc.pdf cat 1 output toc-page1.pdf
-pdftk toc.pdf cat 2-end output toc-rest.pdf
-
-# Add backgrounds to TOC
-pdftk toc-page1.pdf background "$BG_DIR/a4-toc.pdf" output bg-toc-page1.pdf
-pdftk toc-rest.pdf background "$BG_DIR/a4-draft.pdf" output bg-toc-rest.pdf
+# Split TOC and apply backgrounds — branch on page count so a 1-page TOC works
+TOC_PAGES=$(pdftk toc.pdf dump_data | awk '/NumberOfPages/ {print $2}')
+if [[ "$TOC_PAGES" -ge 2 ]]; then
+	pdftk toc.pdf cat 1 output toc-page1.pdf
+	pdftk toc.pdf cat 2-end output toc-rest.pdf
+	pdftk toc-page1.pdf background "$BG_DIR/a4-toc.pdf" output bg-toc-page1.pdf
+	pdftk toc-rest.pdf background "$BODY_BG" output bg-toc-rest.pdf
+	TOC_PARTS=(bg-toc-page1.pdf bg-toc-rest.pdf)
+else
+	pdftk toc.pdf background "$BG_DIR/a4-toc.pdf" output bg-toc-page1.pdf
+	TOC_PARTS=(bg-toc-page1.pdf)
+fi
 
 # Merge all PDFs
-pdftk bg-cover.pdf bg-toc-page1.pdf bg-toc-rest.pdf bg-body.pdf cat output complete.pdf
+pdftk bg-cover.pdf "${TOC_PARTS[@]}" bg-body.pdf cat output complete.pdf
 
-# Clean up intermediate PDFs except complete.pdf
-#find . -type f \( -name "*.pdf" ! -name "complete.pdf" -o -name "*.md" -o -name "*.css" \) -delete
-
+# Move the final PDF into the keepsies output dir
+mkdir -p "$OUTPUT_DIR"
 FINAL_NAME="$(basename "$SOURCE_DIR")_$(date +"%Y%m%d_%H%M%S").pdf"
-mv complete.pdf "$FINAL_NAME"
-echo "Generated PDF: $GEN_DIR/$FINAL_NAME"
+mv complete.pdf "$OUTPUT_DIR/$FINAL_NAME"
+echo "Generated PDF: $OUTPUT_DIR/$FINAL_NAME"
+
+# Cleanup intermediates unless caller explicitly wants to inspect them
+if [[ -z "${KEEP_INTERMEDIATES:-}" ]]; then
+	find "$GEN_DIR" -type f \( -name "*.md" -o -name "*.pdf" -o -name "*.css" \) -delete
+fi
 
