@@ -1,0 +1,99 @@
+name: Translation PDF (draft)
+
+# Runs when a translation PR is merged into a translations/xx-XX branch.
+# Validates the markdown, then builds a draft PDF and uploads it as an artifact.
+# Drafts only — final-version PDFs are produced manually, never by CI.
+
+on:
+  push:
+    branches: ['translations/**']
+    paths: ['2_0_vulns/translations/**']
+
+concurrency:
+  group: pdf-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  draft-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve language code from branch
+        id: lang
+        run: |
+          ref="${GITHUB_REF#refs/heads/}"
+          if [[ ! "$ref" =~ ^translations/([a-z]{2}-[A-Z]{2})$ ]]; then
+            echo "::error::branch '$ref' is not of the form translations/xx-XX"
+            exit 1
+          fi
+          echo "code=${BASH_REMATCH[1]}" >> "$GITHUB_OUTPUT"
+
+      - name: Confinement guard (changes must stay in this language's folder)
+        env:
+          LANG_CODE: ${{ steps.lang.outputs.code }}
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          bad=$(git diff --name-only origin/main...HEAD \
+                | grep -vE "^2_0_vulns/translations/${LANG_CODE}/" || true)
+          if [ -n "$bad" ]; then
+            echo "::error::push touches files outside 2_0_vulns/translations/${LANG_CODE}/ — branch language must match folder language"
+            while IFS= read -r f; do
+              [ -z "$f" ] && continue
+              echo "::error file=${f}::file outside translations/${LANG_CODE}/"
+            done <<< "$bad"
+            exit 1
+          fi
+
+      - name: Configure UTF-8 locale
+        run: |
+          sudo locale-gen en_US.UTF-8
+          {
+            echo "LC_ALL=en_US.UTF-8"
+            echo "LANG=en_US.UTF-8"
+            echo "LANGUAGE=en_US.UTF-8"
+          } >> "$GITHUB_ENV"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install system deps (pdftk + multilingual fonts)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pdftk-java \
+            fonts-noto fonts-noto-cjk fonts-noto-color-emoji \
+            fonts-indic fonts-arphic-ukai fonts-arphic-uming \
+            fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core
+
+      - name: Install Node + Python deps
+        run: |
+          npm i -g md-to-pdf markdownlint-cli2@0.13.0
+          pip install -r .github/scripts/pdf-generation/requirements.txt
+          pip install python-bidi
+
+      - name: Validate translation markdown
+        env:
+          LANG_CODE: ${{ steps.lang.outputs.code }}
+        run: |
+          .github/scripts/pdf-generation/validate-translation-markdown.sh \
+            --github-annotations "$LANG_CODE"
+
+      - name: Generate draft PDF
+        env:
+          LANG_CODE: ${{ steps.lang.outputs.code }}
+        run: |
+          .github/scripts/pdf-generation/md-to-pdf-v2.sh \
+            "$GITHUB_WORKSPACE/2_0_vulns/translations/$LANG_CODE"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pdf-${{ steps.lang.outputs.code }}-${{ github.run_number }}
+          path: .github/scripts/pdf-generation/output/*.pdf
+          retention-days: 14
+          if-no-files-found: error
