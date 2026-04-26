@@ -5,7 +5,6 @@ from collections import defaultdict
 
 import pdfplumber
 import tinycss2
-from bidi import get_display
 
 
 def parse_header_sizes_pt(css_path):
@@ -63,15 +62,6 @@ def parse_header_sizes_pt(css_path):
         )
     return sizes
 
-
-def is_rtl_text(text):
-    for ch in text:
-        bidi = unicodedata.bidirectional(ch)
-        if bidi in ('R', 'AL'):
-            return True
-        elif bidi == 'L':
-            return False
-    return False
 
 # Added a function to solve the problem of Korean characters not being spaced
 def join_line_with_spaces(line_chars, space_threshold=2.0):
@@ -141,20 +131,39 @@ def coalesce_wrapped(headers):
     A long heading wraps to multiple visual lines; pdfplumber reports each as
     a separate detection with the same font size. Distinct headings are
     separated by body content and end up far apart vertically. Heuristic:
-    same level + same page + vertical gap less than ~1.5 line-heights ⇒ merge.
+    same level + same page + vertical gap less than ~1.5 line-heights from
+    the *previous visual line* ⇒ merge. Comparing to the previous line (not
+    the first of the run) is what lets a heading wrap to N visual lines —
+    e.g. a long Khmer/Vietnamese title on a narrow column.
+
+    Cross-page orphan: Chrome's `page-break-inside: avoid` sometimes pushes a
+    heading to the next page but leaves a clipped rendering ghost (a few
+    chars of the start) at the bottom of the previous page. pdfplumber
+    detects the ghost; the user doesn't see it. If `prev`'s text is a
+    prefix of `h`'s text on the next page (same level), treat the ghost as
+    a continuation and merge.
     """
     if not headers:
         return headers
     coalesced = [headers[0]]
+    prev = headers[0]
     for h in headers[1:]:
-        prev = coalesced[-1]
-        if (
+        same_page_wrap = (
             h['level'] == prev['level']
             and h['page'] == prev['page']
             and abs(h['doctop'] - prev['doctop']) < 1.5 * h['size']
-        ):
+        )
+        cross_page_ghost = (
+            h['level'] == prev['level']
+            and h['page'] == prev['page'] + 1
+            and prev.get('text', '')
+            and h.get('text', '').startswith(prev['text'])
+        )
+        if same_page_wrap or cross_page_ghost:
+            prev = h
             continue
         coalesced.append(h)
+        prev = h
     return coalesced
 
 def extract_headers_from_md(md_path):
@@ -181,9 +190,9 @@ cutoff_h3 = (header_sizes['h3'] + header_sizes['h4']) / 2
 header_lines = []
 for line in lines:
     if line['size'] >= cutoff_h2:
-        header_lines.append({'level': 2, 'page': line['page'], 'size': line['size'], 'doctop': line['doctop']})
+        header_lines.append({'level': 2, 'page': line['page'], 'size': line['size'], 'doctop': line['doctop'], 'text': line['text']})
     elif line['size'] >= cutoff_h3:
-        header_lines.append({'level': 3, 'page': line['page'], 'size': line['size'], 'doctop': line['doctop']})
+        header_lines.append({'level': 3, 'page': line['page'], 'size': line['size'], 'doctop': line['doctop'], 'text': line['text']})
 
 # Long headings wrap to multiple visual lines in the PDF — collapse those
 # wrapped continuations back into a single detection per heading.
@@ -215,14 +224,6 @@ if len(md_headers) != len(header_lines):
         )
     sys.exit(1)
 
-# Detect direction from the first header line in PDF
-document_is_rtl = False
-if header_lines:
-    # Try to get the actual text from the PDF for direction detection
-    first_pdf_line = next((l for l in lines if l['size'] == header_lines[0]['size'] and l['page'] == header_lines[0]['page']), None)
-    if first_pdf_line:
-        document_is_rtl = is_rtl_text(first_pdf_line['text'])
-
 toc = []
 toc.append("| | |")
 toc.append("|-----------|-------|")
@@ -232,8 +233,6 @@ for i, md_header in enumerate(md_headers):
         break
     page = header_lines[i]['page']
     text = md_header['text']
-    if document_is_rtl:
-        text = get_display(text)
     if md_header['level'] == 2:
         toc.append(f"| **{text}** | **{page}** |")
     elif md_header['level'] == 3:
